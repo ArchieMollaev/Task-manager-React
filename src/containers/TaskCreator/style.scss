@@ -1,0 +1,29 @@
+#task-creator {
+	position: relative;
+	.add-task {
+		cursor: pointer;
+		font-size: 18px;
+		float: right;
+		color: grey;
+		border: none;
+		border-radius: 3px;
+		padding: 5px;
+		font-family: 'calibri';
+		-webkit-transition: all 0.2s ease;
+		transition: all 0.2s ease;
+		&:after {
+		    content: "";
+		    clear: both;
+		    display: table;
+		};
+		&:hover {
+			background: #a5a4a2;
+			color: white;
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+	height: 30px;
+	margin-top: -36px;
+}
