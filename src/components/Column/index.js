@@ -74,7 +74,7 @@ class Column extends React.Component {
 							<textarea className="task-des" 
 												defaultValue={ item.notes }
 												style={this.props.editable == item.id + this.props.title ? this.state.areaStyle : {}} 
-												readOnly={this.props.editable == item.id ? false : true}
+												readOnly={this.props.editable == item.id + this.props.title ? false : true}
 												onChange={ (e) => this.setState({ notes: e.target.value })} >
 							</textarea>
 							<span className="remove" 

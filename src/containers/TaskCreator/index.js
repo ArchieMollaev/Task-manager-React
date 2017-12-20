@@ -27,7 +27,7 @@ export default class TaskCreator extends React.Component {
 				</button>
 				{addTaskForm()}
 			</div>
-		)				
+		)
 	}
 }
 
