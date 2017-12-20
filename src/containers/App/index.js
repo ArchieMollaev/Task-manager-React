@@ -18,16 +18,16 @@ const {
 
 class ToDoList extends React.Component {
 	addToDo = (data, status = 'toDo') => {
-		this.props.addTask({ type: PUSH_TASK,	data, status })
+		this.props.addTask({ data, status })
 	}
 	remove = (id, status) => {
-		this.props.deleteTask({ type: DELETE_TASK, status, id })
+		this.props.deleteTask({ status, id })
 	}
 	edit = (data, status) => {
-		this.props.editTask({ type: EDIT_TASK, data, status })	
+		this.props.editTask({ data, status })	
 	}
 	switchStatus = ({ id, data, currentStatus, newStatus }) => {
-		this.props.switchStatus({ type: SWITCH_STATUS, id, data, currentStatus,	newStatus })
+		this.props.switchStatus({ id, data, currentStatus,	newStatus })
 	}	
 	render = () => (
 		<div id="todo-app">
@@ -57,13 +57,12 @@ class ToDoList extends React.Component {
 	)
 }
 
-const mapStateToProps = (state) => {
-	return {
-		tasks: state.getList
-	} 
-}
-const actionsDispatcher = (dispatch) => {
-   return bindActionCreators(actions, dispatch);
-};
+const mapStateToProps = (state) => ({
+	tasks: state.getList
+})
+
+const actionsDispatcher = (dispatch) => (
+   bindActionCreators(actions, dispatch)
+)
 
 export default connect(mapStateToProps, actionsDispatcher)(ToDoList)

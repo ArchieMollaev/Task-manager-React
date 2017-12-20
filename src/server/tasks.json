@@ -1,11 +1,11 @@
 {
-  "toDo": [
-    {
-      "taskName": "sdfsdf",
-      "id": 1,
-      "notes": "asdasdasd"
-    }
-  ],
+  "toDo": [],
   "inProgress": [],
-  "done": []
+  "done": [
+    {
+      "taskName": "Task manager done",
+      "id": 1,
+      "notes": "Stable 1.0.2"
+    }
+  ]
 }

@@ -16,9 +16,8 @@ export default class TaskCreator extends React.Component {
 
 	render = () => {
 		const addTaskForm = () => {
-			if (this.state.showForm) {
-			  return <TaskForm onSubmit={this.props.onSubmit} closeForm={this.closeForm} />
-			}
+			return this.state.showForm ?
+      <TaskForm onSubmit={this.props.onSubmit} closeForm={this.closeForm} /> : false;
 		}
 		return ( 
 			<div id='task-creator' style={ this.state.showForm ? {marginBottom: '130px'} : {} } >

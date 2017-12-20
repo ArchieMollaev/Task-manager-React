@@ -1,6 +1,6 @@
 
 import request from './request'
-const host = 'http://localhost:3000';
+const host = 'http://localhost:3000'
 
 export const getAllTasks = () => request({
 	method: 'GET',

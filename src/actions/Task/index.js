@@ -1,26 +1,56 @@
 import * as constants from 'const'
 const {
-  SET_EDITABLE,
+  LOAD_TASKS,
+  TASKS_LOADED,
+  PUSH_TASK,
+  TASK_PUSHED,
+  EDIT_TASK,
+  TASK_EDITED,
+  DELETE_TASK,
+  TASK_DELETED,
+  SWITCH_STATUS,
+  STATUS_SWITCHED,
+  SET_EDITABLE
 } = constants;
 
-export const getTasksList = ({ type, data }) => ({
-  type, data
+export const getTasksList = ({ data }) => ({
+  type: LOAD_TASKS, data
 })
 
-export const addTask = ({ type, data, status }) => ({
-  type, data, status
+export const listLoaded = ({ data }) => ({
+  type: TASKS_LOADED, data
 })
 
-export const editTask = ({ type, data, status }) => ({
-  type, data, status
+export const addTask = ({ data, status }) => ({
+  type: PUSH_TASK, data, status
 })
 
-export const deleteTask = ({ type, status, id }) => ({
-  type, status, id
+export const taskAded = ({ data, status }) => ({
+  type: TASK_PUSHED, data, status
 })
 
-export const switchStatus = ({ type, data, id, currentStatus, newStatus }) => ({
-  type, id, data, currentStatus, newStatus
+export const editTask = ({ data, status }) => ({
+  type: EDIT_TASK, data, status
+})
+
+export const taskEdited = ({ data, status }) => ({
+  type: TASK_EDITED, data, status
+})
+
+export const deleteTask = ({ status, id }) => ({
+  type: DELETE_TASK, status, id
+})
+
+export const taskDeleted = ({ status, id }) => ({
+  type: TASK_DELETED, status, id
+})
+
+export const switchStatus = ({ data, id, currentStatus, newStatus }) => ({
+  type: SWITCH_STATUS, id, data, currentStatus, newStatus
+})
+
+export const statusSwitched = ({ data, id, currentStatus, newStatus }) => ({
+  type: STATUS_SWITCHED, id, data, currentStatus, newStatus
 })
 
 export const setEditable = (id) => ({

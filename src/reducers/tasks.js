@@ -14,9 +14,9 @@ export const getList = (state = initialState, action) => {
   let update, category;
   switch (action.type) {
     case TASKS_LOADED:
-      return Object.assign({}, state, action.data)
+      return {...state, ...action.data}
     case TASK_PUSHED:
-      update = Object.assign({}, state);
+      update = {...state};
       category = update[ action.status ];
       category.push({
         ...action.data, 
@@ -24,37 +24,28 @@ export const getList = (state = initialState, action) => {
       })
       return update;
     case TASK_DELETED:
-      update = Object.assign({}, state);
-      category = update[ action.status ];
-      category.forEach((item, i, arr) => {
-        if (item.id == action.id) {
-          let index = arr.indexOf(item)
-          arr.splice(index, 1)
-        }
-      })
+      update = {...state};
+      update[ action.status ] = 
+      state[ action.status ].filter(item => item.id != action.id);
       return update;
     case STATUS_SWITCHED:
-      update = Object.assign({}, state);
+      update = {...state};
       category = update[ action.currentStatus ];
       let newCategory = update[ action.newStatus ];
+      category.forEach((item, i, arr) => {
+        item.id == action.id ? arr.splice(i, 1) : false;
+      })
       newCategory.push({
         ...action.data, 
         id: newCategory.length == 0 ? 1 : newCategory[ newCategory.length - 1 ].id + 1
       })
-      category.forEach((item, i, arr) => {
-        if (item.id == action.id) {
-          let index = arr.indexOf(item)
-          arr.splice(index, 1)
-        }
-      })
       return update;
      case TASK_EDITED:  
-      update = Object.assign({}, state);
+      update = {...state};
       category = update[ action.status ];
       category.forEach((item, i, arr) => {
-        if (item.id == action.data.id) {
-          arr[i] = action.data
-        }
+        item.id == action.data.id ? 
+        arr[i] = action.data : false;
       })
       return update;
     default:
@@ -62,7 +53,7 @@ export const getList = (state = initialState, action) => {
   }
 }
 
-export const setEditable = (state = 0, action) => {
+export const editable = (state = 0, action) => {
   switch (action.type) {
     case SET_EDITABLE: 
       return action.id

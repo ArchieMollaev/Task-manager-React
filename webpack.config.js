@@ -11,7 +11,7 @@ module.exports = {
    output: {
         path: Path.join(__dirname, 'build'),
         filename: 'bundle.js',
-        publicPath: 'http://localhost:3000/',
+        publicPath: '/'
     },
    module: {
     loaders: [
@@ -19,18 +19,11 @@ module.exports = {
         test: /\.js/,
         exclude: /node_modules/,
         loader: 'babel-loader?cacheDirectory',
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader',
       },
       {
         test: /\.(scss|sass|css)$/,
         loader: 'style-loader!css-loader!sass-loader?cacheDirectory',
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file-loader',
-      },
+      }
     ],
    },
    devServer: {

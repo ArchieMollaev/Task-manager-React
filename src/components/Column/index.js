@@ -99,13 +99,12 @@ class Column extends React.Component {
 	)
 }
 
-const mapStateToProps = (state) => {
-	return {
-		editable: state.editable
-	} 
-}
-const actionsDispatcher = (dispatch) => {
-   return bindActionCreators(actions, dispatch);
-};
+const mapStateToProps = (state) => ({
+	editable: state.editable
+})
+
+const actionsDispatcher = (dispatch) => (
+   bindActionCreators(actions, dispatch)
+);
 
 export default connect(mapStateToProps, actionsDispatcher)(Column)

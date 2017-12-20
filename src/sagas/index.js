@@ -16,32 +16,42 @@ const {
   STATUS_SWITCHED
 } = constants;
 
-const { addTask, getTasksList, deleteTask, editTask, switchStatus } = actions;
+const { getTasksList,
+        listLoaded,
+        addTask,
+        taskAded, 
+        deleteTask,
+        taskDeleted,
+        editTask,
+        taskEdited,
+        switchStatus,
+        statusSwitched
+ } = actions;
 
 function* load() {
   const data = yield call(tasksApi.getAllTasks);
-  yield put(getTasksList({ type: TASKS_LOADED, data }));
+  yield put(listLoaded({ data }));
 }
 
 function* push({ status, data }) {
   yield call(tasksApi.pushTask, status, data);
-  yield put(addTask({ type: TASK_PUSHED, data, status }));
+  yield put(taskAded({ data, status }));
 }
 
 function* update({ data, status }) {
   yield call(tasksApi.editTask, data.id, status, data);
-  yield put(editTask({ type: TASK_EDITED, data, status }));
+  yield put(taskEdited({ data, status }));
 }
 
 function* remove({ id, status }) {
   yield call(tasksApi.deleteTask, id, status);
-  yield put(deleteTask({ type: TASK_DELETED, status, id }));
+  yield put(taskDeleted({ id, status }));
 }
 
 function* switcher({ id, data, currentStatus, newStatus }) {
   yield call(tasksApi.deleteTask, id, currentStatus);
   yield call(tasksApi.pushTask, newStatus, data);
-  yield put(switchStatus({ type: STATUS_SWITCHED, id, data, currentStatus, newStatus }));
+  yield put(statusSwitched({ id, data, currentStatus, newStatus }));
 }
 
 export default function* tasksSaga() {
@@ -52,5 +62,5 @@ export default function* tasksSaga() {
     takeEvery(EDIT_TASK, update),
     takeEvery(SWITCH_STATUS, switcher)
   ];
-  yield put(getTasksList({ type: LOAD_TASKS, data: {} }));
+  yield put(getTasksList({}));
 }
