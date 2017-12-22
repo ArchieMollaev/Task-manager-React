@@ -9,5 +9,8 @@ export const TASK_DELETED = 'TASK_DELETED';
 export const SWITCH_STATUS = 'SWITCH_STATUS';
 export const STATUS_SWITCHED = 'STATUS_SWITCHED';
 export const SET_EDITABLE = 'SET_EDITABLE';
-
+export const CLOSE_TASK_CREATOR = 'CLOSE_TASK_CREATOR';
+export const TODO = 'toDo';
+export const IN_PROGRESS = 'inProgress';
+export const DONE = 'done';
 

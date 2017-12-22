@@ -1,4 +1,5 @@
 #task-creator {
+	transition: all 0.5s ease;
 	position: relative;
 	.add-task {
 		cursor: pointer;
@@ -26,4 +27,66 @@
 	}
 	height: 30px;
 	margin-top: -36px;
+}
+
+#task-form {
+	-webkit-animation: show_taskForm 0.5s ease;
+	        animation: show_taskForm 0.5s ease;
+	position: absolute;
+	width: 100%;
+	margin-top: 40px;
+	border-top: none;
+	input {
+		width: 98%;
+		font-family: 'calibri';
+		border: none;
+		padding: 5px 5px;
+		font-size: 14px;
+	};
+	textarea {
+		width: 98%;
+		font-family: 'calibri';
+		font-size: 14px;
+		border: none;
+		border-radius: 3px;
+		padding: 5px;
+		resize: none;
+		border-top: 1px solid grey;
+	}
+	button {
+		border: none;
+		margin-right: 10px;
+		cursor: pointer;
+		display: inline-block;
+		height: 25px;
+		font-family: 'calibri';
+	}
+	.closeForm {
+		font-size: 25px;
+		color: grey;
+		line-height: 25px;
+		&:focus {
+			outline: none;
+		}
+	}
+	.submitTask {
+		background: rgb(105, 185, 105);
+		color: white;
+		font-size: 15px;
+		transition: all 0.5s ease;
+		&:hover {
+			background: rgb(74, 143, 74);
+		}
+	}
+	label, .checker, .switcher, .edit, .remove {
+		display: none;
+	}
+}
+
+@-webkit-keyframes show_taskForm {
+	from {transform: scale(0);}
+}
+
+@keyframes show_taskForm {
+	from {transform: scale(0);}
 }

@@ -5,7 +5,8 @@ const {
   TASK_EDITED,
   TASK_DELETED,
   STATUS_SWITCHED,
-  SET_EDITABLE
+  SET_EDITABLE,
+  CLOSE_TASK_CREATOR
 } = constants;
 
 const initialState = { toDo: [], inProgress: [], done: [] };
@@ -56,7 +57,16 @@ export const getList = (state = initialState, action) => {
 export const editable = (state = 0, action) => {
   switch (action.type) {
     case SET_EDITABLE: 
-      return action.id
+      return action.id || {...state}
+    default:
+      return state
+  }
+}
+
+export const closeTaskCreator = (state = { set: false }, action) => {
+  switch (action.type) {
+    case CLOSE_TASK_CREATOR:
+      return {...state, ...{ set: action.data }}
     default:
       return state
   }

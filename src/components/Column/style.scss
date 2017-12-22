@@ -5,7 +5,7 @@
 	width: 33%;
 	margin: 5px;
 	padding: 10px;
-	border-radius: 3px;
+	border-radius: 3px; 
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
 	&:hover {
@@ -32,154 +32,178 @@
 		background: grey;
 		color: white;
 	}
-	ul {
-		list-style: none;
-		padding: 0;
-		li {
-			&:hover {
-				background: white;
-			}
-			&:hover .edit,
-			&:hover .switcher {
-				display: block;
-			}
-			-webkit-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
-			-moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
-			box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
-			cursor: pointer;
-			max-height: 500px;
-			position: relative;
-			overflow: hidden;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	li {
+		&:hover {
 			background: white;
-			font-family: 'century gothic';
-			padding: 5px 10px;
-			margin: 5px 0;
-			border: 1px solid #ddd;
-			.edit {
-				display: none;
-				background: none;
-				border: 1px solid rgb(194, 194, 194);
-				color: rgb(194, 194, 194);
-				position: absolute;
-				right: 4px;
-				top: 5px;
-				-moz-user-select: none; 
-				-ms-user-select: none; 
-				-o-user-select: none; 
-				-webkit-user-select: none;
-				cursor: pointer;
-				&:focus {
-					outline: none;
-				}
-				&:hover {
-					color: grey;
-					border: 1px solid grey;
-				}
+		}
+		&:hover .edit,
+		&:hover .switcher {
+			display: block;
+		}
+		-webkit-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
+		-moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
+		box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
+		cursor: pointer;
+		max-height: 500px;
+		position: relative;
+		overflow: hidden;
+		background: #efefef;
+		font-family: 'century gothic';
+		padding: 5px 10px;
+		margin: 5px 0;
+		border: 1px solid #ddd;
+		.edit {
+			display: none;
+			background: none;
+			border: 1px solid rgb(194, 194, 194);
+			color: rgb(194, 194, 194);
+			position: absolute;
+			right: 4px;
+			top: 5px;
+			-moz-user-select: none; 
+			-ms-user-select: none; 
+			-o-user-select: none; 
+			-webkit-user-select: none;
+			cursor: pointer;
+			&:focus {
+				outline: none;
 			}
-			.title {
-				cursor: pointer;
-				width: 80%;
-				display: block;
-				border: none;
-				background: none;
-				font-size: 17px;
+			&:hover {
 				color: grey;
-				margin: 0;
-				margin-bottom: 10px;
-				&:focus {
-					outline: none;
-				}
-			}
-			label {
-				cursor: pointer;
-				-moz-user-select: none; 
-				-ms-user-select: none; 
-				-o-user-select: none; 
-				-webkit-user-select: none;
-				color: grey;
-				font-size: 12px;
-				&:hover {
-					color: black;
-				}
-				&:hover + .task-des {
-					height: 150px;
-					overflow: hidden;
-					resize: none;
-				}
-			}
-			.task-des {
-				cursor: pointer;
-				display: block;
-				resize: none;
-				border: none;
-				overflow: hidden;
-				background: none;
-				color: grey;
-				height: 0px;
-				max-height: 0px;
-				width: 100%;
-				font-size: 14px;
-				-webkit-transition: all 0.5s ease;
-				transition: all 0.5s ease;
-				&:focus {
-					outline: none;
-				}
-			}
-			.checker {
-				display: none;
-				&:checked + .task-des {
-					cursor: default;
-					height: 100px;
-					max-height: 100px;
-					overflow: hidden;
-				}
-			}
-			.remove {
-				display: none;
-				border-radius: 0px;
-				font-size: 14px;
-				height: 17px;
-				line-height: 17px;
-				width: 55px;
-				background: rgb(221, 54, 54);
-				color: white;
-				position: absolute;
-				right: 4px;
-				top: 5px;
-				-moz-user-select: none; 
-				-ms-user-select: none; 
-				-o-user-select: none; 
-				-webkit-user-select: none;
-				cursor: pointer;
-			}
-			.switcher {
-				display: none;
-				position: absolute;
-				font-size: 11px;
-				top: 30px;
-				right: 0;
-				color: white;
-				width: 13px;
-				height: 13px;
-				line-height: 12px;
-				border-radius: 0%;	
-				background: rgb(192, 191, 191);
-				transition: all 0.5s ease;
-				cursor: pointer;
-				&:hover {
-					border-radius: 50%;
-					background: grey;
-				}
-			}
-			.st3 {
-				right: 4px;
-			}
-			.st2 {
-				right: 20px;
-			}
-			.st1 {
-				right: 36px;
+				border: 1px solid grey;
 			}
 		}
+		.title, .title-form {
+			cursor: pointer;
+			width: 70%;
+			display: block;
+			border: none;
+			background: none;
+			font-size: 17px;
+			color: grey;
+			margin: 0;
+			margin-bottom: 10px;
+			&:focus {
+				outline: none;
+			}
+		}
+		.title-form {
+			position: absolute;
+			background: white;
+			z-index: 2;
+			top: 5px;
+		}
+		label {
+			cursor: pointer;
+			-moz-user-select: none; 
+			-ms-user-select: none; 
+			-o-user-select: none; 
+			-webkit-user-select: none;
+			color: grey;
+			font-size: 12px;
+			&:hover {
+				color: black;
+			}
+			&:hover + .task-des {
+				height: 150px;
+				overflow: hidden;
+				resize: none;
+			}
+		}
+		.task-des, .task-des-form {
+			cursor: pointer;
+			display: block;
+			resize: none;
+			border: none;
+			overflow: hidden;
+			background: none;
+			color: grey;
+			height: 0px;
+			max-height: 0px;
+			width: 100%;
+			font-size: 14px;
+			-webkit-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+			&:focus {
+				outline: none;
+			}
+		}
+		.task-des-form {
+			position: relative;
+			top: 0px !important;
+			background: white;
+			height: 150px;
+			max-height: 150px;
+			animation: show_onEdit 0.5s ease;
+			z-index: 2;
+			overflow: auto; 
+		}
+		.checker {
+			display: none;
+			&:checked + .task-des {
+				cursor: default;
+				height: 100px;
+				max-height: 100px;
+				overflow: hidden;
+			}
+		}
+		.remove {
+			display: none;
+			border-radius: 0px;
+			font-size: 14px;
+			height: 17px;
+			line-height: 17px;
+			width: 55px;
+			background: rgb(221, 54, 54);
+			color: white;
+			position: absolute;
+			right: 4px;
+			top: 5px;
+			-moz-user-select: none; 
+			-ms-user-select: none; 
+			-o-user-select: none; 
+			-webkit-user-select: none;
+			cursor: pointer;
+		}
+		.switcher {
+			display: none;
+			position: absolute;
+			font-size: 11px;
+			top: 30px;
+			right: 0;
+			color: white;
+			width: 13px;
+			height: 13px;
+			line-height: 12px;
+			border-radius: 0%;	
+			background: rgb(192, 191, 191);
+			transition: all 0.5s ease;
+			cursor: pointer;
+			&:hover {
+				border-radius: 50%;
+				background: grey;
+			}
+		}
+		.st3 {
+			right: 4px;
+		}
+		.st2 {
+			right: 20px;
+		}
+		.st1 {
+			right: 36px;
+		}
 	}
+	div {
+		display: none;
+	}
+}
+
+@keyframes show_onEdit {
+	from {max-height: 0;}
 }

@@ -1,33 +1,38 @@
-import React from 'react';
-import TaskForm from 'components/TaskForm'
+import React from 'react'
+import { connect } from 'react-redux'
+import Form from 'components/ReduxForm'
 import './style.scss'
-
-export default class TaskCreator extends React.Component {
+class TaskCreator extends React.Component {
 	state = {
-		showForm: false
+		showForm: this.props.hideCreator.set
 	}
-	showForm = () => {
-		this.setState({showForm: true})
-	}
-	
-	closeForm = () => {
-		this.setState({showForm: false})
+
+	componentWillReceiveProps = (nextProp) => {
+		this.setState({ showForm: nextProp.hideCreator.set })
 	}
 
 	render = () => {
-		const addTaskForm = () => {
-			return this.state.showForm ?
-      <TaskForm onSubmit={this.props.onSubmit} closeForm={this.closeForm} /> : false;
-		}
+		const addTaskForm = () => (
+			this.state.showForm &&
+				<Form formId="task-form"
+							onSubmit={ this.props.onSubmit }
+							closeForm={ () => this.setState({ showForm: false }) }
+							titlePlaceholder="Task name"
+							notesPlaceholder="Description" />
+		)
 		return ( 
-			<div id='task-creator' style={ this.state.showForm ? {marginBottom: '130px'} : {} } >
-				<button className='add-task' type='button' onClick={this.showForm}>
+			<div id='task-creator' style={ this.state.showForm ? { marginBottom: '130px' } : {} } >
+				<button className='add-task' type='button' onClick={ () => this.setState({ showForm: true }) }>
 					new task
 				</button>
-				{addTaskForm()}
+				{ addTaskForm() }
 			</div>
 		)
 	}
 }
 
+const mapStateToProps = (state) => ({
+	hideCreator: state.closeTaskCreator
+})
 
+export default connect(mapStateToProps, null)(TaskCreator)
