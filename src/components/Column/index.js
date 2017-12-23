@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import Form from 'components/ReduxForm'
 import * as actions from 'actions/Task'
 import * as constants from 'const'
+import Textarea from 'react-textarea-autosize'
 import './style.scss'
 
 const {
@@ -15,25 +16,20 @@ class Column extends React.Component {
 	state = {
 		btnStyle: {
 			display: 'block',
-			right: '65px',
-			background: '#75ce46',
-			color: 'white',
-			border: 'none'
+			right: '35px',
+			border: '1px solid grey',
+			color: 'grey'
 		}
 	}
 
 	edit = (id, title) => {
 		if (this.props.editable != id + title) {
 			this.props.setEditable(id + title)
-			this.props.hideTaskCreator(false)
+			this.props.taskCreatorStatus()
 		}	else {
 			this.refs.form.submit()
 			this.props.setEditable()
 		}
-	}
-
-	submit = (data, id) => {
-		this.props.editFunc({ id, ...data})
 	}
 
 	switcher = (taskData, currentStatus, newStatus) => {
@@ -56,7 +52,9 @@ class Column extends React.Component {
 		this.props.editable == id + this.props.title &&
 		<Form initialValues={{ taskName, taskNotes }} 
 					ref="form" 
-					onSubmit={ (data) => this.submit(data, id) }/>
+					onSubmit={ (data) => this.props.editFunc({ id, ...data }) }
+					titlePlaceholder="add title..."
+					notesPlaceholder="add description here..."/>
 	)
 
 	setStyle = (id, style1, style2) => (
@@ -68,32 +66,35 @@ class Column extends React.Component {
 		<div className={ this.props.className } >
 				<h2>{ this.props.title }</h2>
 				<span>{ this.props.tasks.length }</span>
-				{ this.props.insertComponent }
 				<ul>
 					{
 					this.props.tasks.map((item, i) => (
 							<li key={ item.id + this.props.className } 
 									data-id={ item.id }
 									style={ this.setStyle(item.id, { background: 'white' }) }>
-								<input className="title"
+								<Textarea className="title"
 											 type="text"
 											 value={ item.taskName }
+											 style={ this.setStyle(item.id, { display: 'none' }) }
 											 readOnly
 											 autoComplete="off"
-											 ref={ (input) => this.title = input }></input>
-								<label htmlFor={ `${ item.id }${ this.props.title }` }>notes</label>
+											 />
+								<label htmlFor={ `${ item.id }${ this.props.title }` }
+											 style={{ ...item.taskNotes && { color: 'white', background: '#a5d65c' } || { display: 'none' },
+											 ...this.setStyle(item.id, { display: 'none' }) }}>notes</label>
 								<input className="checker" 
 											type="checkbox" 
 											id={ `${ item.id }${ this.props.title }` }></input>
-								<textarea className="task-des" 
+								<Textarea className="task-des" 
 											type="text"
 											value={ item.taskNotes }
+											style={ this.setStyle(item.id, { display: 'none' }) }
 											readOnly
 											autoComplete="off"
-											ref={ (textarea) => this.notes = textarea }></textarea>
+											/>
 								<span className="remove" 
 											onClick={ () => this.remove(item.id) }
-											style={ this.setStyle(item.id) }>remove</span>
+											style={ this.setStyle(item.id) }><i className="fa fa-trash-o" aria-hidden="true"></i></span>
 								<span className="switcher st1" 
 											onClick={ () => this.switcher(item, this.props.className, TODO) }
 											style={ this.setStyle(item.id) }>1</span> 
@@ -107,12 +108,13 @@ class Column extends React.Component {
 												type="button"  
 												style={ this.setStyle(item.id, this.state.btnStyle) }
 												onClick={ () => this.edit(item.id, this.props.title) }>
-												{ this.setStyle(item.id, 'save', 'edit') }</button>
+												{ this.setStyle(item.id, '✔', 'edit') }</button>
 								{	this.showForm(item.id, item.taskName, item.taskNotes) }
 							</li>
 						))
 					}
 				</ul>
+				{ this.props.insertComponent }
 			</div>
 		)
 }

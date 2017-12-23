@@ -11,7 +11,7 @@ const {
   SWITCH_STATUS,
   STATUS_SWITCHED,
   SET_EDITABLE,
-  CLOSE_TASK_CREATOR
+  TASK_CREATOR_STATUS
 } = constants;
 
 export const getTasksList = ({ data }) => ({
@@ -59,7 +59,7 @@ export const setEditable = (id) => ({
   id
 })
 
-export const hideTaskCreator = (value) => ({
-  type: CLOSE_TASK_CREATOR,
+export const taskCreatorStatus = (value) => ({
+  type: TASK_CREATOR_STATUS,
   data: value
 })

@@ -8,13 +8,14 @@
 	border-radius: 3px; 
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
+	overflow: hidden;
 	&:hover {
 		position: relative;
 	}
 	h2 {
 		cursor: default;
 		font-family: 'prosto sans';
-		font-size: 15px;
+		font-size: 13px;
 		color: rgb(87, 87, 87);
 		display: inline-block;
 		margin-right: 10px;
@@ -33,13 +34,15 @@
 		color: white;
 	}
 }
-
 ul {
+	position: relative;
 	list-style: none;
 	padding: 0;
+	max-height: 70vh;
+	overflow: auto;
 	li {
 		&:hover {
-			background: white;
+			background: #efefef;
 		}
 		&:hover .edit,
 		&:hover .switcher {
@@ -49,10 +52,11 @@ ul {
 		-moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
 		box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
 		cursor: pointer;
-		max-height: 500px;
+
+		max-height: 400px;
 		position: relative;
 		overflow: hidden;
-		background: #efefef;
+		background: white;
 		font-family: 'century gothic';
 		padding: 5px 10px;
 		margin: 5px 0;
@@ -61,7 +65,7 @@ ul {
 			display: none;
 			background: none;
 			border: 1px solid rgb(194, 194, 194);
-			color: rgb(194, 194, 194);
+			color: grey;
 			position: absolute;
 			right: 4px;
 			top: 5px;
@@ -80,20 +84,23 @@ ul {
 		}
 		.title, .title-form {
 			cursor: pointer;
-			width: 70%;
+			width: 80%;
+			height: auto;
 			display: block;
 			border: none;
 			background: none;
-			font-size: 17px;
+			font-size: 16px;
 			color: grey;
 			margin: 0;
 			margin-bottom: 10px;
+			resize: none;
 			&:focus {
 				outline: none;
 			}
 		}
 		.title-form {
-			position: absolute;
+			position: relative;
+			height: 60px;
 			background: white;
 			z-index: 2;
 			top: 5px;
@@ -106,6 +113,12 @@ ul {
 			-webkit-user-select: none;
 			color: grey;
 			font-size: 12px;
+			display: inline-block;
+			width: 40px;
+			height: 16px;
+			text-align: center;
+			border-radius: 3px;
+			line-height: 13px;
 			&:hover {
 				color: black;
 			}
@@ -115,13 +128,19 @@ ul {
 				resize: none;
 			}
 		}
+		.fa-pencil {
+			font-size: 12px;
+			color: inherit;
+			display: inline-block;
+		}
 		.task-des, .task-des-form {
 			cursor: pointer;
+			margin-top: 7px;
 			display: block;
+			background: none;
 			resize: none;
 			border: none;
 			overflow: hidden;
-			background: none;
 			color: grey;
 			height: 0px;
 			max-height: 0px;
@@ -135,19 +154,19 @@ ul {
 		}
 		.task-des-form {
 			position: relative;
-			top: 0px !important;
-			background: white;
-			height: 150px;
-			max-height: 150px;
+			margin: 0;
+			border-top: 1px solid grey;
+			height: 100px;
+			max-height: 100px;
 			animation: show_onEdit 0.5s ease;
 			z-index: 2;
-			overflow: auto; 
+			overflow: auto;
 		}
 		.checker {
 			display: none;
 			&:checked + .task-des {
 				cursor: default;
-				height: 100px;
+				height: auto;
 				max-height: 100px;
 				overflow: hidden;
 			}
@@ -155,12 +174,13 @@ ul {
 		.remove {
 			display: none;
 			border-radius: 0px;
+			border: 1px solid grey;
 			font-size: 14px;
-			height: 17px;
-			line-height: 17px;
-			width: 55px;
-			background: rgb(221, 54, 54);
-			color: white;
+			height: 19px;
+			line-height: 19px;
+			width: 25px;
+			background: none;
+			color: grey;
 			position: absolute;
 			right: 4px;
 			top: 5px;

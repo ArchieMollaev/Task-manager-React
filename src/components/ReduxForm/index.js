@@ -17,9 +17,10 @@ const ListForm = props => {
 			<Field className="title-form"
 						 name="taskName"
 						 type="text"
-						 component="input"
+						 component="textarea"
 						 placeholder={ titlePlaceholder }
-						 autoComplete="off" />
+						 autoComplete="off"
+						 autoFocus />
 			<Field className="task-des-form" 
 						 name="taskNotes"
 						 type="text"
