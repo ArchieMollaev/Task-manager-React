@@ -1,33 +1,36 @@
-import React from 'react';
-import TaskForm from 'components/TaskForm'
+import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from 'actions/Task'
+import Form from 'components/ReduxForm'
 import './style.scss'
-
-export default class TaskCreator extends React.Component {
-	state = {
-		showForm: false
-	}
-	showForm = () => {
-		this.setState({showForm: true})
-	}
-	
-	closeForm = () => {
-		this.setState({showForm: false})
-	}
-
-	render = () => {
-		const addTaskForm = () => {
-			return this.state.showForm ?
-      <TaskForm onSubmit={this.props.onSubmit} closeForm={this.closeForm} /> : false;
-		}
-		return ( 
-			<div id='task-creator' style={ this.state.showForm ? {marginBottom: '130px'} : {} } >
-				<button className='add-task' type='button' onClick={this.showForm}>
-					new task
-				</button>
-				{addTaskForm()}
-			</div>
-		)
-	}
+class TaskCreator extends React.Component {
+	addTaskForm = () => (
+		this.props.showForm[this.props.col] &&
+			<Form formId="task-form"
+						form="create-task"
+						f1name="taskname"
+						f2name="taskNotes"
+						onSubmit={ this.props.onSubmit }
+						secondBtnFunc={ () => this.props.taskCreatorStatus({[this.props.col]: false}) }
+						titlePlaceholder="Task name"
+						notesPlaceholder="Description" />
+	)
+	render = () => (
+		<div id='task-creator' style={ this.props.showForm[this.props.col] ? { marginBottom: '130px' } : {} } >
+			<button className='add-task' 
+							type='button'
+							style={ this.props.showForm[this.props.col] ? { display: 'none' } : {} }
+							onClick={ () => { this.props.taskCreatorStatus({ [this.props.col]: true }); this.props.setEditable() } }>
+				add card...
+			</button>
+			{ this.addTaskForm() }
+		</div>
+	)
 }
 
+const mapStateToProps = (state) => ({
+	showForm: state.taskCreatorStatus,
+	editable: state.editable
+})
 
+export default connect(mapStateToProps, actions)(TaskCreator)

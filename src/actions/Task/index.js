@@ -10,7 +10,8 @@ const {
   TASK_DELETED,
   SWITCH_STATUS,
   STATUS_SWITCHED,
-  SET_EDITABLE
+  SET_EDITABLE,
+  TASK_CREATOR_STATUS
 } = constants;
 
 export const getTasksList = ({ data }) => ({
@@ -56,4 +57,9 @@ export const statusSwitched = ({ data, id, currentStatus, newStatus }) => ({
 export const setEditable = (id) => ({
   type: SET_EDITABLE,
   id
+})
+
+export const taskCreatorStatus = (value) => ({
+  type: TASK_CREATOR_STATUS,
+  data: value
 })

@@ -2,11 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import * as actions from 'actions/Task'
 import Column from 'components/Column'
 import TaskCreator from 'containers/TaskCreator'
-
 import * as constants from 'const'
 
 const {
@@ -14,44 +12,45 @@ const {
 	DELETE_TASK,
 	EDIT_TASK,
 	SWITCH_STATUS,
+	TODO,
+	IN_PROGRESS,
+	DONE
 } = constants;
-
 class ToDoList extends React.Component {
-	addToDo = (data, status = 'toDo') => {
-		this.props.addTask({ data, status })
-	}
-	remove = (id, status) => {
-		this.props.deleteTask({ status, id })
-	}
-	edit = (data, status) => {
-		this.props.editTask({ data, status })	
-	}
-	switchStatus = ({ id, data, currentStatus, newStatus }) => {
-		this.props.switchStatus({ id, data, currentStatus,	newStatus })
-	}	
 	render = () => (
 		<div id="todo-app">
 			<h1>Task manager</h1>
 			<div id="to-do-list-columns">
-				<Column className="toDo" 
-								insertComponent={ <TaskCreator onSubmit={(data) => this.addToDo(data)} /> }
+				<Column className={ TODO } 
+								insertComponent={ <TaskCreator onSubmit={ (data) => {
+								this.props.addTask({ data, status: TODO });
+								this.props.taskCreatorStatus() }}
+								col={ TODO } /> }
 								title="To Do" 
 								tasks={ this.props.tasks.toDo }
-								removeFunc={ (id) => this.remove(id, 'toDo') }
-								editFunc={ (data) => this.edit(data, 'toDo') }
-								switchFunc={ (values) => this.switchStatus(values, 'toDo') } />
-				<Column className="inProgress" 
+								removeFunc={ (id) => this.props.deleteTask({ status: TODO, id }) }
+								editFunc={ (data) => this.props.editTask({ data, status: TODO }) }
+								switchFunc={ (objData) => this.props.switchStatus(objData) } />
+				<Column className={ IN_PROGRESS }
+								insertComponent={ <TaskCreator onSubmit={ (data) => {
+								this.props.addTask({ data, status: IN_PROGRESS });
+								this.props.taskCreatorStatus() }}
+								col={ IN_PROGRESS } /> } 
 								tasks={ this.props.tasks.inProgress } 
 								title="In progress"
-								removeFunc={ (id) => this.remove(id, 'inProgress') }
-								editFunc={ (data) => this.edit(data, 'inProgress') } 
-								switchFunc={ (values) => this.switchStatus(values, 'inProgress') } />
-				<Column className="done" 
+								removeFunc={ (id) => this.props.deleteTask({ status: IN_PROGRESS, id }) }
+								editFunc={ (data) => this.props.editTask({ data, status: IN_PROGRESS })  } 
+								switchFunc={ (objData) => this.props.switchStatus(objData) } />
+				<Column className={ DONE }
+								insertComponent={ <TaskCreator onSubmit={ (data) => {
+								this.props.addTask({ data, status: DONE });
+								this.props.taskCreatorStatus() }}
+								col={ DONE } /> }  
 								tasks={ this.props.tasks.done } 
 								title="Done"
-								removeFunc={ (id) => this.remove(id, 'done') }
-								editFunc={ (data) => this.edit(data, 'done') }
-								switchFunc={ (values) => this.switchStatus(values, 'done') } />
+								removeFunc={ (id) => this.props.deleteTask({ status: DONE, id }) }
+								editFunc={ (data) => this.props.editTask({ data, status: DONE }) }
+								switchFunc={ (objData) => this.props.switchStatus(objData) } />
 			</div>
 		</div>
 	)
@@ -61,8 +60,4 @@ const mapStateToProps = (state) => ({
 	tasks: state.getList
 })
 
-const actionsDispatcher = (dispatch) => (
-   bindActionCreators(actions, dispatch)
-)
-
-export default connect(mapStateToProps, actionsDispatcher)(ToDoList)
+export default connect(mapStateToProps, actions)(ToDoList)

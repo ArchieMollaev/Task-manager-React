@@ -1,5 +1,5 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-import { tasksApi } from 'server/Api';
+import { tasksApi } from 'api';
 import * as constants from 'const';
 import * as actions from 'actions/Task';
 

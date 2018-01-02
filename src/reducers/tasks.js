@@ -5,7 +5,8 @@ const {
   TASK_EDITED,
   TASK_DELETED,
   STATUS_SWITCHED,
-  SET_EDITABLE
+  SET_EDITABLE,
+  TASK_CREATOR_STATUS
 } = constants;
 
 const initialState = { toDo: [], inProgress: [], done: [] };
@@ -33,7 +34,7 @@ export const getList = (state = initialState, action) => {
       category = update[ action.currentStatus ];
       let newCategory = update[ action.newStatus ];
       category.forEach((item, i, arr) => {
-        item.id == action.id ? arr.splice(i, 1) : false;
+        item.id == action.id ? arr.splice(i, 1) : null;
       })
       newCategory.push({
         ...action.data, 
@@ -45,7 +46,7 @@ export const getList = (state = initialState, action) => {
       category = update[ action.status ];
       category.forEach((item, i, arr) => {
         item.id == action.data.id ? 
-        arr[i] = action.data : false;
+        arr[i] = action.data : null;
       })
       return update;
     default:
@@ -56,7 +57,18 @@ export const getList = (state = initialState, action) => {
 export const editable = (state = 0, action) => {
   switch (action.type) {
     case SET_EDITABLE: 
-      return action.id
+      return action.id || {...state}
+    default:
+      return state
+  }
+}
+
+const initialStateTaskCreator = { toDo: false, inProgress: false, done: false };
+
+export const taskCreatorStatus = (state = initialStateTaskCreator, action) => {
+  switch (action.type) {
+    case TASK_CREATOR_STATUS:
+      return action.data && { ...initialStateTaskCreator, ...action.data } || initialStateTaskCreator
     default:
       return state
   }

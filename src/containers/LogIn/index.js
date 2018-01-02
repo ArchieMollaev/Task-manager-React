@@ -1,0 +1,19 @@
+import React from 'react'
+import Form from 'components/ReduxForm'
+import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom'
+import './style.scss'
+
+export default class LogIn extends React.Component {
+	render = () => (
+		<div id="authentication">
+			<Form formId="logIn"
+            form="logIn"
+            f1name="login" f2name="password"
+						placeholder1="Login" placeholder2="Password"
+            comp1="input" comp2="input"
+            type2="password"
+            submitBtnTitle="Log in" secondBtnTitle="Check in" 
+            secondBtnFunc={ () => this.props.history.push('/checkIn') } />
+		</div>
+	)
+}

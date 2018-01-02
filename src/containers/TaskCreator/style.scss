@@ -1,9 +1,11 @@
 #task-creator {
+	transition: all 0.5s ease;
 	position: relative;
 	.add-task {
 		cursor: pointer;
 		font-size: 18px;
-		float: right;
+		text-align: left;
+		width: 100%;
 		color: grey;
 		border: none;
 		border-radius: 3px;
@@ -17,13 +19,81 @@
 		    display: table;
 		};
 		&:hover {
-			background: #a5a4a2;
-			color: white;
+			background:#d3d3d3;
+			color: #444;
+			text-decoration: underline;
+		}
+		&:focus, &:active {
+			outline: none !important;
+		}
+	}
+	height: 30px;
+	margin-top: 0;
+}
+
+#task-form {
+	-webkit-animation: show_taskForm 0.5s ease;
+	        animation: show_taskForm 0.5s ease;
+	position: absolute;
+	width: 100%;
+	border-top: none;
+	textarea {
+		width: 100%;
+		font-family: 'calibri';
+		font-size: 14px;
+		box-sizing: border-box;
+		border: none;
+		padding: 5px;
+		resize: none;
+		border-top: 1px solid grey;
+		&:focus {
+			outline: none;
+		}
+	}
+	.field2 {
+		height: 80px;
+		margin-top: -5px;
+	}
+	button {
+		border: none;
+		margin-right: 10px;
+		cursor: pointer;
+		display: inline-block;
+		height: 25px;
+		font-family: 'calibri';
+	}
+	.first-btn {
+		background: rgb(105, 185, 105);
+		color: white;
+		font-size: 15px;
+		transition: all 0.5s ease;
+		&:hover {
+			background: rgb(74, 143, 74);
 		}
 		&:focus {
 			outline: none;
 		}
 	}
-	height: 30px;
-	margin-top: -36px;
+	.second-btn {
+		font-size: 25px;
+		color: grey;
+		line-height: 25px;
+		&:hover {
+			color: #444;
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+	label, .checker, .switcher, .edit, .remove {
+		display: none;
+	}
+}
+
+@-webkit-keyframes show_taskForm {
+	from {transform: scale(0);}
+}
+
+@keyframes show_taskForm {
+	from {transform: scale(0);}
 }
