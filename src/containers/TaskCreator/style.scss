@@ -50,7 +50,7 @@
 			outline: none;
 		}
 	}
-	.task-des-form {
+	.field2 {
 		height: 80px;
 		margin-top: -5px;
 	}
@@ -62,24 +62,24 @@
 		height: 25px;
 		font-family: 'calibri';
 	}
-	.closeForm {
-		font-size: 25px;
-		color: grey;
-		line-height: 25px;
-		&:hover {
-			color: #444;
-		}
-		&:focus {
-			outline: none;
-		}
-	}
-	.submitTask {
+	.first-btn {
 		background: rgb(105, 185, 105);
 		color: white;
 		font-size: 15px;
 		transition: all 0.5s ease;
 		&:hover {
 			background: rgb(74, 143, 74);
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+	.second-btn {
+		font-size: 25px;
+		color: grey;
+		line-height: 25px;
+		&:hover {
+			color: #444;
 		}
 		&:focus {
 			outline: none;

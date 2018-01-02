@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import * as actions from 'actions/Task'
 import Column from 'components/Column'
 import TaskCreator from 'containers/TaskCreator'
@@ -61,8 +60,4 @@ const mapStateToProps = (state) => ({
 	tasks: state.getList
 })
 
-const actionsDispatcher = (dispatch) => (
-   bindActionCreators(actions, dispatch)
-)
-
-export default connect(mapStateToProps, actionsDispatcher)(ToDoList)
+export default connect(mapStateToProps, actions)(ToDoList)

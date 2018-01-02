@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import Form from 'components/ReduxForm'
 import * as actions from 'actions/Task'
 import * as constants from 'const'
@@ -50,7 +49,10 @@ class Column extends React.Component {
 	
 	showForm = (id, taskName, taskNotes) => (
 		this.props.editable == id + this.props.title &&
-		<Form initialValues={{ taskName, taskNotes }} 
+		<Form initialValues={{ taskName, taskNotes }}
+					form="edit-task"
+					f1name="taskname"
+					f2name="taskNotes"
 					ref="form" 
 					onSubmit={ (data) => this.props.editFunc({ id, ...data }) }
 					titlePlaceholder="add title..."
@@ -80,7 +82,7 @@ class Column extends React.Component {
 											 autoComplete="off"
 											 />
 								<label htmlFor={ `${ item.id }${ this.props.title }` }
-											 style={{ ...item.taskNotes && { color: 'white', background: '#a5d65c' } || { display: 'none' },
+											 style={{ ...item.taskNotes && { display: 'block' } || {},
 											 ...this.setStyle(item.id, { display: 'none' }) }}>notes</label>
 								<input className="checker" 
 											type="checkbox" 
@@ -123,8 +125,4 @@ const mapStateToProps = (state) => ({
 		editable: state.editable
 })
 	
-const actionsDispatcher = (dispatch) => (
-   bindActionCreators(actions, dispatch)
-);
-
-export default connect(mapStateToProps, actionsDispatcher)(Column)
+export default connect(mapStateToProps, actions)(Column)

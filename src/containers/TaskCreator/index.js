@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import * as actions from 'actions/Task'
 import Form from 'components/ReduxForm'
 import './style.scss'
@@ -8,8 +7,11 @@ class TaskCreator extends React.Component {
 	addTaskForm = () => (
 		this.props.showForm[this.props.col] &&
 			<Form formId="task-form"
+						form="create-task"
+						f1name="taskname"
+						f2name="taskNotes"
 						onSubmit={ this.props.onSubmit }
-						closeForm={ () => this.props.taskCreatorStatus({[this.props.col]: false}) }
+						secondBtnFunc={ () => this.props.taskCreatorStatus({[this.props.col]: false}) }
 						titlePlaceholder="Task name"
 						notesPlaceholder="Description" />
 	)
@@ -31,8 +33,4 @@ const mapStateToProps = (state) => ({
 	editable: state.editable
 })
 
-const actionsDispatcher = (dispatch) => (
-	bindActionCreators(actions, dispatch)
-);
-
-export default connect(mapStateToProps, actionsDispatcher)(TaskCreator)
+export default connect(mapStateToProps, actions)(TaskCreator)

@@ -34,7 +34,7 @@ export const getList = (state = initialState, action) => {
       category = update[ action.currentStatus ];
       let newCategory = update[ action.newStatus ];
       category.forEach((item, i, arr) => {
-        item.id == action.id ? arr.splice(i, 1) : false;
+        item.id == action.id ? arr.splice(i, 1) : null;
       })
       newCategory.push({
         ...action.data, 
@@ -46,7 +46,7 @@ export const getList = (state = initialState, action) => {
       category = update[ action.status ];
       category.forEach((item, i, arr) => {
         item.id == action.data.id ? 
-        arr[i] = action.data : false;
+        arr[i] = action.data : null;
       })
       return update;
     default:
