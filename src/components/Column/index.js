@@ -1,37 +1,41 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Form from 'components/ReduxForm'
+import { submit } from 'redux-form'
 import * as actions from 'actions/Task'
 import * as constants from 'const'
 import Textarea from 'react-textarea-autosize'
 import './style.scss'
+
 
 const {
 	TODO,
 	IN_PROGRESS,
 	DONE
 } = constants
-class Column extends React.Component {
-	state = {
-		btnStyle: {
-			display: 'block',
-			right: '35px',
-			border: '1px solid grey',
-			color: 'grey'
-		}
+
+const Column = props => {
+	const {
+		editable,
+		setEditable,
+		taskCreatorStatus,
+		switchFunc,
+		removeFunc,
+		editFunc,
+		title,
+		tasks,
+		className,
+		insertComponent
+	} = props;
+
+	const edit = (id, title, form) => {
+		if (editable != id + title) {
+			setEditable(id + title)
+			taskCreatorStatus()
+		}	
 	}
 
-	edit = (id, title) => {
-		if (this.props.editable != id + title) {
-			this.props.setEditable(id + title)
-			this.props.taskCreatorStatus()
-		}	else {
-			this.refs.form.submit()
-			this.props.setEditable()
-		}
-	}
-
-	switcher = (taskData, currentStatus, newStatus) => {
+	const switcher = (taskData, currentStatus, newStatus) => {
 		const { taskName, taskNotes, id } = taskData;
 		let sendData = {
 			id,
@@ -39,90 +43,91 @@ class Column extends React.Component {
 			newStatus,
 			currentStatus
 		}
-		this.props.switchFunc(sendData)
+		switchFunc(sendData)
 	}
 
-	remove = (id) => {
-		this.props.setEditable()
-		this.props.removeFunc(id)
+	const remove = id => {
+		setEditable()
+		removeFunc(id)
 	}
 	
-	showForm = (id, taskName, taskNotes) => {
-		return this.props.editable === id + this.props.title &&
-		<Form initialValues={{ taskName, taskNotes }}
-					form={"edit-task"}
-					f1name="taskName"
-					f2name="taskNotes"
-					ref="form" 
-					onSubmit={ (data) => data.taskName === '' ? this.remove(id) : this.props.editFunc({ id, ...data }) }
-					placeholder1="add title..."
-					placeholder2="add description here..."/>
+	const showForm = (id, taskName, taskNotes) => {
+		return editable === id + title &&
+		<Form 
+			initialValues={{ taskName, taskNotes }}
+			form="editor"
+			f1name="taskName"
+			f2name="taskNotes"
+			submitBtnTitle='✔'
+			onSubmit={ (data) => data.taskName === '' ? remove(id) : editFunc({ id, ...data }) && setEditable() }
+			placeholder1="add title..."
+			placeholder2="add description here..."/>
 	}
 
-	setStyle = (id, style1, style2) => (
-		this.props.editable == id + this.props.title ? 
+	const setStyle = (id, style1, style2) => (
+		editable == id + title ? 
 		style1 || { display: 'block' } : style2 || {}
 	)
 
-	render = () => (
-		<div className={ this.props.className } >
-				<h2>{ this.props.title }</h2>
-				<span>{ this.props.tasks.length }</span>
+	return (
+		<div className={ className } >
+				<h2>{ title }</h2>
+				<span>{ tasks.length }</span>
 				<ul>
 					{
-					this.props.tasks.map((item, i) => (
-								<li key={ item.id + this.props.className } 
+					tasks.map((item, i) => (
+								<li key={ item.id + className } 
 									data-id={ item.id }
-									style={ this.setStyle(item.id, { background: 'white' }) }>
+									style={ setStyle(item.id, { background: 'white' }) }>
 								<Textarea className="title"
 											 type="text"
 											 value={ item.taskName }
-											 style={ this.setStyle(item.id, { display: 'none' }) }
+											 style={ setStyle(item.id, { display: 'none' }) }
 											 readOnly
 											 autoComplete="off"
 											 />
-								<label htmlFor={ `${ item.id }${ this.props.title }` }
+								<label htmlFor={ `${ item.id }${ title }` }
 											 style={{ ...item.taskNotes && { display: 'block' } || {},
-											 ...this.setStyle(item.id, { display: 'none' }) }}>notes</label>
+											 ...setStyle(item.id, { display: 'none' }) }}>notes</label>
 								<input className="checker" 
 											type="checkbox" 
-											id={ `${ item.id }${ this.props.title }` }></input>
+											id={ `${ item.id }${ title }` }></input>
 								<Textarea className="task-des" 
 											type="text"
 											value={ item.taskNotes }
-											style={ this.setStyle(item.id, { display: 'none' }) }
+											style={ setStyle(item.id, { display: 'none' }) }
 											readOnly
 											autoComplete="off"
 											/>
 								<span className="remove" 
-											onClick={ () => this.remove(item.id) }
-											style={ this.setStyle(item.id) }><i className="fa fa-trash-o" aria-hidden="true"></i></span>
+											onClick={ () => remove(item.id) }
+											style={ setStyle(item.id) }><i className="fa fa-trash-o" aria-hidden="true"></i></span>
 								<span className="switcher st1" 
-											onClick={ () => this.switcher(item, this.props.className, TODO) }
-											style={ this.setStyle(item.id) }>1</span> 
+											onClick={ () => switcher(item, className, TODO) }
+											style={ setStyle(item.id) }>1</span> 
 								<span className="switcher st2" 
-											onClick={ () => this.switcher(item, this.props.className, IN_PROGRESS) }
-											style={ this.setStyle(item.id) }>2</span> 
+											onClick={ () => switcher(item, className, IN_PROGRESS) }
+											style={ setStyle(item.id) }>2</span> 
 								<span className="switcher st3" 
-											onClick={ () => this.switcher(item, this.props.className, DONE) }
-											style={ this.setStyle(item.id) }>3</span>
+											onClick={ () => switcher(item, className, DONE) }
+											style={ setStyle(item.id) }>3</span>
 								<button className="edit" 
-												type="button"  
-												style={ this.setStyle(item.id, this.state.btnStyle) }
-												onClick={ () => this.edit(item.id, this.props.title) }>
-												{ this.setStyle(item.id, '✔', 'edit') }</button>
-								{	this.showForm(item.id, item.taskName, item.taskNotes) }
+												type="button"
+												style={ setStyle(item.id, { display: 'none' }) }
+												onClick={ () => edit(item.id, title, Form) }>
+												edit</button>
+								{	showForm(item.id, item.taskName, item.taskNotes) }
 							</li>
 						))
 					}
 				</ul>
-				{ this.props.insertComponent }
+				{ insertComponent }
 			</div>
 	)
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 		editable: state.editable
 })
-	
-export default connect(mapStateToProps, actions)(Column)
+
+export default connect(mapStateToProps, actions )(Column)

@@ -3,7 +3,7 @@ import Form from 'components/ReduxForm'
 import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom'
 import './style.scss'
 
-const CheckIn = (props) => (
+const CheckIn = props => (
   <div id="registration">
     <Form formId="checkIn"
           form="checkIn"

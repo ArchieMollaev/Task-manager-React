@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { reset } from 'redux-form'
 import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from 'actions/Task'
@@ -18,9 +19,11 @@ const {
 } = constants;
 
 const list = [TODO, IN_PROGRESS, DONE];
+const titles = ['To Do', 'In progress', 'Done'];
 
-const ToDoList = (props) => {	
-	const { 
+const ToDoList = props => {	
+	const {
+		reset, 
 		addTask, 
 		deleteTask, 
 		editTask, 
@@ -28,7 +31,6 @@ const ToDoList = (props) => {
 		taskCreatorStatus
 	} = props;
 	
-	const titles = ['To Do', 'In progress', 'Done'];
 	return (
 		<div id="todo-app">
 			<h1>Task manager</h1>
@@ -36,10 +38,11 @@ const ToDoList = (props) => {
 				{
 					list.map((itemName, i) => (
 						<Column key={ itemName } className={ itemName } 
-								insertComponent={ <TaskCreator onSubmit={ (data) => {
-								addTask({ data, status: itemName });
-								taskCreatorStatus() }}
-								col={ itemName } /> }
+								insertComponent={ 
+									<TaskCreator 
+										onSubmit={ (data) => { reset("create-task"); addTask({ data, status: itemName }) } }
+										col={ itemName } /> 
+								}
 								title={ titles[i] } 
 								tasks={ props.tasks[itemName] }
 								removeFunc={ (id) => deleteTask({ status: itemName, id }) }
@@ -52,8 +55,8 @@ const ToDoList = (props) => {
 	)
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	tasks: state.getList
 })
 
-export default connect(mapStateToProps, actions)(ToDoList)
+export default connect(mapStateToProps, {...actions, reset })(ToDoList)
