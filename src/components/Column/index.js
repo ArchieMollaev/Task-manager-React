@@ -15,6 +15,8 @@ const {
 	DONE
 } = constants
 
+const switchList = [TODO, IN_PROGRESS, DONE];
+
 const Column = props => {
 	const {
 		editable,
@@ -30,21 +32,18 @@ const Column = props => {
 	} = props;
 
 	const edit = (id, title, form) => {
-		if (editable != id + title) {
-			setEditable(id + title)
-			taskCreatorStatus()
-		}	
+		setEditable(id + title)
+		taskCreatorStatus()
 	}
 
 	const switcher = (taskData, currentStatus, newStatus) => {
 		const { taskName, taskNotes, id } = taskData;
-		let sendData = {
+		switchFunc({
 			id,
 			data: {taskName, taskNotes},
 			newStatus,
 			currentStatus
-		}
-		switchFunc(sendData)
+		})
 	}
 
 	const remove = id => {
@@ -52,30 +51,25 @@ const Column = props => {
 		removeFunc(id)
 	}
 	
-	const showForm = (id, taskName, taskNotes) => {
-		return editable === id + title &&
-		<Form 
-			initialValues={{ taskName, taskNotes }}
-			form="editor"
-			f1name="taskName"
-			f2name="taskNotes"
-			submitBtnTitle='✔'
-			onSubmit={ (data) => data.taskName === '' ? remove(id) : editFunc({ id, ...data }) && setEditable() }
-			placeholder1="add title..."
-			placeholder2="add description here..."/>
+	const formSubmit = (data, id) => {
+		!data.taskName ? remove(id) :
+		editFunc({ id, ...data }) && setEditable()
 	}
 
-	const setStyle = (id, style1, style2) => (
-		editable == id + title ? 
-		style1 || { display: 'block' } : style2 || {}
+	const showForm = (id, taskName, taskNotes) => (
+		editable === id + title &&
+		<Form initialValues={{ taskName, taskNotes }}
+					formId="editor"
+					form="editor"
+					f1name="taskName"
+					f2name="taskNotes"
+					submitBtnTitle='✔'
+					onSubmit={ data => formSubmit(data, id) }
+					placeholder1="add title..."
+					placeholder2="add description here..."/>
 	)
 
-	const classes = (staticClass, dynamicClass, id) => (
-		classNames({
-			[staticClass]: true,
-			[dynamicClass]: editable === id + title
-		})
-	)
+	const getState = id => editable === id + title;
 
 	return (
 		<div className={ className } >
@@ -86,31 +80,32 @@ const Column = props => {
 					tasks.map((item, i) => (
 								<li key={ item.id + className } 
 										data-id={ item.id }
-										className={ classes(null, 'item-style', item.id) }>
-								<Textarea className={ classes('title', 'hide', item.id) }
+										className={ classNames({'item-style': getState(item.id)}) }>
+								<Textarea className={ classNames({'title': true, 'hide': getState(item.id)}) }
 													type="text"
 													value={ item.taskName }
 													readOnly />
 								<label htmlFor={ `${ item.id }${ title }` }
-											 style={{ ...item.taskNotes && { display: 'block' } || {},
-											 ...setStyle(item.id, { display: 'none' }) }}>notes</label>
+											 className={ classNames({'show': item.taskNotes, 'hide': getState(item.id)}) }
+											 >notes</label>
 								<input className="checker" 
 											 type="checkbox" 
 											 id={ `${ item.id }${ title }` }></input>
-								<Textarea className={ classes('task-des', 'hide', item.id) } 
+								<Textarea className={ classNames({'task-des': true, 'hide': getState(item.id)}) } 
 													type="text"
 													value={ item.taskNotes }
 													readOnly />
-								<span className="remove" 
+								<span className={ classNames({'remove': true, 'show': getState(item.id)}) } 
 											onClick={ () => remove(item.id) }
-											style={ setStyle(item.id) }><i className="fa fa-trash-o" aria-hidden="true"></i></span>
-								<span className={ classes('switcher st1', 'show', item.id) } 
-											onClick={ () => switcher(item, className, TODO) } >1</span> 
-								<span className={ classes('switcher st2', 'show', item.id) }  
-											onClick={ () => switcher(item, className, IN_PROGRESS) } >2</span> 
-								<span className={ classes('switcher st3', 'show', item.id) }  
-											onClick={ () => switcher(item, className, DONE) } >3</span>
-								<button className={ classes('edit', 'hide', item.id) } 
+											><i className="fa fa-trash-o" aria-hidden="true"></i></span>
+											{
+												switchList.map((status, i) => (
+													<span key={ status } 
+																className={ classNames({[`switcher st${i+1}`]: true, 'show': getState(item.id)}) } 
+																onClick={ () => switcher(item, className, status) } >{i+1}</span>
+												))
+											}
+								<button className={ classNames({'edit': true, 'hide': getState(item.id)}) } 
 												type="button"
 												onClick={ () => edit(item.id, title, Form) }>
 												edit</button>

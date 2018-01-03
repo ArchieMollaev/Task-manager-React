@@ -2,7 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'actions/Task'
 import Form from 'components/ReduxForm'
+import classNames from 'classnames'
 import './style.scss'
+
 const TaskCreator = props => {
 	const {
 		showForm,
@@ -25,11 +27,15 @@ const TaskCreator = props => {
 				placeholder2="Description" />
 	)
 	return (
-		<div id='task-creator' style={ showForm[col] ? { marginBottom: '130px' } : {} } >
+		<div id='task-creator' className={ classNames({'spread-task-creator': showForm[col]}) } >
 			<button 
-				className='add-task' 
+				className={ 
+					classNames({
+						'add-task': true, 
+						'hide': showForm[col]
+					}) 
+				} 
 				type='button'
-				style={ showForm[col] ? { display: 'none' } : {} }
 				onClick={ () => { taskCreatorStatus({ [col]: true }); setEditable() } }>
 				add card...
 			</button>

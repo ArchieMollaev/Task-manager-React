@@ -18,8 +18,8 @@ const {
 	DONE
 } = constants;
 
-const list = [TODO, IN_PROGRESS, DONE];
-const titles = ['To Do', 'In progress', 'Done'];
+const columnList = [TODO, IN_PROGRESS, DONE];
+const columnTitles = ['To Do', 'In progress', 'Done'];
 
 const ToDoList = props => {	
 	const {
@@ -36,18 +36,23 @@ const ToDoList = props => {
 			<h1>Task manager</h1>
 			<div id="to-do-list-columns">
 				{
-					list.map((itemName, i) => (
+					columnList.map((itemName, i) => (
 						<Column key={ itemName } className={ itemName } 
 								insertComponent={ 
 									<TaskCreator 
-										onSubmit={ (data) => { reset("create-task"); addTask({ data, status: itemName }) } }
+										onSubmit={ 
+											data => { 
+												reset("create-task")
+												addTask({ data, status: itemName }) 
+											}
+										}
 										col={ itemName } /> 
 								}
-								title={ titles[i] } 
+								title={ columnTitles[i] } 
 								tasks={ props.tasks[itemName] }
-								removeFunc={ (id) => deleteTask({ status: itemName, id }) }
-								editFunc={ (data) => editTask({ data, status: itemName }) }
-								switchFunc={ (objData) => switchStatus(objData) } />
+								removeFunc={ id => deleteTask({ status: itemName, id }) }
+								editFunc={ data => editTask({ data, status: itemName }) }
+								switchFunc={ objData => switchStatus(objData) } />
 					))
 				}
 			</div>
@@ -59,4 +64,4 @@ const mapStateToProps = state => ({
 	tasks: state.getList
 })
 
-export default connect(mapStateToProps, {...actions, reset })(ToDoList)
+export default connect(mapStateToProps, {...actions, reset})(ToDoList)

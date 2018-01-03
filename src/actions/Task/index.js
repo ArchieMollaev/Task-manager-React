@@ -54,12 +54,12 @@ export const statusSwitched = ({ data, id, currentStatus, newStatus }) => ({
   type: STATUS_SWITCHED, id, data, currentStatus, newStatus
 })
 
-export const setEditable = (id) => ({
+export const setEditable = id => ({
   type: SET_EDITABLE,
   id
 })
 
-export const taskCreatorStatus = (value) => ({
+export const taskCreatorStatus = value => ({
   type: TASK_CREATOR_STATUS,
   data: value
 })

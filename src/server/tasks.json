@@ -1,63 +1,11 @@
 {
-  "toDo": [
-    {
-      "taskName": "asd",
-      "taskNotes": "asdasd",
-      "id": 4
-    },
-    {
-      "taskName": "asdasd",
-      "taskNotes": "asdasdasd",
-      "id": 5
-    },
-    {
-      "taskName": "asascascas",
-      "taskNotes": "ascascascasc",
-      "id": 6
-    }
-  ],
-  "inProgress": [
-    {
-      "taskName": "asdasdfsdfs",
-      "taskNotes": "",
-      "id": 2
-    },
-    {
-      "taskName": "saasdasd",
-      "taskNotes": "asdasdasdas",
-      "id": 3
-    },
-    {
-      "taskName": "asd",
-      "taskNotes": "asdasd",
-      "id": 4
-    }
-  ],
+  "toDo": [],
+  "inProgress": [],
   "done": [
     {
-      "taskName": "ascasdasd",
-      "taskNotes": "cascascasc",
-      "id": 1
-    },
-    {
-      "taskName": "adcasd",
-      "taskNotes": "sddsdsdss",
-      "id": 2
-    },
-    {
-      "taskName": "asdads",
-      "taskNotes": "dasasdasdasd",
-      "id": 3
-    },
-    {
-      "taskName": "sdsadasasdsd",
-      "taskNotes": "sddssdsdsdsddasd",
-      "id": 4
-    },
-    {
-      "taskName": "daasd",
-      "taskNotes": "asadsasdasd",
-      "id": 5
+      "taskName": "task-manager stable",
+      "taskNotes": "version 3.3.0",
+      "id": 7
     }
   ]
 }

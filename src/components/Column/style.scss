@@ -41,6 +41,7 @@ ul {
 	max-height: 70vh;
 	overflow: auto;
 	li {
+		animation: show_item .5s ease;
 		&:hover {
 			background: #efefef;
 		}
@@ -98,7 +99,7 @@ ul {
 				outline: none;
 			}
 		}
-		.tfield1 {
+		.field1 {
 			position: relative;
 			height: 60px;
 			background: white;
@@ -147,8 +148,6 @@ ul {
 			max-height: 0px;
 			width: 100%;
 			font-size: 14px;
-			-webkit-transition: all 0.5s ease;
-			transition: all 0.5s ease;
 			&:focus {
 				outline: none;
 			}
@@ -159,7 +158,6 @@ ul {
 			border-top: 1px solid grey;
 			height: 100px;
 			max-height: 100px;
-			animation: show_onEdit 0.5s ease;
 			z-index: 2;
 			overflow: auto;
 		}
@@ -170,6 +168,7 @@ ul {
 				height: auto;
 				max-height: 100px;
 				overflow: hidden;
+				animation: show_notes .5s;
 			}
 		}
 		.remove {
@@ -252,17 +251,30 @@ ul {
 }
 
 .item-style {
-	background: white;
-}
-
-.hide {
-	display: none !important;
+	background: white !important;
 }
 
 .show {
 	display: block !important;
 }
 
+.hide {
+	display: none !important;
+}
+
+#editor {
+	animation: show_onEdit .5s;
+	height: 190px;
+}
+
 @keyframes show_onEdit {
+	from {height: 40px;}
+}
+
+@keyframes show_notes {
 	from {max-height: 0;}
+}
+
+@keyframes show_item {
+	from {transform: scaleY(0);}
 }

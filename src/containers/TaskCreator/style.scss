@@ -1,5 +1,4 @@
 #task-creator {
-	transition: all 0.5s ease;
 	position: relative;
 	.add-task {
 		cursor: pointer;
@@ -32,8 +31,8 @@
 }
 
 #task-form {
-	-webkit-animation: show_taskForm 0.5s ease;
-	        animation: show_taskForm 0.5s ease;
+	-webkit-animation: show_taskForm .5s ease;
+	        animation: show_taskForm .5s ease;
 	position: absolute;
 	width: 100%;
 	border-top: none;
@@ -88,6 +87,14 @@
 	label, .checker, .switcher, .edit, .remove {
 		display: none;
 	}
+}
+
+.spread-task-creator {
+	margin-bottom: 130px;
+}
+
+.hide {
+	display: none;
 }
 
 @-webkit-keyframes show_taskForm {
