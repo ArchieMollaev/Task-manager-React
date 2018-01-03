@@ -251,6 +251,18 @@ ul {
 	}
 }
 
+.item-style {
+	background: white;
+}
+
+.hide {
+	display: none !important;
+}
+
+.show {
+	display: block !important;
+}
+
 @keyframes show_onEdit {
 	from {max-height: 0;}
 }

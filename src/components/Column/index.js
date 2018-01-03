@@ -5,6 +5,7 @@ import { submit } from 'redux-form'
 import * as actions from 'actions/Task'
 import * as constants from 'const'
 import Textarea from 'react-textarea-autosize'
+import classNames from 'classnames'
 import './style.scss'
 
 
@@ -69,6 +70,13 @@ const Column = props => {
 		style1 || { display: 'block' } : style2 || {}
 	)
 
+	const classes = (staticClass, dynamicClass, id) => (
+		classNames({
+			[staticClass]: true,
+			[dynamicClass]: editable === id + title
+		})
+	)
+
 	return (
 		<div className={ className } >
 				<h2>{ title }</h2>
@@ -77,43 +85,33 @@ const Column = props => {
 					{
 					tasks.map((item, i) => (
 								<li key={ item.id + className } 
-									data-id={ item.id }
-									style={ setStyle(item.id, { background: 'white' }) }>
-								<Textarea className="title"
-											 type="text"
-											 value={ item.taskName }
-											 style={ setStyle(item.id, { display: 'none' }) }
-											 readOnly
-											 autoComplete="off"
-											 />
+										data-id={ item.id }
+										className={ classes(null, 'item-style', item.id) }>
+								<Textarea className={ classes('title', 'hide', item.id) }
+													type="text"
+													value={ item.taskName }
+													readOnly />
 								<label htmlFor={ `${ item.id }${ title }` }
 											 style={{ ...item.taskNotes && { display: 'block' } || {},
 											 ...setStyle(item.id, { display: 'none' }) }}>notes</label>
 								<input className="checker" 
-											type="checkbox" 
-											id={ `${ item.id }${ title }` }></input>
-								<Textarea className="task-des" 
-											type="text"
-											value={ item.taskNotes }
-											style={ setStyle(item.id, { display: 'none' }) }
-											readOnly
-											autoComplete="off"
-											/>
+											 type="checkbox" 
+											 id={ `${ item.id }${ title }` }></input>
+								<Textarea className={ classes('task-des', 'hide', item.id) } 
+													type="text"
+													value={ item.taskNotes }
+													readOnly />
 								<span className="remove" 
 											onClick={ () => remove(item.id) }
 											style={ setStyle(item.id) }><i className="fa fa-trash-o" aria-hidden="true"></i></span>
-								<span className="switcher st1" 
-											onClick={ () => switcher(item, className, TODO) }
-											style={ setStyle(item.id) }>1</span> 
-								<span className="switcher st2" 
-											onClick={ () => switcher(item, className, IN_PROGRESS) }
-											style={ setStyle(item.id) }>2</span> 
-								<span className="switcher st3" 
-											onClick={ () => switcher(item, className, DONE) }
-											style={ setStyle(item.id) }>3</span>
-								<button className="edit" 
+								<span className={ classes('switcher st1', 'show', item.id) } 
+											onClick={ () => switcher(item, className, TODO) } >1</span> 
+								<span className={ classes('switcher st2', 'show', item.id) }  
+											onClick={ () => switcher(item, className, IN_PROGRESS) } >2</span> 
+								<span className={ classes('switcher st3', 'show', item.id) }  
+											onClick={ () => switcher(item, className, DONE) } >3</span>
+								<button className={ classes('edit', 'hide', item.id) } 
 												type="button"
-												style={ setStyle(item.id, { display: 'none' }) }
 												onClick={ () => edit(item.id, title, Form) }>
 												edit</button>
 								{	showForm(item.id, item.taskName, item.taskNotes) }

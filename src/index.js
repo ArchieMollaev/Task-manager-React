@@ -11,17 +11,13 @@ import 'styles/main.scss'
 ReactDOM.render(
 	<div id="app-window">
 		<Provider store={ storeData }>
-			<div>
 				<Router>
-						<div>
 							<Switch>
 								<Route exact path="/" component={ LogIn } />
 								<Route exact path="/checkIn" component={ CheckIn } />
 								<Route exact path="/:id" component={ App } />
 							</Switch>
-						</div>
 				</Router>
-	  	</div>
 		</Provider>
 	</div>,
 document.getElementById('root')
