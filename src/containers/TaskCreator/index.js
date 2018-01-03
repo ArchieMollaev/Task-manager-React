@@ -3,27 +3,35 @@ import { connect } from 'react-redux'
 import * as actions from 'actions/Task'
 import Form from 'components/ReduxForm'
 import './style.scss'
-class TaskCreator extends React.Component {
-	addTaskForm = () => (
-		this.props.showForm[this.props.col] &&
+const TaskCreator = (props) => {
+	const {
+		showForm,
+		onSubmit,
+		col,
+		taskCreatorStatus,
+		setEditable
+	} = props;
+
+	const addTaskForm = () => (
+		showForm[col] &&
 			<Form formId="task-form"
 						form="create-task"
-						f1name="taskname"
+						f1name="taskName"
 						f2name="taskNotes"
-						onSubmit={ this.props.onSubmit }
-						secondBtnFunc={ () => this.props.taskCreatorStatus({[this.props.col]: false}) }
-						titlePlaceholder="Task name"
-						notesPlaceholder="Description" />
+						onSubmit={ onSubmit }
+						secondBtnFunc={ () => taskCreatorStatus({[col]: false}) }
+						placeholder1="Task name"
+						placeholder2="Description" />
 	)
-	render = () => (
-		<div id='task-creator' style={ this.props.showForm[this.props.col] ? { marginBottom: '130px' } : {} } >
+	return (
+		<div id='task-creator' style={ showForm[col] ? { marginBottom: '130px' } : {} } >
 			<button className='add-task' 
 							type='button'
-							style={ this.props.showForm[this.props.col] ? { display: 'none' } : {} }
-							onClick={ () => { this.props.taskCreatorStatus({ [this.props.col]: true }); this.props.setEditable() } }>
+							style={ showForm[col] ? { display: 'none' } : {} }
+							onClick={ () => { taskCreatorStatus({ [col]: true }); setEditable() } }>
 				add card...
 			</button>
-			{ this.addTaskForm() }
+			{ addTaskForm() }
 		</div>
 	)
 }

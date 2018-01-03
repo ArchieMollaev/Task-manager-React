@@ -1,42 +1,17 @@
 {
   "toDo": [
     {
-      "taskName": "hello",
-      "taskNotes": "",
-      "id": 5
-    },
-    {
-      "taskName": "asasd",
-      "taskNotes": "asdasdasd",
-      "id": 6
-    },
-    {
-      "taskName": "aaa",
-      "taskNotes": "aaa",
-      "id": 7
-    }
-  ],
-  "inProgress": [],
-  "done": [
-    {
-      "taskName": "gdgggf",
+      "taskName": "xcvxcvxcv",
       "taskNotes": "",
       "id": 1
-    },
-    {
-      "taskName": "dasd",
-      "taskNotes": "asdasd",
-      "id": 2
-    },
-    {
-      "taskName": "dfsdfs",
-      "taskNotes": "sdvsdvsdf",
-      "id": 3
-    },
-    {
-      "taskName": "wecwec",
-      "taskNotes": "wedf",
-      "id": 4
     }
-  ]
+  ],
+  "inProgress": [
+    {
+      "taskName": "xc",
+      "taskNotes": "xcvxcvxcvxcv",
+      "id": 1
+    }
+  ],
+  "done": []
 }

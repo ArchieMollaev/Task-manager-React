@@ -47,17 +47,17 @@ class Column extends React.Component {
 		this.props.removeFunc(id)
 	}
 	
-	showForm = (id, taskName, taskNotes) => (
-		this.props.editable == id + this.props.title &&
+	showForm = (id, taskName, taskNotes) => {
+		return this.props.editable === id + this.props.title &&
 		<Form initialValues={{ taskName, taskNotes }}
-					form="edit-task"
-					f1name="taskname"
+					form={"edit-task"}
+					f1name="taskName"
 					f2name="taskNotes"
 					ref="form" 
-					onSubmit={ (data) => this.props.editFunc({ id, ...data }) }
-					titlePlaceholder="add title..."
-					notesPlaceholder="add description here..."/>
-	)
+					onSubmit={ (data) => data.taskName === '' ? this.remove(id) : this.props.editFunc({ id, ...data }) }
+					placeholder1="add title..."
+					placeholder2="add description here..."/>
+	}
 
 	setStyle = (id, style1, style2) => (
 		this.props.editable == id + this.props.title ? 
@@ -71,7 +71,7 @@ class Column extends React.Component {
 				<ul>
 					{
 					this.props.tasks.map((item, i) => (
-							<li key={ item.id + this.props.className } 
+								<li key={ item.id + this.props.className } 
 									data-id={ item.id }
 									style={ this.setStyle(item.id, { background: 'white' }) }>
 								<Textarea className="title"
@@ -118,7 +118,7 @@ class Column extends React.Component {
 				</ul>
 				{ this.props.insertComponent }
 			</div>
-		)
+	)
 }
 
 const mapStateToProps = (state) => ({

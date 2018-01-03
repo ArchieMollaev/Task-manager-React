@@ -16,41 +16,37 @@ const {
 	IN_PROGRESS,
 	DONE
 } = constants;
-class ToDoList extends React.Component {
-	render = () => (
+
+const list = [TODO, IN_PROGRESS, DONE];
+
+const ToDoList = (props) => {	
+	const { 
+		addTask, 
+		deleteTask, 
+		editTask, 
+		switchStatus, 
+		taskCreatorStatus
+	} = props;
+	
+	const titles = ['To Do', 'In progress', 'Done'];
+	return (
 		<div id="todo-app">
 			<h1>Task manager</h1>
 			<div id="to-do-list-columns">
-				<Column className={ TODO } 
+				{
+					list.map((itemName, i) => (
+						<Column key={ itemName } className={ itemName } 
 								insertComponent={ <TaskCreator onSubmit={ (data) => {
-								this.props.addTask({ data, status: TODO });
-								this.props.taskCreatorStatus() }}
-								col={ TODO } /> }
-								title="To Do" 
-								tasks={ this.props.tasks.toDo }
-								removeFunc={ (id) => this.props.deleteTask({ status: TODO, id }) }
-								editFunc={ (data) => this.props.editTask({ data, status: TODO }) }
-								switchFunc={ (objData) => this.props.switchStatus(objData) } />
-				<Column className={ IN_PROGRESS }
-								insertComponent={ <TaskCreator onSubmit={ (data) => {
-								this.props.addTask({ data, status: IN_PROGRESS });
-								this.props.taskCreatorStatus() }}
-								col={ IN_PROGRESS } /> } 
-								tasks={ this.props.tasks.inProgress } 
-								title="In progress"
-								removeFunc={ (id) => this.props.deleteTask({ status: IN_PROGRESS, id }) }
-								editFunc={ (data) => this.props.editTask({ data, status: IN_PROGRESS })  } 
-								switchFunc={ (objData) => this.props.switchStatus(objData) } />
-				<Column className={ DONE }
-								insertComponent={ <TaskCreator onSubmit={ (data) => {
-								this.props.addTask({ data, status: DONE });
-								this.props.taskCreatorStatus() }}
-								col={ DONE } /> }  
-								tasks={ this.props.tasks.done } 
-								title="Done"
-								removeFunc={ (id) => this.props.deleteTask({ status: DONE, id }) }
-								editFunc={ (data) => this.props.editTask({ data, status: DONE }) }
-								switchFunc={ (objData) => this.props.switchStatus(objData) } />
+								addTask({ data, status: itemName });
+								taskCreatorStatus() }}
+								col={ itemName } /> }
+								title={ titles[i] } 
+								tasks={ props.tasks[itemName] }
+								removeFunc={ (id) => deleteTask({ status: itemName, id }) }
+								editFunc={ (data) => editTask({ data, status: itemName }) }
+								switchFunc={ (objData) => switchStatus(objData) } />
+					))
+				}
 			</div>
 		</div>
 	)

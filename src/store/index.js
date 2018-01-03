@@ -6,9 +6,8 @@ import mySaga from '../sagas'
 const sagaMiddleware = createSagaMiddleware();
 const storeData = createStore(
 	reducers,
-	compose(applyMiddleware(sagaMiddleware),
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()),
-);
+	applyMiddleware(sagaMiddleware),
+)
 
 sagaMiddleware.run(mySaga);
 
