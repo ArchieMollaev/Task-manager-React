@@ -1,28 +1,24 @@
 'use strict';
-module.exports = (sequelize, Sequelize) => {
-  var User = sequelize.define('User', {
+module.exports = (sequelize, DataTypes) => {
+  var UserColumn = sequelize.define('ColumnDep', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    login: {
-      type: Sequelize.STRING
+    userID: {
+      type: Sequelize.INTEGER
     },
-    password: {
-      type: Sequelize.STRING
-    },
-    email: {
-      type: Sequelize.STRING
+    columnID: {
+      type: Sequelize.INTEGER
     }
   }, {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
       }
-    },
-    timestamps: false 
+    }
   });
-  return User;
+  return UserColumn;
 };

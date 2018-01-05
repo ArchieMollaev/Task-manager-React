@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run server\" \"npm run webpack-dev\"",
-    "webpack-dev": "webpack-dev-server",
+    "start": "concurrently --kill-others \"npm run server\" \"npm run dev\"",
+    "dev": "webpack-dev-server",
     "server": "json-server ./src/server/tasks.json -w",
     "build": "webpack"
   },
@@ -21,6 +21,8 @@
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
     "react": "^15.5.4",
+    "react-dnd": "^2.5.4",
+    "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",

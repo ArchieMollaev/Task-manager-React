@@ -51,7 +51,7 @@ function* remove({ id, status }) {
 function* switcher({ id, data, currentStatus, newStatus }) {
   yield call(tasksApi.deleteTask, id, currentStatus);
   yield call(tasksApi.pushTask, newStatus, data);
-  yield put(statusSwitched({ id, data, currentStatus, newStatus }));
+  yield put(statusSwitched({ id, data, currentStatus, newStatus })); 
 }
 
 export default function* tasksSaga() {

@@ -1,11 +1,52 @@
 {
   "toDo": [],
-  "inProgress": [],
+  "inProgress": [
+    {
+      "taskName": "asdasda",
+      "taskNotes": "sdasdasdasd",
+      "id": 1
+    }
+  ],
   "done": [
+    {
+      "taskName": "sdfsdfs",
+      "taskNotes": "sdfsdfsdf",
+      "id": 10
+    },
+    {
+      "taskName": "sdfsd",
+      "taskNotes": "fsdfsdf",
+      "id": 11
+    },
+    {
+      "taskName": "sdfs",
+      "taskNotes": "dfsdfsdf",
+      "id": 12
+    },
+    {
+      "taskName": "asdas",
+      "taskNotes": "dasdasasd",
+      "id": 13
+    },
+    {
+      "taskName": "asdas",
+      "taskNotes": "dasdasd",
+      "id": 14
+    },
+    {
+      "taskName": "asdasd",
+      "taskNotes": "asdasdasd",
+      "id": 15
+    },
     {
       "taskName": "task-manager stable",
       "taskNotes": "version 3.3.0",
-      "id": 7
+      "id": 16
+    },
+    {
+      "taskName": "task-manager stable",
+      "taskNotes": "version 3.3.0",
+      "id": 17
     }
   ]
 }
