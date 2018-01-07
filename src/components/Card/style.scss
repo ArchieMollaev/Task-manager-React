@@ -1,0 +1,189 @@
+li {
+  animation: show_item .5s ease;
+  div {
+    padding: 0 5px;
+    background: white;
+    #editor {
+      animation: show_onEdit .5s ease;
+      height: 190px;
+    }
+    &:hover {
+      background: rgb(241, 241, 241);
+    }
+  }
+  -webkit-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
+  -moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
+  box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
+  &:hover .edit {
+    display: block;
+  }
+  cursor: pointer;
+  max-height: 400px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'century gothic';
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  .edit {
+    display: none;
+    background: none;
+    border: 1px solid rgb(194, 194, 194);
+    color: grey;
+    position: absolute;
+    right: 4px !important;
+    top: 5px;
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    -o-user-select: none; 
+    -webkit-user-select: none;
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      color: grey;
+      border: 1px solid grey;
+    }
+  }
+  .title, .field1 {
+    cursor: pointer;
+    width: 80%;
+    height: auto;
+    display: block;
+    border: none;
+    background: none;
+    font-size: 16px;
+    color: grey;
+    margin: 0;
+    margin-bottom: 10px;
+    resize: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  .field1 {
+    position: relative;
+    height: 60px;
+    background: white;
+    z-index: 2;
+    top: 5px;
+  }
+  label {
+    cursor: pointer;
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    -o-user-select: none; 
+    -webkit-user-select: none;
+    color: white; 
+    background: #a5d65c;
+    font-size: 12px;
+    display: none;
+    width: 40px;
+    height: 16px;
+    text-align: center;
+    border-radius: 3px;
+    line-height: 13px;
+    &:hover {
+      background: #519b3c;
+    }
+    &:hover + .task-des {
+      height: 150px;
+      overflow: hidden;
+      resize: none;
+    }
+  }
+  .fa-pencil {
+    font-size: 12px;
+    color: inherit;
+    display: inline-block;
+  }
+  .task-des, .field2 {
+    cursor: pointer;
+    margin-top: 7px;
+    display: block;
+    background: none;
+    resize: none;
+    border: none;
+    overflow: hidden;
+    color: grey;
+    height: 0px;
+    max-height: 0px;
+    width: 100%;
+    font-size: 14px;
+    &:focus {
+      outline: none;
+    }
+  }
+  .field2 {
+    position: relative;
+    margin: 0;
+    border-top: 1px solid grey;
+    height: 100px;
+    max-height: 100px;
+    z-index: 2;
+    overflow: auto;
+  }
+  .checker {
+    display: none;
+    &:checked + .task-des {
+      cursor: default;
+      height: auto;
+      max-height: 100px;
+      overflow: hidden;
+      animation: show_notes .5s;
+    }
+  }
+  .remove {
+    display: none;
+    text-align: center;
+    border-radius: 0px;
+    border: 1px solid rgb(194, 194, 194);
+    font-size: 14px;
+    height: 19px;
+    line-height: 19px;
+    width: 25px;
+    background: none;
+    color: grey;
+    position: absolute;
+    right: 4px;
+    top: 5px;
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    -o-user-select: none; 
+    -webkit-user-select: none;
+    cursor: pointer;
+    &:hover {
+      color: grey;
+      border: 1px solid grey;
+    }
+  }
+}
+
+.item-style {
+	background: white !important;
+}
+
+.show {
+	display: block !important;
+}
+
+.hide {
+	display: none !important;
+}
+
+.drop-target {
+	transform: scale(0.95);
+}
+
+
+@keyframes show_onEdit {
+	from {height: 40px;}
+}
+
+@keyframes show_notes {
+	from {max-height: 0;}
+}
+
+@keyframes show_item {
+	from {transform: scaleY(0);}
+}

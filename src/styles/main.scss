@@ -1,24 +1,32 @@
 body {
 	margin: 0;
-	padding: 10px;
-	overflow-y: scroll;
-	background: url(/src/styles/images/bridge.jpg);
+	padding: 0;
+	background-color: black;
+	background-image: url(/src/styles/images/Naturaleza.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
+	min-height: 100px;
+	max-height: 100vh;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 #to-do-list-columns {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
+	display: inline-flex;
 	-webkit-box-align: start;
 	    -ms-flex-align: start;
 	        align-items: flex-start;
-	margin: 0 auto;
+	padding-bottom: 20px;
+	align-content: flex-start;
 }
 #todo-app {
-	width: 80%;
 	margin: 0 auto;
+	min-height: 0;
+	max-height: 90vh;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 20px;
 	h1 {
 		font-family: 'prosto sans';
 		color: white;
@@ -26,4 +34,8 @@ body {
 	}
 }
 
-
+.x-panel-ghost {
+	opacity:1.0;
+	-moz-opacity:1.0;
+	filter:alpha(opacity=100);
+}

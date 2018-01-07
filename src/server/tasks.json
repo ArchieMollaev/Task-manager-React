@@ -1,52 +1,11 @@
 {
   "toDo": [],
-  "inProgress": [
-    {
-      "taskName": "asdasda",
-      "taskNotes": "sdasdasdasd",
-      "id": 1
-    }
-  ],
+  "inProgress": [],
   "done": [
     {
-      "taskName": "sdfsdfs",
-      "taskNotes": "sdfsdfsdf",
-      "id": 10
-    },
-    {
-      "taskName": "sdfsd",
-      "taskNotes": "fsdfsdf",
-      "id": 11
-    },
-    {
-      "taskName": "sdfs",
-      "taskNotes": "dfsdfsdf",
-      "id": 12
-    },
-    {
-      "taskName": "asdas",
-      "taskNotes": "dasdasasd",
-      "id": 13
-    },
-    {
-      "taskName": "asdas",
-      "taskNotes": "dasdasd",
-      "id": 14
-    },
-    {
-      "taskName": "asdasd",
-      "taskNotes": "asdasdasd",
-      "id": 15
-    },
-    {
-      "taskName": "task-manager stable",
-      "taskNotes": "version 3.3.0",
-      "id": 16
-    },
-    {
-      "taskName": "task-manager stable",
-      "taskNotes": "version 3.3.0",
-      "id": 17
+      "taskName": "task-manger with react-dnd\n",
+      "taskNotes": "version 4.0.0\nnot yet fixed bugs: \n--low dnd perfomance\n",
+      "id": 1
     }
   ]
 }

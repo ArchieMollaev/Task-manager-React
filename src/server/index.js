@@ -2,6 +2,7 @@
 
 import Koa from 'koa'
 import Sequelize from 'sequelize'
+import path from 'path'
 // import Users from './models/user'
 // import { models } from './models'
 
@@ -12,9 +13,9 @@ const connectDB = new Sequelize('task_manager', 'root', 'root', {
   host: '192.168.99.100',
   port: 3306,
   dialect: 'mysql',
-  modelPath: [
-    __dirname + 'server/models'
-  ],
+  // modelPaths: [
+  //   path.normalize(__dirname + '/models')
+  // ],
   pool: {
     max: 5,
     min: 0,
@@ -23,6 +24,7 @@ const connectDB = new Sequelize('task_manager', 'root', 'root', {
   }
 });
 
+console.log(path.normalize(__dirname + '/models'))
 connectDB.sync({force: true})
   // .then(() => (
   //   Users.create({

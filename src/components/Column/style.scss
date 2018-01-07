@@ -1,10 +1,13 @@
 
 .toDo, .inProgress, .done {
-	background: #e2e2e2;
+	display: block;
+	background: #dfdfdf;
 	position: relative;
-	width: 33%;
-	margin: 5px;
-	padding: 10px;
+	transition: all 0.7s ease;
+	width: 350px;
+	margin: 10px;
+	min-height: 0;
+	max-height: 100%;
 	border-radius: 3px; 
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
@@ -15,266 +18,57 @@
 	h2 {
 		cursor: default;
 		font-family: 'prosto sans';
-		font-size: 13px;
+		font-size: 12px;
 		color: rgb(87, 87, 87);
 		display: inline-block;
-		margin-right: 10px;
+		margin: 10px 10px;
 	}
-	span {
+	.badge {
 		cursor: default;
 		display: inline-block;
-		width: 20px;
-		height: 20px;
+		width: 15px;
+		height: 15px;
 		text-align: center;
 		font-family: 'calibri';
-		font-size: 15px;
-		line-height: 20px;
-		border-radius: 3px;
+		font-size: 12px;
+		line-height: 15px;
+		border-radius: 1px;
 		background: grey;
 		color: white;
 	}
-}
-ul {
-	position: relative;
-	list-style: none;
-	padding: 0;
-	max-height: 70vh;
-	overflow: auto;
-	li {
-		animation: show_item .5s ease;
-		&:hover {
-			background: #efefef;
-		}
-		&:hover .edit,
-		&:hover .switcher {
-			display: block;
-		}
-		-webkit-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
-		-moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
-		box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.07);
-		cursor: pointer;
-
-		max-height: 400px;
+	ul {
 		position: relative;
-		overflow: hidden;
-		background: white;
-		font-family: 'century gothic';
-		padding: 5px 10px;
-		margin: 5px 0;
-		border: 1px solid #ddd;
-		.edit {
-			display: none;
-			background: none;
-			border: 1px solid rgb(194, 194, 194);
-			color: grey;
-			position: absolute;
-			right: 4px;
-			top: 5px;
-			-moz-user-select: none; 
-			-ms-user-select: none; 
-			-o-user-select: none; 
-			-webkit-user-select: none;
-			cursor: pointer;
-			&:focus {
-				outline: none;
-			}
-			&:hover {
+		list-style: none;
+		margin: 0 10px;
+		padding: 10px 0;
+		min-height: 0;
+		max-height: 70vh;
+		overflow: auto;
+		div {
+			button {
+				background: none;
+				border: 1px solid rgb(194, 194, 194);
 				color: grey;
-				border: 1px solid grey;
+				position: absolute;
+				right: 34px;
+				top: 5px;
+				-moz-user-select: none; 
+				-ms-user-select: none; 
+				-o-user-select: none; 
+				-webkit-user-select: none;
+				cursor: pointer;
+				&:focus {
+					outline: none;
+				}
+				&:hover {
+					color: grey;
+					border: 1px solid grey;
+				}
 			}
-		}
-		.title, .field1 {
-			cursor: pointer;
-			width: 80%;
-			height: auto;
-			display: block;
-			border: none;
-			background: none;
-			font-size: 16px;
-			color: grey;
-			margin: 0;
-			margin-bottom: 10px;
-			resize: none;
-			&:focus {
-				outline: none;
-			}
-		}
-		.field1 {
-			position: relative;
-			height: 60px;
-			background: white;
-			z-index: 2;
-			top: 5px;
-		}
-		label {
-			cursor: pointer;
-			-moz-user-select: none; 
-			-ms-user-select: none; 
-			-o-user-select: none; 
-			-webkit-user-select: none;
-			color: white; 
-			background: #a5d65c;
-			font-size: 12px;
-			display: none;
-			width: 40px;
-			height: 16px;
-			text-align: center;
-			border-radius: 3px;
-			line-height: 13px;
-			&:hover {
-				background: #519b3c;
-			}
-			&:hover + .task-des {
-				height: 150px;
-				overflow: hidden;
-				resize: none;
-			}
-		}
-		.fa-pencil {
-			font-size: 12px;
-			color: inherit;
-			display: inline-block;
-		}
-		.task-des, .field2 {
-			cursor: pointer;
-			margin-top: 7px;
-			display: block;
-			background: none;
-			resize: none;
-			border: none;
-			overflow: hidden;
-			color: grey;
-			height: 0px;
-			max-height: 0px;
-			width: 100%;
-			font-size: 14px;
-			&:focus {
-				outline: none;
-			}
-		}
-		.field2 {
-			position: relative;
-			margin: 0;
-			border-top: 1px solid grey;
-			height: 100px;
-			max-height: 100px;
-			z-index: 2;
-			overflow: auto;
-		}
-		.checker {
-			display: none;
-			&:checked + .task-des {
-				cursor: default;
-				height: auto;
-				max-height: 100px;
-				overflow: hidden;
-				animation: show_notes .5s;
-			}
-		}
-		.remove {
-			display: none;
-			border-radius: 0px;
-			border: 1px solid rgb(194, 194, 194);
-			font-size: 14px;
-			height: 19px;
-			line-height: 19px;
-			width: 25px;
-			background: none;
-			color: grey;
-			position: absolute;
-			right: 4px;
-			top: 5px;
-			-moz-user-select: none; 
-			-ms-user-select: none; 
-			-o-user-select: none; 
-			-webkit-user-select: none;
-			cursor: pointer;
-			&:hover {
-				color: grey;
-				border: 1px solid grey;
-			}
-		}
-		.switcher {
-			display: none;
-			position: absolute;
-			font-size: 11px;
-			top: 30px;
-			right: 0;
-			color: white;
-			width: 13px;
-			height: 13px;
-			line-height: 12px;
-			border-radius: 0%;	
-			background: rgb(192, 191, 191);
-			transition: all 0.5s ease;
-			cursor: pointer;
-			&:hover {
-				border-radius: 50%;
-				background: grey;
-			}
-		}
-		.st3 {
-			right: 4px;
-		}
-		.st2 {
-			right: 20px;
-		}
-		.st1 {
-			right: 36px;
-		}
-	}
-	div {
-		button {
-			background: none;
-			border: 1px solid rgb(194, 194, 194);
-			color: grey;
-			position: absolute;
-			right: 34px;
-			top: 5px;
-			-moz-user-select: none; 
-			-ms-user-select: none; 
-			-o-user-select: none; 
-			-webkit-user-select: none;
-			cursor: pointer;
-			&:focus {
-				outline: none;
-			}
-			&:hover {
-				color: grey;
-				border: 1px solid grey;
-			}
-		}
-		button:nth-child(2) {
-			display: none;
+			button:nth-child(2) {
+				display: none;
+			}	
 		}	
 	}
 }
 
-.item-style {
-	background: white !important;
-}
-
-.show {
-	display: block !important;
-}
-
-.hide {
-	display: none !important;
-}
-
-#editor {
-	animation: show_onEdit .5s;
-	height: 190px;
-}
-
-@keyframes show_onEdit {
-	from {height: 40px;}
-}
-
-@keyframes show_notes {
-	from {max-height: 0;}
-}
-
-@keyframes show_item {
-	from {transform: scaleY(0);}
-}

@@ -7,8 +7,9 @@
 		width: 100%;
 		color: grey;
 		border: none;
+		background: #dfdfdf;
 		border-radius: 3px;
-		padding: 5px;
+		padding: 3px 10px;
 		font-family: 'calibri';
 		-webkit-transition: all 0.2s ease;
 		transition: all 0.2s ease;
@@ -18,7 +19,7 @@
 		    display: table;
 		};
 		&:hover {
-			background:#d3d3d3;
+			background:#c4c4c4;
 			color: #444;
 			text-decoration: underline;
 		}
@@ -31,10 +32,11 @@
 }
 
 #task-form {
+	padding: 10px;
 	-webkit-animation: show_taskForm .5s ease;
 	        animation: show_taskForm .5s ease;
-	position: absolute;
 	width: 100%;
+	box-sizing: border-box;
 	border-top: none;
 	textarea {
 		width: 100%;
@@ -44,14 +46,16 @@
 		border: none;
 		padding: 5px;
 		resize: none;
-		border-top: 1px solid grey;
+		border-top: none;
 		&:focus {
 			outline: none;
 		}
 	}
 	.field2 {
-		height: 80px;
+		border-top: 1px solid #ddd;
+		height: 100%;
 		margin-top: -5px;
+		height: 70px;
 	}
 	button {
 		border: none;
@@ -74,7 +78,8 @@
 		}
 	}
 	.second-btn {
-		font-size: 25px;
+		background: none;
+		font-size: 22px;
 		color: grey;
 		line-height: 25px;
 		&:hover {
@@ -90,7 +95,7 @@
 }
 
 .spread-task-creator {
-	margin-bottom: 130px;
+	margin-bottom: 140px;
 }
 
 .hide {
