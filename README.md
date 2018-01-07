@@ -6,7 +6,7 @@
 
 npm install
 
-#1. RUN JSON-SERVER && APP DEV-SERVER:
+#2. RUN APP :
 
 npm start
 
