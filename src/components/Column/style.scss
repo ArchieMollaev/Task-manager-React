@@ -1,5 +1,4 @@
-
-.toDo, .inProgress, .done {
+.task-column {
 	display: block;
 	background: #dfdfdf;
 	position: relative;
@@ -17,7 +16,7 @@
 	}
 	h2 {
 		cursor: default;
-		font-family: 'prosto sans';
+		font-family: montserrat;
 		font-size: 12px;
 		color: rgb(87, 87, 87);
 		display: inline-block;
@@ -29,7 +28,7 @@
 		width: 15px;
 		height: 15px;
 		text-align: center;
-		font-family: 'calibri';
+		font-family: montserrat;
 		font-size: 12px;
 		line-height: 15px;
 		border-radius: 1px;

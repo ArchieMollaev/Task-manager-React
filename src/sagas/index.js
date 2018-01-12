@@ -5,28 +5,22 @@ import * as actions from 'actions/Task';
 
 const {
   LOAD_TASKS,
-  TASKS_LOADED,
   PUSH_TASK,
-  TASK_PUSHED,
   EDIT_TASK,
-  TASK_EDITED,
   DELETE_TASK,
-  TASK_DELETED,
   SWITCH_STATUS,
-  STATUS_SWITCHED
 } = constants;
 
-const { getTasksList,
-        listLoaded,
-        addTask,
-        taskAded, 
-        deleteTask,
-        taskDeleted,
-        editTask,
-        taskEdited,
-        switchStatus,
-        statusSwitched
- } = actions;
+const {
+  getTasksList,
+  listLoaded,
+  taskAded,
+  taskDeleted,
+  taskEdited,
+  statusSwitched,
+} = actions;
+
+const noSpace = target => target.replace(' ', '');
 
 function* load() {
   const data = yield call(tasksApi.getAllTasks);
@@ -35,24 +29,29 @@ function* load() {
 
 function* push({ status, data }) {
   yield put(taskAded({ data, status }));
-  yield call(tasksApi.pushTask, status, data);
+  yield call(tasksApi.pushTask, noSpace(status), data);
 }
 
 function* update({ data, status }) {
   yield put(taskEdited({ data, status }));
-  yield call(tasksApi.editTask, data.id, status, data);
+  yield call(tasksApi.editTask, data.id, noSpace(status), data);
 }
 
 function* remove({ id, status }) {
   yield put(taskDeleted({ id, status }));
-  yield call(tasksApi.deleteTask, id, status);
+  yield call(tasksApi.deleteTask, id, noSpace(status));
 }
 
 function* switcher({ id, data, currentStatus, newStatus }) {
   yield put(statusSwitched({ id, data, currentStatus, newStatus }));
-  yield call(tasksApi.deleteTask, id, currentStatus);
-  yield call(tasksApi.pushTask, newStatus, data);
+  yield call(tasksApi.deleteTask, id, noSpace(currentStatus));
+  yield call(tasksApi.pushTask, noSpace(newStatus), data);
 }
+
+// function* addNewColumn(data) {
+//   // yield put(taskDeleted({ id, status }));
+//   yield call(tasksApi.addNewColumn, data);
+// }
 
 export default function* tasksSaga() {
   yield [
@@ -60,7 +59,7 @@ export default function* tasksSaga() {
     takeEvery(PUSH_TASK, push),
     takeEvery(DELETE_TASK, remove),
     takeEvery(EDIT_TASK, update),
-    takeEvery(SWITCH_STATUS, switcher)
+    takeEvery(SWITCH_STATUS, switcher),
   ];
   yield put(getTasksList({}));
 }

@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.582); 
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -28,7 +38,7 @@ body {
 	align-items: flex-start;
 	padding: 20px;
 	h1 {
-		font-family: 'prosto sans';
+		font-family: montserrat;
 		color: white;
 		font-size: 16px;
 	}

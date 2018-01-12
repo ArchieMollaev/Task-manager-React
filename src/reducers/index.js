@@ -1,12 +1,12 @@
-import { combineReducers } from 'redux'
-import { getList, editable, taskCreatorStatus } from './tasks'
-import { reducer as reduxFormReducer } from 'redux-form'
+import { combineReducers } from 'redux';
+import { reducer as reduxFormReducer } from 'redux-form';
+import { getList, editable, taskCreatorStatus } from './tasks';
 
 const reducers = combineReducers({
-	getList,
-	editable,
-	taskCreatorStatus,
-	form: reduxFormReducer
-})
+  getList,
+  editable,
+  taskCreatorStatus,
+  form: reduxFormReducer,
+});
 
-export default reducers
+export default reducers;

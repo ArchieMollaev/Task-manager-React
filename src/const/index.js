@@ -10,7 +10,8 @@ export const SWITCH_STATUS = 'SWITCH_STATUS';
 export const STATUS_SWITCHED = 'STATUS_SWITCHED';
 export const SET_EDITABLE = 'SET_EDITABLE';
 export const TASK_CREATOR_STATUS = 'TASK_CREATOR_STATUS';
-export const TODO = 'toDo';
-export const IN_PROGRESS = 'inProgress';
-export const DONE = 'done';
+export const ADD_COLUMN = 'ADD_COLUMN';
+// export const TODO = 'toDo';
+// export const IN_PROGRESS = 'inProgress';
+// export const DONE = 'done';
 

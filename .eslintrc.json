@@ -1,0 +1,29 @@
+{
+    "extends": [
+      "plugin:flowtype/recommended",
+      "airbnb"
+    ],
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+    },
+    "plugins": [
+      "flowtype",
+      "react",
+      "jsx-a11y",
+      "import"
+    ],
+    "rules": {
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "linebreak-style": ["error", "windows"],
+      "no-param-reassign": 0
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": ["src"]
+        }
+      }
+    }
+}

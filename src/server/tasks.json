@@ -1,11 +1,57 @@
 {
-  "toDo": [],
-  "inProgress": [],
-  "done": [
+  "ToDo": [
     {
-      "taskName": "task-manger with react-dnd\n",
-      "taskNotes": "version 4.0.0\nnot yet fixed bugs: \n--low dnd perfomance\n",
+      "taskName": "sdasd",
+      "taskNotes": "asdasdasd",
+      "id": 2
+    },
+    {
+      "taskName": "asda",
+      "taskNotes": "sdasd",
+      "id": 3
+    },
+    {
+      "taskName": "klkj",
+      "id": 5
+    }
+  ],
+  "InProgress": [
+    {
+      "taskName": "asd",
+      "taskNotes": "asdasd",
       "id": 1
+    },
+    {
+      "taskName": "as",
+      "taskNotes": "dasda",
+      "id": 2
+    },
+    {
+      "taskNotes": "asdasa",
+      "taskName": "sdasdasdas",
+      "id": 3
+    }
+  ],
+  "Done": [
+    {
+      "taskName": "asd",
+      "taskNotes": "asdasd",
+      "id": 6
+    },
+    {
+      "taskName": "m.",
+      "taskNotes": "kjklmlk",
+      "id": 7
+    },
+    {
+      "taskName": "asdasd",
+      "taskNotes": "asd",
+      "id": 8
+    },
+    {
+      "taskName": "sasd",
+      "taskNotes": "asdasd",
+      "id": 9
     }
   ]
 }

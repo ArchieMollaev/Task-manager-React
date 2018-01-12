@@ -1,4 +1,5 @@
-import * as constants from 'const'
+import * as constants from 'const';
+
 const {
   TASKS_LOADED,
   TASK_PUSHED,
@@ -6,71 +7,76 @@ const {
   TASK_DELETED,
   STATUS_SWITCHED,
   SET_EDITABLE,
-  TASK_CREATOR_STATUS
+  TASK_CREATOR_STATUS,
 } = constants;
 
-const initialState = { toDo: [], inProgress: [], done: [] };
-
-export const getList = (state = initialState, action) => {
-  let update, category;
+export const getList = (state = {}, action) => {
+  let update;
+  let category;
   switch (action.type) {
     case TASKS_LOADED:
-      return {...state, ...action.data}
+      return { ...state, ...action.data };
     case TASK_PUSHED:
-      update = {...state};
-      category = update[ action.status ];
+    {
+      update = { ...state };
+      category = update[action.status];
       category.push({
-        ...action.data, 
-        id: category.length == 0 ? 1 : category[ category.length - 1 ].id + 1
-      })
+        ...action.data,
+        id: category.length === 0 ? 1 : category[category.length - 1].id + 1,
+      });
       return update;
-    case TASK_DELETED:
-      update = {...state};
-      update[ action.status ] = 
-      state[ action.status ].filter(item => item.id != action.id);
+    }
+    case TASK_DELETED: {
+      update = { ...state };
+      update[action.status] =
+      state[action.status].filter(item => item.id !== action.id);
       return update;
+    }
     case STATUS_SWITCHED:
-      update = {...state};
-      category = update[ action.currentStatus ];
-      let newCategory = update[ action.newStatus ];
+    {
+      update = { ...state };
+      category = update[action.currentStatus];
+      const newCategory = update[action.newStatus];
       category.forEach((item, i, arr) => {
-        item.id == action.id ? arr.splice(i, 1) : null;
-      })
+        if (item.id === action.id) arr.splice(i, 1);
+      });
       newCategory.push({
-        ...action.data, 
-        id: newCategory.length == 0 ? 1 : newCategory[ newCategory.length - 1 ].id + 1
-      })
+        ...action.data,
+        id: newCategory.length === 0 ? 1 : newCategory[newCategory.length - 1].id + 1,
+      });
       return update;
-     case TASK_EDITED:  
-      update = {...state};
-      category = update[ action.status ];
+    }
+    case TASK_EDITED: 
+    {
+      update = { ...state };
+      category = update[action.status];
       category.forEach((item, i, arr) => {
-        item.id == action.data.id ? 
-        arr[i] = action.data : null;
-      })
+        if (item.id === action.data.id) arr[i] = action.data;
+      });
       return update;
+    }
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const editable = (state = 0, action) => {
   switch (action.type) {
-    case SET_EDITABLE: 
-      return action.id || {...state}
+    case SET_EDITABLE:
+      return action.id || { ...state };
     default:
-      return state
+      return state;
   }
-}
+};
 
-const initialStateTaskCreator = { toDo: false, inProgress: false, done: false };
-
-export const taskCreatorStatus = (state = initialStateTaskCreator, action) => {
+export const taskCreatorStatus = (state = {}, action) => {
   switch (action.type) {
     case TASK_CREATOR_STATUS:
-      return action.data && { ...initialStateTaskCreator, ...action.data } || initialStateTaskCreator
+    {
+      return action.data || {};
+    }
     default:
-      return state
+      return state;
   }
-}
+};
 

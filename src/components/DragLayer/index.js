@@ -1,5 +1,5 @@
-import React from 'react'
-import { DragLayer } from 'react-dnd'
+import React from 'react';
+import { DragLayer } from 'react-dnd';
 
 
 const layerStyles = {
@@ -8,24 +8,24 @@ const layerStyles = {
   zIndex: 10,
   left: 0,
   top: 0,
-  transform: 'rotate(3deg)'
+  transform: 'rotate(3deg)',
 };
 
 function getItemStyles(props) {
   const { currentOffset } = props;
   if (!currentOffset) {
     return {
-      display: 'none'
+      display: 'none',
     };
   }
 
   const { x, y } = currentOffset;
   const transform = `translate(${x}px, ${y}px)`;
   return {
-    transform: transform,
+    transform,
     WebkitTransform: transform,
-    background: 'grey', 
-    width: '300px',  
+    background: 'grey',
+    width: '300px',
     color: 'white',
     opacity: '0.9',
     padding: '10px 15px',
@@ -33,7 +33,7 @@ function getItemStyles(props) {
     wordWrap: 'break-word',
     WebkitBoxShadow: '0px 2px 1px 1px rgba(0,0,0,0.07)',
 	  MozBoxShadow: '0px 2px 1px 1px rgba(0,0,0,0.07)',
-    boxShadow: '0px 2px 1px 1px rgba(0,0,0,0.07)'
+    boxShadow: '0px 2px 1px 1px rgba(0,0,0,0.07)',
   };
 }
 
@@ -51,8 +51,8 @@ class CardPreview extends React.Component {
     }
 
     return (
-      <div style={ layerStyles }>
-        <div style={ getItemStyles(this.props) }>
+      <div style={layerStyles}>
+        <div style={getItemStyles(this.props)}>
           { this.renderItem(this.props) }
         </div>
       </div>
@@ -65,7 +65,7 @@ function collect(monitor) {
     item: monitor.getItem(),
     itemType: monitor.getItemType(),
     currentOffset: monitor.getSourceClientOffset(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   };
 }
 
