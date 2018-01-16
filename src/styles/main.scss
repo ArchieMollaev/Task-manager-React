@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 ::-webkit-scrollbar {
-  width: 5px;
+	width: 5px;
 }
  
 ::-webkit-scrollbar-thumb {
-  background: rgba(150, 150, 150, 0.582); 
+	background: rgba(150, 150, 150, 0.582);
+	border-radius: 5px;
 }
 
 body {
@@ -17,35 +18,18 @@ body {
 	background-repeat: no-repeat;
 	min-height: 100px;
 	max-height: 100vh;
-	overflow-x: auto;
-	overflow-y: hidden;
+	overflow: hidden;
 }
 
 #to-do-list-columns {
 	display: inline-flex;
+	justify-content: space-between;
 	-webkit-box-align: start;
 	    -ms-flex-align: start;
 	        align-items: flex-start;
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 	align-content: flex-start;
 }
-#todo-app {
-	margin: 0 auto;
-	min-height: 0;
-	max-height: 90vh;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	padding: 20px;
-	h1 {
-		font-family: montserrat;
-		color: white;
-		font-size: 16px;
-	}
-}
 
-.x-panel-ghost {
-	opacity:1.0;
-	-moz-opacity:1.0;
-	filter:alpha(opacity=100);
-}
+
+

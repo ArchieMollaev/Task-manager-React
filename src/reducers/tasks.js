@@ -8,6 +8,8 @@ const {
   STATUS_SWITCHED,
   SET_EDITABLE,
   TASK_CREATOR_STATUS,
+  COLUMN_ADDED,
+  COLUMN_REMOVED,
 } = constants;
 
 export const getList = (state = {}, action) => {
@@ -20,10 +22,7 @@ export const getList = (state = {}, action) => {
     {
       update = { ...state };
       category = update[action.status];
-      category.push({
-        ...action.data,
-        id: category.length === 0 ? 1 : category[category.length - 1].id + 1,
-      });
+      category.push(action.data);
       return update;
     }
     case TASK_DELETED: {
@@ -34,19 +33,17 @@ export const getList = (state = {}, action) => {
     }
     case STATUS_SWITCHED:
     {
+      const {
+        data, currentStatus, newStatus, position,
+      } = action.data;
       update = { ...state };
-      category = update[action.currentStatus];
-      const newCategory = update[action.newStatus];
-      category.forEach((item, i, arr) => {
-        if (item.id === action.id) arr.splice(i, 1);
-      });
-      newCategory.push({
-        ...action.data,
-        id: newCategory.length === 0 ? 1 : newCategory[newCategory.length - 1].id + 1,
-      });
-      return update;
+      update[currentStatus] = update[currentStatus].filter(item => item.id !== data.id);
+      if (currentStatus === newStatus) {
+        update[currentStatus].splice(position, 0, data);
+      } else update[newStatus].splice(position, 0, data);
+      return { ...state, ...update };
     }
-    case TASK_EDITED: 
+    case TASK_EDITED:
     {
       update = { ...state };
       category = update[action.status];
@@ -55,15 +52,27 @@ export const getList = (state = {}, action) => {
       });
       return update;
     }
+    case COLUMN_ADDED:
+    {
+      let newEntry = action.data.name;
+      Object.keys(state).forEach((x) => { if (x === newEntry) newEntry += '(duplicate)'; });
+      return { ...state, [newEntry]: [] };
+    }
+    case COLUMN_REMOVED:
+    {
+      const newDate = { ...state };
+      delete newDate[action.data.name];
+      return newDate;
+    }
     default:
       return state;
   }
 };
 
-export const editable = (state = 0, action) => {
+export const editable = (state = '', action) => {
   switch (action.type) {
     case SET_EDITABLE:
-      return action.id || { ...state };
+      return action.id || '';
     default:
       return state;
   }
@@ -74,6 +83,17 @@ export const taskCreatorStatus = (state = {}, action) => {
     case TASK_CREATOR_STATUS:
     {
       return action.data || {};
+    }
+    default:
+      return state;
+  }
+};
+
+export const hoverInjector = (state = '', action) => {
+  switch (action.type) {
+    case 'HOVER_ELEMENT':
+    {
+      return action.data;
     }
     default:
       return state;

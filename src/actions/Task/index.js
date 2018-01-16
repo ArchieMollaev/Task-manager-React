@@ -14,6 +14,9 @@ const {
   SET_EDITABLE,
   TASK_CREATOR_STATUS,
   ADD_COLUMN,
+  COLUMN_ADDED,
+  REMOVE_COLUMN,
+  COLUMN_REMOVED,
 } = constants;
 
 export const getTasksList = ({ data }) => ({
@@ -28,8 +31,10 @@ export const addTask = ({ data, status }) => ({
   type: PUSH_TASK, data, status,
 });
 
-export const taskAded = ({ data, status }) => ({
-  type: TASK_PUSHED, data, status,
+export const taskPushed = ({ taskData, status }) => ({
+  type: TASK_PUSHED, 
+  data: taskData, 
+  status,
 });
 
 export const editTask = ({ data, status }) => ({
@@ -48,12 +53,12 @@ export const taskDeleted = ({ status, id }) => ({
   type: TASK_DELETED, status, id,
 });
 
-export const switchStatus = ({ data, id, currentStatus, newStatus }) => ({
-  type: SWITCH_STATUS, id, data, currentStatus, newStatus,
+export const switchStatus = data => ({
+  type: SWITCH_STATUS, data,
 });
 
-export const statusSwitched = ({ data, id, currentStatus, newStatus }) => ({
-  type: STATUS_SWITCHED, id, data, currentStatus, newStatus,
+export const statusSwitched = data => ({
+  type: STATUS_SWITCHED, data,
 });
 
 export const setEditable = id => ({
@@ -67,3 +72,20 @@ export const taskCreatorStatus = data => ({
 export const addColumn = data => ({
   type: ADD_COLUMN, data,
 });
+
+export const columnAdded = data => ({
+  type: COLUMN_ADDED, data,
+});
+
+export const removeColumn = data => ({
+  type: REMOVE_COLUMN, data,
+});
+
+export const columnRemoved = data => ({
+  type: COLUMN_REMOVED, data,
+});
+
+export const hoverInjector = data => ({
+  type: 'HOVER_ELEMENT', data,
+});
+

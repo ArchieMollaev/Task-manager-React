@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from 'actions/Task';
 import Form from 'components/ReduxForm';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import './style.scss';
 
 const TaskCreator = (props) => {
@@ -25,7 +26,7 @@ const TaskCreator = (props) => {
       secondBtnFunc={() => taskCreatorStatus({ [column]: false })}
       placeholder1="Task name"
       placeholder2="Description"
-    />
+      />
   );
 
   return (
@@ -39,6 +40,14 @@ const TaskCreator = (props) => {
       { addTaskForm() }
     </div>
   );
+};
+
+TaskCreator.propTypes = {
+  showForm: PropTypes.objectOf(PropTypes.bool).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  column: PropTypes.string.isRequired,
+  taskCreatorStatus: PropTypes.func.isRequired,
+  setEditable: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

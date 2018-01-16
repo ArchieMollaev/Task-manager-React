@@ -1,6 +1,6 @@
 import React from 'react';
 import { DragLayer } from 'react-dnd';
-
+import './style.scss';
 
 const layerStyles = {
   position: 'fixed',
@@ -11,62 +11,49 @@ const layerStyles = {
   transform: 'rotate(3deg)',
 };
 
-function getItemStyles(props) {
+const getItemStyles = (props) => {
   const { currentOffset } = props;
-  if (!currentOffset) {
-    return {
-      display: 'none',
-    };
-  }
-
+  if (!currentOffset) { return { display: 'none' }; }
   const { x, y } = currentOffset;
   const transform = `translate(${x}px, ${y}px)`;
   return {
     transform,
     WebkitTransform: transform,
-    background: 'grey',
+    background: 'white',
     width: '300px',
-    color: 'white',
-    opacity: '0.9',
+    color: 'grey',
+    borderRadius: '4px',
     padding: '10px 15px',
     fontFamily: 'calibri',
     wordWrap: 'break-word',
-    WebkitBoxShadow: '0px 2px 1px 1px rgba(0,0,0,0.07)',
-	  MozBoxShadow: '0px 2px 1px 1px rgba(0,0,0,0.07)',
-    boxShadow: '0px 2px 1px 1px rgba(0,0,0,0.07)',
+    border: '1px solid #ddd',
+    WebkitBoxShadow: '0px 2px 14px 1px rgba(0,0,0,0.24)',
+	  MozBoxShadow: '0px 2px 14px 1px rgba(0,0,0,0.24)',
+    boxShadow: '0px 2px 14px 1px rgba(0,0,0,0.24)',
   };
-}
+};
 
-class CardPreview extends React.Component {
-  renderItem(props) {
-    return (
-      <div>{ props.item.data.taskName }</div>
-    );
-  }
+const CardPreview = (props) => {
+  const { item } = props;
+  const renderItem = () => (
+    <div className="drag-layer">{ item.data.taskName }<i className="fa fa-pencil" aria-hidden="true" /></div>
+  );
 
-  render() {
-    const { isDragging } = this.props;
-    if (!isDragging) {
-      return null;
-    }
+  const { isDragging } = props;
 
-    return (
-      <div style={layerStyles}>
-        <div style={getItemStyles(this.props)}>
-          { this.renderItem(this.props) }
-        </div>
-      </div>
-    );
-  }
-}
+  return isDragging &&
+  <div className="drag-layer" style={layerStyles}>
+    <div style={getItemStyles(props)}>
+      { renderItem(props) }
+    </div>
+  </div>;
+};
 
-function collect(monitor) {
-  return {
-    item: monitor.getItem(),
-    itemType: monitor.getItemType(),
-    currentOffset: monitor.getSourceClientOffset(),
-    isDragging: monitor.isDragging(),
-  };
-}
+const collect = monitor => ({
+  item: monitor.getItem(),
+  itemType: monitor.getItemType(),
+  currentOffset: monitor.getSourceClientOffset(),
+  isDragging: monitor.isDragging(),
+});
 
 export default DragLayer(collect)(CardPreview);

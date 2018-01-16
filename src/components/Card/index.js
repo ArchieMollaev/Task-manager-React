@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Form from 'components/ReduxForm';
-import { submit } from 'redux-form';
 import Textarea from 'react-textarea-autosize';
 import { DragSource } from 'react-dnd';
-import DragPreview from 'components/DragLayer';
 import * as actions from 'actions/Task';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import PropTypes from 'prop-types';
 import './style.scss';
 
 const Types = {
@@ -23,12 +22,11 @@ const cardSource = {
       titleValue,
       notesValue,
       status,
-      connectDragPreview,
     } = props;
 
     return {
-      id: dataID,
       data: {
+        id: dataID,
         taskName: titleValue,
         taskNotes: notesValue,
       },
@@ -37,21 +35,20 @@ const cardSource = {
   },
 };
 
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
-    isDragging: monitor.isDragging(),
-    canDrag: monitor.canDrag(),
-  };
-}
+const collect = (connector, monitor) => ({
+  connectDragSource: connector.dragSource(),
+  connectDragPreview: connector.dragPreview(),
+  isDragging: monitor.isDragging(),
+  canDrag: monitor.canDrag(),
+});
 
 class Card extends React.Component {
   componentDidMount = () => {
-    this.props.connectDragPreview &&
-    this.props.connectDragPreview(getEmptyImage(), {
-      captureDraggingState: false,
-    });
+    if (this.props.connectDragPreview) {
+      this.props.connectDragPreview(getEmptyImage(), {
+        captureDraggingState: false,
+      });
+    }
   }
 
   showForm = (editStatus, status, id, taskName, taskNotes) => (
@@ -66,8 +63,9 @@ class Card extends React.Component {
       onSubmit={this.props.submitFunc}
       placeholder1="add title..."
       placeholder2="add description here..."
-		  />
+      />
   )
+
   render = () => {
     const {
       editStatus,
@@ -85,65 +83,61 @@ class Card extends React.Component {
       checkerID,
       removeFunc,
       editFunc,
-      switchFunc,
-      submitFunc,
       isDragging,
-      canDrag,
       connectDragSource,
-      connectDragPreview,
-      dragStatus,
     } = this.props;
 
-    return (
-      <li>
-        { connectDragSource(<div>
-          {!isDragging &&
-          <div
-            data-id={dataID}
-            className={classCard}
-          >
-            <Textarea
-              className={classTitle}
-              type="text"
-              value={titleValue}
-              readOnly
-            />
-            <label
-              htmlFor={htmlFor}
-              className={classLabel}
-            >notes
-            </label>
-            <input
-              className="checker"
-              type="checkbox"
-              id={checkerID}
-            />
-            <Textarea
-              className={classNote}
-              type="text"
-              value={notesValue}
-              readOnly
-            />
-            <span
-              className={classRemove}
-              onClick={removeFunc}
-            ><i className="fa fa-trash-o" aria-hidden="true" />
-            </span>
-            <button
-              className={classEdit}
-              type="button"
-              onClick={editFunc}
-            >
-            edit
-            </button>
-            {	this.showForm(editStatus, status, dataID, titleValue, notesValue) }
-          </div>
-          }
-        </div>) }
-      </li>
-    );
+    return !isDragging && connectDragSource(<li>
+      <div data-id={dataID} className={classCard}>
+        <Textarea
+          className={classTitle}
+          type="text"
+          value={titleValue}
+          readOnly
+        />
+        <label htmlFor={htmlFor} className={classLabel}>
+          <i className="fa fa-align-justify" aria-hidden="true" />
+        </label>
+        <input className="checker" type="checkbox" id={checkerID} />
+        <Textarea
+          className={classNote}
+          type="text"
+          value={notesValue}
+          readOnly
+        />
+        <button type="button" className={classRemove} onClick={removeFunc}>
+          <i className="fa fa-trash-o" aria-hidden="true" />
+        </button>
+        <button className={classEdit} type="button" onClick={editFunc}>
+          <i className="fa fa-pencil" aria-hidden="true" />
+        </button>
+        {this.showForm(editStatus, status, dataID, titleValue, notesValue)}
+      </div>
+    </li>);
   }
 }
+
+Card.propTypes = {
+  editStatus: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  dataID: PropTypes.number.isRequired,
+  titleValue: PropTypes.string.isRequired,
+  notesValue: PropTypes.string.isRequired,
+  classCard: PropTypes.string.isRequired,
+  classTitle: PropTypes.string.isRequired,
+  classNote: PropTypes.string.isRequired,
+  classRemove: PropTypes.string.isRequired,
+  classEdit: PropTypes.string.isRequired,
+  htmlFor: PropTypes.string.isRequired,
+  classLabel: PropTypes.string.isRequired,
+  checkerID: PropTypes.string.isRequired,
+  removeFunc: PropTypes.func.isRequired,
+  editFunc: PropTypes.func.isRequired,
+  submitFunc: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  connectDragSource: PropTypes.func.isRequired,
+  connectDragPreview: PropTypes.func.isRequired,
+};
 
 Card = DragSource(Types.ITEM, cardSource, collect)(Card);
 

@@ -1,34 +1,106 @@
 .task-column {
-	display: block;
+	display: flex;
+	flex-direction: column;
 	background: #dfdfdf;
+	font-family: montserrat;
 	position: relative;
 	transition: all 0.7s ease;
 	width: 350px;
-	margin: 10px;
+	margin: 0 10px;
 	min-height: 0;
-	max-height: 100%;
+	max-height: 90vh;
 	border-radius: 3px; 
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
-	overflow: hidden;
+	animation: inject_column 0.7s ease;
 	&:hover {
 		position: relative;
 	}
-	h2 {
+	.column-title {
 		cursor: default;
-		font-family: montserrat;
-		font-size: 12px;
+		padding: 3px 5px;
+		box-sizing: border-box;
+		font-size: 15px;
 		color: rgb(87, 87, 87);
 		display: inline-block;
 		margin: 10px 10px;
+		border: none;
+		background: none;
+		width: 82%;
+		&:focus {
+			background: none;
+			outline: 1px solid grey;
+		}
+	}
+	.options {
+		width: 30px;
+		font-size: 20px;
+		font-weight: bold;
+		line-height: 20px;
+		border: none;
+		background: none;
+		position: absolute;
+		right: 25px;
+		top: 5px;
+		color: grey;
+		cursor: pointer;
+		&:hover {
+			color: black;
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+	.options-menu {
+		position: absolute;
+		padding: 0;
+		top: 32px;
+    right: -1px;
+    z-index: 20;
+    width: 150px;
+    font-size: 15px;
+		background: white;
+		border-radius: 4px;
+		border: 1px solid #ddd;
+		li {
+			padding: 4px 10px;
+			background: none;
+			box-shadow: none;
+			border-right: none;
+			border-left: none;
+			button {
+				border: none;
+				background: none;
+				cursor: pointer;
+			}
+		}
+		li:first-child {
+			border: none;
+			text-align: center;
+			position: relative;
+			color: grey;
+			padding: 0;
+			button {
+				position: absolute;
+				right: 2px;
+				color: grey;
+				font-size: 15px;
+				cursor: pointer;
+				&:focus {
+					outline: none;
+				}
+			}
+		}
 	}
 	.badge {
 		cursor: default;
+		position: absolute;
+		top: 14px;
+		right: 10px;
 		display: inline-block;
 		width: 15px;
 		height: 15px;
 		text-align: center;
-		font-family: montserrat;
 		font-size: 12px;
 		line-height: 15px;
 		border-radius: 1px;
@@ -41,8 +113,31 @@
 		margin: 0 10px;
 		padding: 10px 0;
 		min-height: 0;
-		max-height: 70vh;
+		max-height: 76vh;
 		overflow: auto;
+		.injector {
+			background: none;
+			height: 5px;
+			width: 99%;
+			border-radius: 3px;
+			&-active {
+				background: rgb(190, 190, 190);
+				height: 40px;
+				margin: 3px auto;
+			}
+		}
+		.hover-item {
+			&::before {
+				display: block;
+				content: '.';
+				height: 60px;
+				width: 100%;
+				background: rgb(187, 187, 187);
+				border-radius: 3px;
+				margin-bottom: 10px;
+				color: rgb(187, 187, 187);
+			}
+		}
 		div {
 			button {
 				background: none;
@@ -71,3 +166,10 @@
 	}
 }
 
+.drop-target {
+	transform: scale(0.97);
+}
+
+@keyframes inject_column {
+	from {opacity: 0; transform: translateY(-20px);}
+}

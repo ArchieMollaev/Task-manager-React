@@ -1,57 +1,22 @@
 {
-  "ToDo": [
-    {
-      "taskName": "sdasd",
-      "taskNotes": "asdasdasd",
-      "id": 2
-    },
-    {
-      "taskName": "asda",
-      "taskNotes": "sdasd",
-      "id": 3
-    },
-    {
-      "taskName": "klkj",
-      "id": 5
-    }
-  ],
-  "InProgress": [
-    {
-      "taskName": "asd",
-      "taskNotes": "asdasd",
-      "id": 1
-    },
-    {
-      "taskName": "as",
-      "taskNotes": "dasda",
-      "id": 2
-    },
-    {
-      "taskNotes": "asdasa",
-      "taskName": "sdasdasdas",
-      "id": 3
-    }
-  ],
-  "Done": [
-    {
-      "taskName": "asd",
-      "taskNotes": "asdasd",
-      "id": 6
-    },
-    {
-      "taskName": "m.",
-      "taskNotes": "kjklmlk",
-      "id": 7
-    },
-    {
-      "taskName": "asdasd",
-      "taskNotes": "asd",
-      "id": 8
-    },
-    {
-      "taskName": "sasd",
-      "taskNotes": "asdasd",
-      "id": 9
-    }
-  ]
+    "lets_go": [],
+    "in_progress": [
+        {
+            "id": 1516110106544,
+            "taskName": "asdasd",
+            "taskNotes": ""
+        },
+        {
+            "id": 1516110110555,
+            "taskName": "asdasd",
+            "taskNotes": "asdasdasd"
+        },
+        {
+            "id": 1516057842756,
+            "taskName": "asdasdasdasdasd",
+            "taskNotes": ""
+        }
+    ],
+    "done": [],
+    "dddddd": []
 }
