@@ -18,7 +18,10 @@ const targetSource = {
   drop(props, monitor) {
     const task = monitor.getItem();
     const newStatus = props.className;
-    const position = props.hover.split('_')[0];
+    let position = props.hover.split('_')[0];
+    if (task.currentStatus === newStatus && position !== 0) {
+      position -= 1;
+    };
     const sendData = {
       ...task,
       newStatus,
@@ -92,15 +95,11 @@ class Column extends React.Component {
      <span className="badge">{ tasks.length }</span>
      <ul>
        <div
-         className={classNames({ injector: true, 'injector-active': hover === `${0}_up` && isOver })}
-         onDragOver={() => hoverInjector(`${0}_up`)}
+         className={classNames({ injector: true, 'injector-active': hover === `${0}_injector` && isOver })}
+         onDragOver={() => hoverInjector(`${0}_injector`)}
        />
        {tasks.map((item, i) => (
          <div key={item.id + className}>
-           {i !== 0 && <div
-             className={classNames({ injector: true, 'injector-active': hover === `${i}_up` && isOver })}
-             onDragOver={() => hoverInjector(`${i}_up`)}
-           />}
            <Card
              itemClass={classNames({ 'hover-item': hover === item.id && isOver })}
              status={className}
@@ -120,18 +119,18 @@ class Column extends React.Component {
              editFunc={() => edit(item.id)}
              submitFunc={data => formSubmit(data, item.id)}
              canDrag={!getState(item.id)}
-           />{i === tasks.length - 1 &&
-             <div
-               className={classNames({ injector: true, 'injector-active': hover === `${i}_down` && isOver })}
-               onDragOver={() => hoverInjector(`${i}_down`)}
-             />}
+           />
+           <div
+            className={classNames({ injector: true, 'injector-active': hover === `${i + 1}_injector` && isOver })}
+            onDragOver={() => hoverInjector(`${i + 1}_injector`)}
+          />
          </div>))}
      </ul>
      <TaskCreator
        onSubmit={(data) => { reset('create-task'); addTask({ data, status: columnName }); }}
        column={columnName}
      />
-   </div>);
+                            </div>);
  }
 }
 
@@ -142,11 +141,7 @@ Column.propTypes = {
   removeFunc: PropTypes.func.isRequired,
   editFunc: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  tasks: PropTypes.arrayOf(React.PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    taskName: PropTypes.string.isRequired,
-    taskNotes: PropTypes.string.isRequired,
-  })).isRequired,
+  tasks: PropTypes.array,
   className: PropTypes.string.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   isOver: PropTypes.bool.isRequired,

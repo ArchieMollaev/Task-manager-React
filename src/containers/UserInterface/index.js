@@ -25,7 +25,6 @@ class ToDoList extends React.Component {
     } = this.props;
 
     const { newListForm } = this.state;
-
     return (
       <div id="todo-app" >
         <h1>Task manager</h1>
@@ -64,11 +63,7 @@ ToDoList.propTypes = {
   deleteTask: PropTypes.func.isRequired,
   editTask: PropTypes.func.isRequired,
   switchStatus: PropTypes.func.isRequired,
-  lists: PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    taskName: PropTypes.string.isRequired,
-    taskNotes: PropTypes.string.isRequired,
-  }))).isRequired,
+  lists: React.PropTypes.object,
   addColumn: PropTypes.func.isRequired,
 };
 

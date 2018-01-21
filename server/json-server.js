@@ -1,14 +1,8 @@
 const jsonServer = require('json-server');
 const path = require('path');
 const fs = require('fs');
-const db = require('./tasks.json');
+const db = require(path.join(__dirname, 'tasks.json'));
 const bodyParser = require('body-parser');
-
-// import jsonServer from 'json-server';
-// import path from 'path';
-// import fs from 'fs';
-// import db from './tasks.json';
-// import bodyParser from 'body-parser';
 
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'tasks.json'));

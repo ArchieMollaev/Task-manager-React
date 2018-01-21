@@ -120,7 +120,7 @@ Card.propTypes = {
   status: PropTypes.string.isRequired,
   dataID: PropTypes.number.isRequired,
   titleValue: PropTypes.string.isRequired,
-  notesValue: PropTypes.string.isRequired,
+  notesValue: PropTypes.string,
   classCard: PropTypes.string.isRequired,
   classTitle: PropTypes.string.isRequired,
   classNote: PropTypes.string.isRequired,

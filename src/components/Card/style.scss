@@ -1,5 +1,4 @@
 li {
-  // animation: show_item .5s ease;
   border-radius: 4px;
   div {
     padding: 0 5px;
@@ -30,6 +29,8 @@ li {
     position: absolute;
     right: 4px !important;
     top: 5px;
+    width: 25px;
+    height: 21px;
     -moz-user-select: none; 
     -ms-user-select: none; 
     -o-user-select: none; 
@@ -158,6 +159,10 @@ li {
       color: grey;
       border: 1px solid grey;
     }
+  }
+  .first-btn {
+    width: 25px;
+    height: 21px;
   }
 }
 

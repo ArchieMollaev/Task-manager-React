@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from 'actions/Task';
 import Form from 'components/Forms/Tasks';
+import { reset } from 'redux-form';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import './style.scss';
@@ -13,6 +14,7 @@ const TaskCreator = (props) => {
     column,
     taskCreatorStatus,
     setEditable,
+    reset,
   } = props;
 
   const addTaskForm = () => (
@@ -20,7 +22,7 @@ const TaskCreator = (props) => {
     <Form
       formId="task-form"
       form="create-task"
-      onSubmit={onSubmit}
+      onSubmit={(e) => { onSubmit(e); reset('create-task'); }}
       secondBtnFunc={() => taskCreatorStatus({ [column]: false })}
       placeholder1="Task name"
       placeholder2="Description"
@@ -53,4 +55,4 @@ const mapStateToProps = state => ({
   editable: state.editable,
 });
 
-export default connect(mapStateToProps, actions)(TaskCreator);
+export default connect(mapStateToProps, { ...actions, reset })(TaskCreator);
