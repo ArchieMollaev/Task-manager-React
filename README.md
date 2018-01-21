@@ -1,4 +1,4 @@
-### HOW TO RUN APP
+### HOW TO DEPLOY
 
 ``` bash
 
@@ -6,7 +6,7 @@
 
 npm install
 
-#2. RUN APP :
+#2. RUN APP:
 
 npm start
 
