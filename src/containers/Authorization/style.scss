@@ -1,0 +1,17 @@
+#authorization {
+	min-width: 300px;
+	max-width: 500px;
+	height: 300px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	margin: auto auto;
+	background: #ddd;
+	button {
+		position: absolute;
+		right: 10px;
+		bottom: 10px;
+	}
+}

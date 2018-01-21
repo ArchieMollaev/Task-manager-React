@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from 'actions/Task';
-import Form from 'components/ReduxForm';
+import Form from 'components/Forms/Tasks';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import './style.scss';
@@ -20,8 +20,6 @@ const TaskCreator = (props) => {
     <Form
       formId="task-form"
       form="create-task"
-      f1name="taskName"
-      f2name="taskNotes"
       onSubmit={onSubmit}
       secondBtnFunc={() => taskCreatorStatus({ [column]: false })}
       placeholder1="Task name"

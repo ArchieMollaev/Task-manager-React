@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Form from 'components/ReduxForm';
+import Form from 'components/Forms/Tasks';
 import Textarea from 'react-textarea-autosize';
 import { DragSource } from 'react-dnd';
 import * as actions from 'actions/Task';
@@ -57,8 +57,6 @@ class Card extends React.Component {
       initialValues={{ taskName, taskNotes }}
       formId="editor"
       form="editor"
-      f1name="taskName"
-      f2name="taskNotes"
       submitBtnTitle="✔"
       onSubmit={this.props.submitFunc}
       placeholder1="add title..."

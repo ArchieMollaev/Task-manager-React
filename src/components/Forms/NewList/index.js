@@ -7,13 +7,11 @@ const NewListForm = (props) => {
   const {
     handleSubmit,
     closeFunc,
-    classFunc,
   } = props;
 
   return (
     <form className="new-list" onSubmit={handleSubmit}>
       <Field
-        className={classFunc}
         name="name"
         component="input"
         type="text"
@@ -31,7 +29,6 @@ const NewListForm = (props) => {
 NewListForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   closeFunc: PropTypes.func.isRequired,
-  classFunc: PropTypes.func.isRequired,
 };
 
 

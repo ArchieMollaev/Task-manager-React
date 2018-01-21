@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 import Card from 'components/Card';
-import TaskCreator from 'containers/TaskCreator';
+import TaskCreator from 'components/TaskCreator';
 import * as actions from 'actions/Task';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -77,10 +77,6 @@ class Column extends React.Component {
      }
    };
 
-   const changeColumnName = (e) => {
-     addColumn(e.target.value, title);
-   };
-
    const getState = id => editable === id + className;
 
    const showOptions = () => (optionsStatus &&
@@ -90,7 +86,7 @@ class Column extends React.Component {
    </ul>);
 
    return connectDropTarget(<div className={classNames({ 'task-column': true, 'drop-target': isOver })}>
-     <input className="column-title" defaultValue={title} onBlur={e => changeColumnName(e)} />
+     <input className="column-title" defaultValue={title} />
      <button type="button" className="options" onClick={() => this.setState({ optionsStatus: true })}>...</button>
      { showOptions() }
      <span className="badge">{ tasks.length }</span>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from 'actions/Task';
 import Column from 'components/Column';
 import CardDragPreview from 'components/DragLayer';
-import NewListForm from 'components/NewListForm';
+import NewListForm from 'components/Forms/NewList';
 import classNames from 'classnames';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
