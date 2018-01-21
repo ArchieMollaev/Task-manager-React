@@ -1,6 +1,10 @@
 .drag-layer {
   font-family: arial;
-  i {
+  .edit-icon {
     float: right;
+  }
+  .notes {
+    display: block;
+    margin-top: 15px;
   }
 }

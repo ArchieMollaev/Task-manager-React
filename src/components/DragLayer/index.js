@@ -38,7 +38,11 @@ const getItemStyles = (props) => {
 const CardPreview = (props) => {
   const { item } = props;
   const renderItem = () => (
-    <div className="drag-layer">{ item.data.taskName }<i className="fa fa-pencil" aria-hidden="true" /></div>
+    <div className="drag-layer">
+      { item.data.taskName }
+      <i className="fa fa-pencil edit-icon" aria-hidden="true" />
+      {item.data.taskNotes && <i className="fa fa-align-justify notes" aria-hidden="true" />}
+    </div>
   );
 
   const { isDragging } = props;

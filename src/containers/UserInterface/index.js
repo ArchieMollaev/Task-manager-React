@@ -10,7 +10,7 @@ import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-class ToDoList extends React.Component {
+class UserInterface extends React.Component {
   state = {
     newListForm: false,
   }
@@ -59,7 +59,7 @@ class ToDoList extends React.Component {
   };
 }
 
-ToDoList.propTypes = {
+UserInterface.propTypes = {
   deleteTask: PropTypes.func.isRequired,
   editTask: PropTypes.func.isRequired,
   switchStatus: PropTypes.func.isRequired,
@@ -71,6 +71,6 @@ const mapStateToProps = state => ({
   lists: state.getList,
 });
 
-ToDoList = DragDropContext(HTML5Backend)(ToDoList);
+UserInterface = DragDropContext(HTML5Backend)(UserInterface);
 
-export default connect(mapStateToProps, actions)(ToDoList);
+export default connect(mapStateToProps, actions)(UserInterface);

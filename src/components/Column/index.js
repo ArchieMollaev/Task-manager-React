@@ -19,9 +19,8 @@ const targetSource = {
     const task = monitor.getItem();
     const newStatus = props.className;
     let position = props.hover.split('_')[0];
-    if (task.currentStatus === newStatus && position !== 0) {
-      position -= 1;
-    };
+    if (task.currentStatus === newStatus &&
+       task.currentPosition < position) position -= 1; 
     const sendData = {
       ...task,
       newStatus,
@@ -55,7 +54,6 @@ class Column extends React.Component {
      isOver,
      addTask,
      columnName,
-     addColumn,
      removeColumn,
      hover,
      hoverInjector,
@@ -105,6 +103,7 @@ class Column extends React.Component {
              status={className}
              editStatus={editable}
              dataID={item.id}
+             position={i}
              titleValue={item.taskName}
              notesValue={item.taskNotes}
              classCard={classNames({ 'item-style': getState(item.id) })}
@@ -119,18 +118,16 @@ class Column extends React.Component {
              editFunc={() => edit(item.id)}
              submitFunc={data => formSubmit(data, item.id)}
              canDrag={!getState(item.id)}
+             injectorClass={classNames({ injector: true, 'injector-active': hover === `${i+1}_injector` && isOver })}
+             injectorHoverFunc={() => hoverInjector(`${i+1}_injector`)}
            />
-           <div
-            className={classNames({ injector: true, 'injector-active': hover === `${i + 1}_injector` && isOver })}
-            onDragOver={() => hoverInjector(`${i + 1}_injector`)}
-          />
          </div>))}
      </ul>
      <TaskCreator
        onSubmit={(data) => { reset('create-task'); addTask({ data, status: columnName }); }}
        column={columnName}
      />
-                            </div>);
+    </div>);
  }
 }
 

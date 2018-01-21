@@ -19,6 +19,7 @@ const cardSource = {
   beginDrag(props) {
     const {
       dataID,
+      position,
       titleValue,
       notesValue,
       status,
@@ -31,6 +32,7 @@ const cardSource = {
         taskNotes: notesValue,
       },
       currentStatus: status,
+      currentPosition: position,
     };
   },
 };
@@ -69,6 +71,7 @@ class Card extends React.Component {
       editStatus,
       status,
       dataID,
+      position,
       titleValue,
       notesValue,
       classCard,
@@ -83,10 +86,12 @@ class Card extends React.Component {
       editFunc,
       isDragging,
       connectDragSource,
+      injectorClass,
+      injectorHoverFunc,
     } = this.props;
 
     return !isDragging && connectDragSource(<li>
-      <div data-id={dataID} className={classCard}>
+      <div data-id={dataID} data-position={position} className={classCard}>
         <Textarea
           className={classTitle}
           type="text"
@@ -111,6 +116,10 @@ class Card extends React.Component {
         </button>
         {this.showForm(editStatus, status, dataID, titleValue, notesValue)}
       </div>
+      <div
+        className={ injectorClass }
+        onDragOver={ injectorHoverFunc }
+      />
     </li>);
   }
 }
