@@ -86,11 +86,6 @@ li {
     &:hover {
       background: #ddd;
     }
-    &:hover + .task-des {
-      height: 150px;
-      overflow: hidden;
-      resize: none;
-    }
   }
   .fa-pencil {
     font-size: 12px;
@@ -128,7 +123,7 @@ li {
     &:checked + .task-des {
       cursor: default;
       height: auto;
-      max-height: 100px;
+      max-height: 500px;
       overflow: hidden;
       animation: show_notes .5s;
     }

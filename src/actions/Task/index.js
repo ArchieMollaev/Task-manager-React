@@ -17,6 +17,7 @@ const {
   COLUMN_ADDED,
   REMOVE_COLUMN,
   COLUMN_REMOVED,
+  HOVER_ELEMENT,
 } = constants;
 
 export const getTasksList = ({ data }) => ({
@@ -32,8 +33,8 @@ export const addTask = ({ data, status }) => ({
 });
 
 export const taskPushed = ({ taskData, status }) => ({
-  type: TASK_PUSHED, 
-  data: taskData, 
+  type: TASK_PUSHED,
+  data: taskData,
   status,
 });
 
@@ -86,6 +87,6 @@ export const columnRemoved = data => ({
 });
 
 export const hoverInjector = data => ({
-  type: 'HOVER_ELEMENT', data,
+  type: HOVER_ELEMENT, data,
 });
 

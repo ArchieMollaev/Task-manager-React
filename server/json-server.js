@@ -1,8 +1,8 @@
-const jsonServer = require('json-server');
-const path = require('path');
-const fs = require('fs');
-const db = require(path.join(__dirname, 'tasks.json'));
-const bodyParser = require('body-parser');
+import jsonServer from 'json-server';
+import bodyParser from 'body-parser';
+import path from 'path';
+import fs from 'fs';
+import db from './tasks.json';
 
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'tasks.json'));
@@ -35,10 +35,12 @@ server.post('/delete', (req, res) => {
 });
 
 server.post('/update', (req, res) => {
-  const currentStatus = req.body.currentStatus;
-  const newStatus = req.body.newStatus;
-  const data = req.body.data;
-  const position = req.body.position;
+  const {
+    currentStatus,
+    newStatus,
+    data,
+    position,
+  } = req.body;
 
   db[currentStatus] = db[currentStatus].filter(item => item.id !== data.id);
   if (currentStatus === newStatus) {

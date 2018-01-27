@@ -10,7 +10,7 @@ import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-class UserInterface extends React.Component {
+class App extends React.Component {
   state = {
     newListForm: false,
   }
@@ -59,11 +59,11 @@ class UserInterface extends React.Component {
   };
 }
 
-UserInterface.propTypes = {
+App.propTypes = {
   deleteTask: PropTypes.func.isRequired,
   editTask: PropTypes.func.isRequired,
   switchStatus: PropTypes.func.isRequired,
-  lists: React.PropTypes.object,
+  lists: PropTypes.objectOf(PropTypes.array),
   addColumn: PropTypes.func.isRequired,
 };
 
@@ -71,6 +71,6 @@ const mapStateToProps = state => ({
   lists: state.getList,
 });
 
-UserInterface = DragDropContext(HTML5Backend)(UserInterface);
+class AppDndConnected extends DragDropContext(HTML5Backend)(App) {}
 
-export default connect(mapStateToProps, actions)(UserInterface);
+export default connect(mapStateToProps, actions)(AppDndConnected);

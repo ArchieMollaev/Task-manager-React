@@ -7,9 +7,9 @@ const layerStyles = {
   pointerEvents: 'none',
   zIndex: 10,
   left: 0,
-  top: '20px',
+  top: 0,
   right: 0,
-  bottom: '40px',
+  bottom: 0,
   transform: 'rotate(3deg)',
 };
 

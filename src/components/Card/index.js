@@ -63,7 +63,7 @@ class Card extends React.Component {
       onSubmit={this.props.submitFunc}
       placeholder1="add title..."
       placeholder2="add description here..."
-      />
+    />
   )
 
   render = () => {
@@ -117,10 +117,10 @@ class Card extends React.Component {
         {this.showForm(editStatus, status, dataID, titleValue, notesValue)}
       </div>
       <div
-        className={ injectorClass }
-        onDragOver={ injectorHoverFunc }
+        className={injectorClass}
+        onDragOver={injectorHoverFunc}
       />
-    </li>);
+      </li>);
   }
 }
 
@@ -144,8 +144,11 @@ Card.propTypes = {
   isDragging: PropTypes.bool.isRequired,
   connectDragSource: PropTypes.func.isRequired,
   connectDragPreview: PropTypes.func.isRequired,
+  injectorHoverFunc: PropTypes.func.isRequired,
+  injectorClass: PropTypes.string.isRequired,
+  position: PropTypes.number.isRequired,
 };
 
-Card = DragSource(Types.ITEM, cardSource, collect)(Card);
+class CardDndConnected extends DragSource(Types.ITEM, cardSource, collect)(Card) {}
 
-export default connect(null, actions)(Card);
+export default connect(null, actions)(CardDndConnected);

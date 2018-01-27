@@ -4,7 +4,7 @@ import LogIn from 'components/Forms/LogIn';
 import CheckIn from 'components/Forms/CheckIn';
 import './style.scss';
 
-class Authorization extends React.Component {
+export default class Login extends React.Component {
   state = {
     btn: 'registration',
   }
@@ -16,13 +16,11 @@ class Authorization extends React.Component {
       history,
     } = this.props;
 
-    const currentWindow = () => (
-      location.pathname === '/login' &&
-      <LogIn /> ||
-      location.pathname === '/login/registration' &&
-      <CheckIn />
-    )
-  
+    const currentWindow = () => {
+      if (location.pathname === '/login') return <LogIn />;
+      if (location.pathname === '/login/registration') return <CheckIn />;
+    };
+
     const changeView = () => {
       if (location.pathname === '/login') {
         history.push(`${match.url}/registration`);
@@ -31,17 +29,17 @@ class Authorization extends React.Component {
         history.push('/login');
         this.setState({ btn: 'registration' });
       }
-    }
+    };
     return (
       <div id="authorization">
         {currentWindow()}
         <button type="button" onClick={() => changeView()}>{this.state.btn}</button>
       </div>
-    )
+    );
   }
 }
 
-Authorization.propTypes = {
+Login.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
@@ -53,4 +51,3 @@ Authorization.propTypes = {
   }).isRequired,
 };
 
-export default Authorization;

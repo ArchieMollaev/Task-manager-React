@@ -47,7 +47,7 @@ function* remove({ id, status }) {
 
 function* switcher(task) {
   yield put(statusSwitched(task.data));
-  yield call(tasksApi.updateList, task.data); 
+  yield call(tasksApi.updateList, task.data);
 }
 
 function* addNewColumn({ data }) {

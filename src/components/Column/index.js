@@ -138,13 +138,12 @@ Column.propTypes = {
   removeFunc: PropTypes.func.isRequired,
   editFunc: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  tasks: PropTypes.array,
+  tasks: PropTypes.arrayOf(PropTypes.object),
   className: PropTypes.string.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   isOver: PropTypes.bool.isRequired,
   addTask: PropTypes.func.isRequired,
   columnName: PropTypes.string.isRequired,
-  addColumn: PropTypes.func.isRequired,
   removeColumn: PropTypes.func.isRequired,
   hover: PropTypes.string.isRequired,
   hoverInjector: PropTypes.func.isRequired,
@@ -155,7 +154,7 @@ const mapStateToProps = state => ({
   hover: state.hoverInjector,
 });
 
-Column = DropTarget(Types.ITEM, targetSource, collect)(Column);
+class ColumnDndConnected extends DropTarget(Types.ITEM, targetSource, collect)(Column) {}
 
-export default connect(mapStateToProps, actions)(Column);
+export default connect(mapStateToProps, actions)(ColumnDndConnected);
 

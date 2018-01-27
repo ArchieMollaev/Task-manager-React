@@ -16,8 +16,9 @@
     ],
     "rules": {
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "linebreak-style": ["error", "windows"],
-      "no-param-reassign": 0
+      "linebreak-style": ["error", "unix"],
+      "no-param-reassign": 0,
+      "react/require-default-props": [0, { "forbidDefaultForRequired": false }]
     },
     "settings": {
       "import/resolver": {

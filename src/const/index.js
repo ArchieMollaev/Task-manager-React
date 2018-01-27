@@ -14,4 +14,5 @@ export const ADD_COLUMN = 'ADD_COLUMN';
 export const COLUMN_ADDED = 'COLUMN_ADDED';
 export const REMOVE_COLUMN = 'REMOVE_COLUMN';
 export const COLUMN_REMOVED = 'COLUMN_REMOVED';
+export const HOVER_ELEMENT = 'HOVER_ELEMENT';
 

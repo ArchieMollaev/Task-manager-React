@@ -1,25 +1,11 @@
 {
-    "To_Do": [
+    "To_Do": [],
+    "In_Progress": [],
+    "Done": [
         {
-            "id": 1516566270958,
-            "taskName": "hello",
-            "taskNotes": "hello"
+            "id": 1517094014665,
+            "taskName": "PropTypes added",
+            "taskNotes": "KOA2 and mysql coming soon"
         }
-    ],
-    "In_Progress": [
-        {
-            "id": 1516566229923,
-            "taskName": "zxcz",
-            "taskNotes": "zxczxc"
-        },
-        {
-            "id": 1516566297589,
-            "taskName": "ggggggggg"
-        },
-        {
-            "id": 1516566346180,
-            "taskName": "test"
-        }
-    ],
-    "Done": []
+    ]
 }

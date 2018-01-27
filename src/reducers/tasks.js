@@ -10,6 +10,7 @@ const {
   TASK_CREATOR_STATUS,
   COLUMN_ADDED,
   COLUMN_REMOVED,
+  HOVER_ELEMENT,
 } = constants;
 
 export const getList = (state = {}, action) => {
@@ -91,7 +92,7 @@ export const taskCreatorStatus = (state = {}, action) => {
 
 export const hoverInjector = (state = '', action) => {
   switch (action.type) {
-    case 'HOVER_ELEMENT':
+    case HOVER_ELEMENT:
     {
       return action.data;
     }
