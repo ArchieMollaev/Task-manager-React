@@ -10,6 +10,7 @@ const {
   TASK_CREATOR_STATUS,
   COLUMN_ADDED,
   COLUMN_REMOVED,
+  COLUMN_NAME_CHANGED,
   HOVER_ELEMENT,
 } = constants;
 
@@ -58,6 +59,14 @@ export const getList = (state = {}, action) => {
       let newEntry = action.data.name;
       Object.keys(state).forEach((x) => { if (x === newEntry) newEntry += '(duplicate)'; });
       return { ...state, [newEntry]: [] };
+    }
+    case COLUMN_NAME_CHANGED:
+    {
+      const { currentName, newName } = action.data;
+      update = { ...state };
+      update[newName] = update[currentName];
+      delete update[currentName];
+      return { ...update };
     }
     case COLUMN_REMOVED:
     {

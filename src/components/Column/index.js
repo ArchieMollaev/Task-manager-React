@@ -35,6 +35,7 @@ const collect = (connector, monitor) => ({
   isOver: monitor.isOver(),
 });
 
+const replaceSpaces = target => target.split(' ').join('_');
 class Column extends React.Component {
  state = {
    optionsStatus: false,
@@ -55,6 +56,7 @@ class Column extends React.Component {
      addTask,
      columnName,
      removeColumn,
+     renameColumn,
      hover,
      hoverInjector,
    } = this.props;
@@ -83,11 +85,11 @@ class Column extends React.Component {
    const showOptions = () => (optionsStatus &&
    <ul className="options-menu">
      <li>options<button type="button" onClick={() => this.setState({ optionsStatus: false })}>х</button></li>
-     <li><button type="button" onClick={() => removeColumn({ name: title.split(' ').join('_') })}>delete list</button></li>
+     <li><button type="button" onClick={() => removeColumn({ name: replaceSpaces(title) })}>delete list</button></li>
    </ul>);
 
    return connectDropTarget(<div className={classNames({ 'task-column': true, 'drop-target': isOver })}>
-     <input className="column-title" defaultValue={title} />
+     <input className="column-title" defaultValue={title} onBlur={(e) => { renameColumn({ currentName: replaceSpaces(title), newName: replaceSpaces(e.target.value) }) }} />
      <button type="button" className="options" onClick={() => this.setState({ optionsStatus: true })}>...</button>
      { showOptions() }
      <span className="badge">{ tasks.length }</span>

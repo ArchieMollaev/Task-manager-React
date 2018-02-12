@@ -17,6 +17,8 @@ const {
   COLUMN_ADDED,
   REMOVE_COLUMN,
   COLUMN_REMOVED,
+  CHANGE_COLUMN_NAME,
+  COLUMN_NAME_CHANGED,
   HOVER_ELEMENT,
 } = constants;
 
@@ -72,6 +74,14 @@ export const taskCreatorStatus = data => ({
 
 export const addColumn = data => ({
   type: ADD_COLUMN, data,
+});
+
+export const renameColumn = data => ({
+  type: CHANGE_COLUMN_NAME, data,
+});
+
+export const columnRenamed = data => ({
+  type: COLUMN_NAME_CHANGED, data,
 });
 
 export const columnAdded = data => ({

@@ -1,11 +1,11 @@
 {
-    "To_Do": [],
-    "In_Progress": [],
-    "Done": [
-        {
-            "id": 1517094014665,
-            "taskName": "PropTypes added",
-            "taskNotes": "KOA2 and mysql coming soon"
-        }
-    ]
+  "To_Do": [
+    {
+      "id": 1518361022743,
+      "taskName": "Still have bugs with creating and removing new lists",
+      "taskNotes": "move back-end to koa2 and mySQL"
+    }
+  ],
+  "In_Progress": [],
+  "Done": []
 }

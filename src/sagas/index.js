@@ -11,6 +11,7 @@ const {
   SWITCH_STATUS,
   ADD_COLUMN,
   REMOVE_COLUMN,
+  CHANGE_COLUMN_NAME,
 } = constants;
 
 const {
@@ -22,6 +23,7 @@ const {
   statusSwitched,
   columnAdded,
   columnRemoved,
+  columnRenamed,
 } = actions;
 
 function* load() {
@@ -55,6 +57,11 @@ function* addNewColumn({ data }) {
   yield put(columnAdded(data));
 }
 
+function* changeColumnName({ data }) {
+  yield call(tasksApi.renameColumn, data);
+  yield put(columnRenamed(data));
+}
+
 function* removeColumn({ data }) {
   yield call(tasksApi.removeColumn, data);
   yield put(columnRemoved(data));
@@ -68,6 +75,7 @@ export default function* tasksSaga() {
     takeEvery(EDIT_TASK, update),
     takeEvery(SWITCH_STATUS, switcher),
     takeEvery(ADD_COLUMN, addNewColumn),
+    takeEvery(CHANGE_COLUMN_NAME, changeColumnName),
     takeEvery(REMOVE_COLUMN, removeColumn),
   ];
   yield put(getTasksList({}));

@@ -40,3 +40,9 @@ export const removeColumn = data => request({
   data,
 });
 
+export const renameColumn = data => request({
+  method: 'POST',
+  url: '/rename_column',
+  data,
+});
+
