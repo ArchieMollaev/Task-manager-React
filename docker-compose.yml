@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+    mySQL:
+        image: mysql
+        ports: 
+            - 3306:3306
+        restart: always
+        volumes: 
+            - ./docker-mysql:/var/lib/mysql
+        environment:
+        - MYSQL_ROOT_PASSWORD=admin
+        - MYSQL_DATABASE=task-manager
+   
