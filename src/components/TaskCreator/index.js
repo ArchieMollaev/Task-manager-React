@@ -14,7 +14,6 @@ const TaskCreator = (props) => {
     column,
     taskCreatorStatus,
     setEditable,
-    reset,
   } = props;
 
   const addTaskForm = () => (

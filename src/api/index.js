@@ -1,9 +1,15 @@
 
 import request from './request';
 
-export const getAllTasks = () => request({
+export const login = data => request({
+  method: 'POST',
+  url: 'login',
+  data,
+});
+
+export const getData = () => request({
   method: 'GET',
-  url: 'db',
+  url: 'get-data',
 });
 
 export const pushTask = (status, data) => request({

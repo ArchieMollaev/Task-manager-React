@@ -37,16 +37,16 @@ class UserService {
     if (!login || !password) throw new BadRequest();
     const res = await this.User.findOne({ where: { login }, raw: true });
     if (!res || !bcrypt.compareSync(password, res.password)) throw new Unauthorized();
-    const userData = await this.getData(login);
     const token = jwt.sign(res, 'secret_word', {
       expiresIn: '30m',
     });
-    return { ...userData, token };
+    return { token };
   }
 
   getData = async (login) => {
     const res = await this.User.findOne({
       where: { login },
+      attributes: ['login'],
       include: [
         {
           model: this.Column,
@@ -69,7 +69,7 @@ class UserService {
         ],
       ],
     });
-    return { data: res.Columns };
+    return { data: res };
   }
 }
 

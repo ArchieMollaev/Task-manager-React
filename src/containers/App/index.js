@@ -20,7 +20,7 @@ class App extends React.Component {
       deleteTask,
       editTask,
       switchStatus,
-      lists,
+      columns,
       addColumn,
     } = this.props;
 
@@ -30,12 +30,12 @@ class App extends React.Component {
         <h1>Task manager</h1>
         <div id="to-do-list-columns">
           <CardDragPreview />
-          {Object.keys(lists).map(name => (<Column
+          {columns.map(({ name, Cards }) => (<Column
             columnName={name}
             key={name}
             className={name}
-            title={name.split('_').join(' ')}
-            tasks={lists[name.replace(' ', '')] || []}
+            colTitle={name}
+            tasks={Cards}
             removeFunc={id => deleteTask({ status: name, id })}
             editFunc={data => editTask({ data, status: name })}
             switchFunc={objData => switchStatus(objData)}
@@ -63,12 +63,11 @@ App.propTypes = {
   deleteTask: PropTypes.func.isRequired,
   editTask: PropTypes.func.isRequired,
   switchStatus: PropTypes.func.isRequired,
-  lists: PropTypes.objectOf(PropTypes.array),
   addColumn: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  lists: state.getList,
+const mapStateToProps = ({ userData }) => ({
+  columns: userData.data.Columns,
 });
 
 class AppDndConnected extends DragDropContext(HTML5Backend)(App) {}

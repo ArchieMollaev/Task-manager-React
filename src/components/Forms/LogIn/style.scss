@@ -17,8 +17,14 @@
       padding: 0 10px;
     }
   }
+  .login {
+		left: 35px;
+		padding: 3px 5px;
+		background: green;
+		color: white;
+	}
 }
 
 @keyframes show_logIn_form {
   from { opacity: 0; transform: translateX(-40px);}
-} 
+}

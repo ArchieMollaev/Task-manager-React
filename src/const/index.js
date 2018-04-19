@@ -1,3 +1,9 @@
+export const AUTH_TOKEN = `Bearer ${localStorage.getItem('token')}`;
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_IN_RESPONSE = 'SIGN_IN_RESPONSE';
+export const GET_DATA = 'GET_DATA';
+export const GET_DATA_RESPONSE = 'GET_DATA_RESPONSE';
+
 export const LOAD_TASKS = 'LOAD_TASKS';
 export const TASKS_LOADED = 'TASKS_LOADED';
 export const PUSH_TASK = 'PUSH_TASK';
@@ -17,4 +23,5 @@ export const COLUMN_REMOVED = 'COLUMN_REMOVED';
 export const CHANGE_COLUMN_NAME = 'CHANGE_COLUMN_NAME';
 export const COLUMN_NAME_CHANGED = 'COLUMN_NAME_CHANGED';
 export const HOVER_ELEMENT = 'HOVER_ELEMENT';
+
 

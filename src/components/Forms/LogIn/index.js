@@ -2,8 +2,8 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import './style.scss';
 
-const LogIn = () => (
-  <div id="authentication">
+const LogIn = ({ handleSubmit }) => (
+  <form id="authentication" onSubmit={ handleSubmit }>
     <Field
       className="field1"
       name="login"
@@ -16,15 +16,16 @@ const LogIn = () => (
     />
     <Field
       className="field2"
-      name="taskNotes"
+      name="password"
       type="text"
       component="textarea"
       placeholder="password"
       autoComplete="off"
     />
-  </div>
+    <button type="submit" className="login">Log in</button>
+  </form>
 );
 
 export default reduxForm({
-  form: 'Log-in',
+  form: 'Login',
 })(LogIn);

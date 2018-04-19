@@ -20,7 +20,7 @@ const targetSource = {
     const newStatus = props.className;
     let position = props.hover.split('_')[0];
     if (task.currentStatus === newStatus &&
-       task.currentPosition < position) position -= 1; 
+       task.currentPosition < position) position -= 1;
     const sendData = {
       ...task,
       newStatus,
@@ -48,7 +48,7 @@ class Column extends React.Component {
      taskCreatorStatus,
      removeFunc,
      editFunc,
-     title,
+     colTitle,
      tasks,
      className,
      connectDropTarget,
@@ -85,11 +85,11 @@ class Column extends React.Component {
    const showOptions = () => (optionsStatus &&
    <ul className="options-menu">
      <li>options<button type="button" onClick={() => this.setState({ optionsStatus: false })}>х</button></li>
-     <li><button type="button" onClick={() => removeColumn({ name: replaceSpaces(title) })}>delete list</button></li>
+     <li><button type="button" onClick={() => removeColumn({ name: replaceSpaces(colTitle) })}>delete list</button></li>
    </ul>);
 
    return connectDropTarget(<div className={classNames({ 'task-column': true, 'drop-target': isOver })}>
-     <input className="column-title" defaultValue={title} onBlur={(e) => { renameColumn({ currentName: replaceSpaces(title), newName: replaceSpaces(e.target.value) }) }} />
+     <input className="column-title" defaultValue={colTitle} onBlur={(e) => { renameColumn({ currentName: replaceSpaces(colTitle), newName: replaceSpaces(e.target.value) }) }} />
      <button type="button" className="options" onClick={() => this.setState({ optionsStatus: true })}>...</button>
      { showOptions() }
      <span className="badge">{ tasks.length }</span>
@@ -98,28 +98,28 @@ class Column extends React.Component {
          className={classNames({ injector: true, 'injector-active': hover === `${0}_injector` && isOver })}
          onDragOver={() => hoverInjector(`${0}_injector`)}
        />
-       {tasks.map((item, i) => (
-         <div key={item.id + className}>
+       {tasks.map(({ id, title, description }, i) => (
+         <div key={id + className}>
            <Card
-             itemClass={classNames({ 'hover-item': hover === item.id && isOver })}
+             itemClass={classNames({ 'hover-item': hover === id && isOver })}
              status={className}
              editStatus={editable}
-             dataID={item.id}
+             dataID={id}
              position={i}
-             titleValue={item.taskName}
-             notesValue={item.taskNotes}
-             classCard={classNames({ 'item-style': getState(item.id) })}
-             classTitle={classNames({ title: true, hide: getState(item.id) })}
-             classNote={classNames({ 'task-des': true, hide: getState(item.id) })}
-             classRemove={classNames({ remove: true, 'remove-show': getState(item.id) })}
-             classEdit={classNames({ edit: true, hide: getState(item.id) })}
-             htmlFor={`${item.id}${title}`}
-             classLabel={classNames({ show: item.taskNotes, hide: getState(item.id) })}
-             checkerID={`${item.id}${title}`}
-             removeFunc={() => remove(item.id)}
-             editFunc={() => edit(item.id)}
-             submitFunc={data => formSubmit(data, item.id)}
-             canDrag={!getState(item.id)}
+             titleValue={title}
+             notesValue={description}
+             classCard={classNames({ 'item-style': getState(id) })}
+             classTitle={classNames({ title: true, hide: getState(id) })}
+             classNote={classNames({ 'task-des': true, hide: getState(id) })}
+             classRemove={classNames({ remove: true, 'remove-show': getState(id) })}
+             classEdit={classNames({ edit: true, hide: getState(id) })}
+             htmlFor={`${id}${title}`}
+             classLabel={classNames({ show: description, hide: getState(id) })}
+             checkerID={`${id}${title}`}
+             removeFunc={() => remove(id)}
+             editFunc={() => edit(id)}
+             submitFunc={data => formSubmit(data, id)}
+             canDrag={!getState(id)}
              injectorClass={classNames({ injector: true, 'injector-active': hover === `${i+1}_injector` && isOver })}
              injectorHoverFunc={() => hoverInjector(`${i+1}_injector`)}
            />
@@ -139,7 +139,7 @@ Column.propTypes = {
   taskCreatorStatus: PropTypes.func.isRequired,
   removeFunc: PropTypes.func.isRequired,
   editFunc: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+  colTitle: PropTypes.string.isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object),
   className: PropTypes.string.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
