@@ -23,7 +23,6 @@ const update = async (ctx) => {
 const replace = async (ctx) => {
   const { id } = ctx.state.auth;
   const data = ctx.request.body;
-  // console.log('ddaaaata', data);
   ctx.body = await CardService.replace(id, data);
 };
 

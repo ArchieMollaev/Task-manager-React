@@ -1,4 +1,4 @@
-import { Conflict, Unauthorized, NotFound, BadRequest, ServerUnavailable } from '../core/exceptions';
+import { NotFound, BadRequest } from '../core/exceptions';
 import ORM from '../ORMconnect';
 
 class CardService {
@@ -7,9 +7,7 @@ class CardService {
     this.Card = models.Card;
   }
 
-  create = async (UserId, {
-    ColumnId, position, title, description,
-  }) => {
+  create = async (UserId, { ColumnId, position, title, description }) => {
     if (!ColumnId || !position || !title) throw new BadRequest();
     const res = await this.Column.findOne({
       where: {
@@ -62,26 +60,17 @@ class CardService {
 
   replace = async (UserId, { order }) => {
     if (!order) throw new BadRequest();
-    order.forEach(async ({ id, position }) => {
-      const cardSource = await this.Card.findById(id);
-      await cardSource.update({ position });
-    });
-    const card = await this.Card.findAll({
+    const cards = await this.Card.findAll({
       where: {
         UserId,
       },
     });
-    if (!card) throw new NotFound();
-    const res = await card.bulkCreate(
-      [
-        { position: '2' },
-        { position: '0' },
-        { position: '1' }],
-      {
-        updateOnDuplicate: true,
-      },
-    );
-    return res;
+    if (!cards) throw new NotFound();
+    await Promise.all(cards.map(async (item) => {
+      const { position } = order.find(data => data.id === item.id);
+      await item.update({ position });
+    }));
+    return { success: true };
   }
 }
 

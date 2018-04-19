@@ -3,7 +3,7 @@ const Card = (sequelize, DataTypes) => (
     position: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
+      unique: false,
     },
     title: {
       type: DataTypes.STRING,

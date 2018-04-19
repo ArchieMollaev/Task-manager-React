@@ -6,8 +6,7 @@
   "scripts": {
     "start": "concurrently --kill-others \"npm run server\" \"npm run dev\"",
     "dev": "webpack-dev-server",
-    "server": "nodemon server/json-server.js --exec babel-node",
-    "koa-server": "nodemon koa-server --exec babel-node",
+    "server": "nodemon server --exec babel-node",
     "build": "webpack"
   },
   "keywords": [],

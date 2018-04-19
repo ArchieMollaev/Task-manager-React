@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { Conflict, Unauthorized, NotFound, BadRequest, ServerUnavailable } from '../core/exceptions';
+import { Conflict, Unauthorized, BadRequest } from '../core/exceptions';
 import ORM from '../ORMconnect';
 
 class UserService {
