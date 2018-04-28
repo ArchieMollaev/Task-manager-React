@@ -25,8 +25,8 @@ const SignInForm = ({ handleSubmit, goToSignUp }) => (
         required
       />
     </div>
-    <button type="submit" className="submit-btn">Log in</button>
-    <button type="button" className="transition-btn" onClick={ goToSignUp }>Sign Up</button>
+    <button type="submit" className="submit-btn">Sign in</button>
+    <button type="button" className="transition-btn" onClick={ goToSignUp }>Create an account</button>
   </form>
 );
 

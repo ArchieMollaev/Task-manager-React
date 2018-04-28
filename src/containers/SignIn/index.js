@@ -25,7 +25,7 @@ class SignIn extends React.Component {
   }
 
   toSignUp = () => {
-    this.props.history.push('/signUp');
+    this.props.history.push('/signup');
   }
 
   render = () => (

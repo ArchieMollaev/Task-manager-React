@@ -8,12 +8,12 @@ import './style.scss';
 class SignUp extends React.Component {
   componentWillReceiveProps = ({ user }) => {
     if (user.signUpData) {
-      this.props.history.push('/signIn');
+      this.props.history.push('/login');
     }
   }
 
   toSignIn = () => {
-    this.props.history.push('/signIn');
+    this.props.history.push('/login');
   }
 
   checkLoginAsync = (e) => {

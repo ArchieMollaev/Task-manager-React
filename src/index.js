@@ -12,10 +12,10 @@ ReactDOM.render(
   <Provider store={storeData}>
     <Router>
       <Switch>
-        <Route path="/signIn" component={SignIn} />
-        <Route path="/signUp" component={SignUp} />
+        <Route path="/login" component={SignIn} />
+        <Route path="/signup" component={SignUp} />
         <Route exact path="/:login" component={App} />
-        <Redirect from="/" to="/signIn" />
+        <Redirect from="/" to="/login" />
       </Switch>
     </Router>
   </Provider>,

@@ -44,7 +44,7 @@ const SignUpForm = ({ handleSubmit, goToSignIn, validateLogin }) => (
         required
       /> */}
     </div>
-    <button type="submit" className="submit-btn">Submit</button>
+    <button type="submit" className="submit-btn">Create</button>
     <button type="button" className="transition-btn" onClick={ goToSignIn }>go back</button>
   </form>
 );
