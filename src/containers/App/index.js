@@ -15,12 +15,22 @@ class App extends React.Component {
     newListForm: false,
   }
 
+  componentWillReceiveProps({ userData }) {
+    if (userData.meta) {
+      this.props.history.push('/');
+    }
+  }
+
   render = () => {
     const {
       deleteTask,
       editTask,
       switchStatus,
-      columns,
+      userData: {
+        data: {
+          Columns,
+        },
+      },
       addColumn,
     } = this.props;
 
@@ -30,7 +40,7 @@ class App extends React.Component {
         <h1>Task manager</h1>
         <div id="to-do-list-columns">
           <CardDragPreview />
-          {columns.map(({ name, Cards }) => (<Column
+          {Columns.map(({ name, Cards }) => (<Column
             columnName={name}
             key={name}
             className={name}
@@ -60,15 +70,20 @@ class App extends React.Component {
 }
 
 App.propTypes = {
+  // columns: PropTypes.arrayOf(React.PropTypes.shape({
+  //   color: React.PropTypes.string.isRequired,
+  //   fontSize: React.PropTypes.number.isRequired,
+  // })).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   deleteTask: PropTypes.func.isRequired,
   editTask: PropTypes.func.isRequired,
   switchStatus: PropTypes.func.isRequired,
   addColumn: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ userData }) => ({
-  columns: userData.data.Columns,
-});
+const mapStateToProps = ({ userData }) => ({ userData });
 
 class AppDndConnected extends DragDropContext(HTML5Backend)(App) {}
 

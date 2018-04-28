@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signIn, getData } from 'actions/User';
+import { signIn, getUserData, getFromStorage } from 'actions/User';
 import PropTypes from 'prop-types';
 import LogIn from 'components/Forms/LogIn';
 import CheckIn from 'components/Forms/CheckIn';
@@ -10,17 +10,26 @@ class Login extends React.Component {
   state = {
     btn: 'registration',
   }
+  componentWillMount() {
+    this.checkState();
+  }
+
   componentWillReceiveProps = ({ userData }) => {
     if (userData.token) {
-      localStorage.setItem('token', userData.token);
-      this.props.getData();
-    } else if (userData.data) {
-      this.props.history.push(`/${userData.data.login}`);
+      this.props.getUserData();
+    }
+    this.checkState();
+  }
+
+  checkState = () => {
+    const userData = getFromStorage();
+    if (userData) {
+      this.props.history.push(`/${userData.login}`);
     }
   }
 
   currentWindow = () => {
-    if (this.props.location.pathname === '/login') return <LogIn onSubmit={ (e) => { this.props.signIn(e) } } />;
+    if (this.props.location.pathname === '/login') return <LogIn onSubmit={(e) => { this.props.signIn(e); }} />;
     if (this.props.location.pathname === '/login/registration') return <CheckIn />;
   };
 
@@ -43,6 +52,8 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+  getUserData: PropTypes.func.isRequired,
+  signIn: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
@@ -56,4 +67,4 @@ Login.propTypes = {
 
 const mapStateToProps = ({ userData }) => ({ userData });
 
-export default connect(mapStateToProps, { signIn, getData })(Login);
+export default connect(mapStateToProps, { signIn, getUserData })(Login);

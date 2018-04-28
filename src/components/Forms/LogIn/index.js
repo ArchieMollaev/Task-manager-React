@@ -21,6 +21,7 @@ const LogIn = ({ handleSubmit }) => (
       component="textarea"
       placeholder="password"
       autoComplete="off"
+      required
     />
     <button type="submit" className="login">Log in</button>
   </form>

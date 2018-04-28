@@ -1,4 +1,3 @@
-export const AUTH_TOKEN = `Bearer ${localStorage.getItem('token')}`;
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_IN_RESPONSE = 'SIGN_IN_RESPONSE';
 export const GET_DATA = 'GET_DATA';

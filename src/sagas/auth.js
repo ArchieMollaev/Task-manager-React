@@ -1,4 +1,5 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
+import axiosDefaults from 'axios/lib/defaults';
 import * as tasksApi from 'api';
 import * as constants from 'const';
 import * as actions from 'actions/User';
@@ -9,24 +10,31 @@ const {
 } = constants;
 
 const {
-  signInResponse,
-  getDataResponse,
+  getUserData,
+  handleSignInData,
+  handleUserData,
+  assignAuthHeader,
 } = actions;
 
-function* signIn({ data }) {
+function* signInSaga({ data }) {
   const res = yield call(tasksApi.login, data);
-  yield put(signInResponse(res));
+  if (res.token) { localStorage.setItem('token', res.token); }
+  yield put(handleSignInData(res));
 }
 
-function* getData() {
-  const data = yield call(tasksApi.getData);
-  yield put(getDataResponse(data));
+function* getUserDataSaga() {
+  assignAuthHeader();
+  const res = yield call(tasksApi.getData);
+  if (res.data) {
+    localStorage.setItem('userData', JSON.stringify({ login: res.data.login }));
+  }
+  yield put(handleUserData(res));
 }
 
 export default function* tasksSaga() {
   yield [
-    takeEvery(SIGN_IN, signIn),
-    takeEvery(GET_DATA, getData),
+    takeEvery(SIGN_IN, signInSaga),
+    takeEvery(GET_DATA, getUserDataSaga),
   ];
-  // yield put(getTasksList({}));
+  yield put(getUserData());
 }
