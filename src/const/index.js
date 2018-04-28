@@ -1,5 +1,7 @@
 export const SIGN_IN = 'SIGN_IN';
+export const SIGN_UP = 'SIGN_UP';
 export const SIGN_IN_RESPONSE = 'SIGN_IN_RESPONSE';
+export const SIGN_UP_RESPONSE = 'SIGN_UP_RESPONSE';
 export const GET_DATA = 'GET_DATA';
 export const GET_DATA_RESPONSE = 'GET_DATA_RESPONSE';
 

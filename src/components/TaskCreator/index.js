@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from 'actions/Task';
-import Form from 'components/Forms/Tasks';
+import TaskForm from 'components/Forms/app-forms/Task-form';
 import { reset } from 'redux-form';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -18,7 +18,7 @@ const TaskCreator = (props) => {
 
   const addTaskForm = () => (
     showForm[column] &&
-    <Form
+    <TaskForm
       formId="task-form"
       form="create-task"
       onSubmit={(e) => { onSubmit(e); reset('create-task'); }}

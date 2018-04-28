@@ -3,7 +3,9 @@ import axiosDefaults from 'axios/lib/defaults';
 
 const {
   SIGN_IN,
+  SIGN_UP,
   SIGN_IN_RESPONSE,
+  SIGN_UP_RESPONSE,
   GET_DATA,
   GET_DATA_RESPONSE,
 } = constants;
@@ -24,9 +26,23 @@ export const handleSignInData = response => ({
   type: SIGN_IN_RESPONSE, response,
 });
 
+export const signUp = data => ({
+  type: SIGN_UP, data,
+});
+
+export const handleSignUpData = response => ({
+  type: SIGN_UP_RESPONSE, response,
+});
+
 // additional methods
 export const assignAuthHeader = () => {
   axiosDefaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+};
+
+export const setToStorage = ({ token, data, error }) => {
+  if (token) { localStorage.setItem('token', token); }
+  if (data) { localStorage.setItem('userData', JSON.stringify({ login: data.login })); }
+  if (error) { localStorage.removeItem('token'); localStorage.removeItem('userData'); }
 };
 
 export const getFromStorage = () => (

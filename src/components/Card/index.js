@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Form from 'components/Forms/Tasks';
+import TaskForm from 'components/Forms/app-forms/Task-form';
 import Textarea from 'react-textarea-autosize';
 import { DragSource } from 'react-dnd';
 import * as actions from 'actions/Task';
@@ -55,7 +55,7 @@ class Card extends React.Component {
 
   showForm = (editStatus, status, id, taskName, taskNotes) => (
     editStatus === id + status &&
-    <Form
+    <TaskForm
       initialValues={{ taskName, taskNotes }}
       formId="editor"
       form="editor"

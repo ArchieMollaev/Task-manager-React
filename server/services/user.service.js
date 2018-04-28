@@ -30,7 +30,7 @@ class UserService {
       row: true,
     });
     if (!res[1]) throw new Conflict('user with email already exists');
-    return res[0];
+    return { signUpData: res[0] };
   }
 
   authorization = async ({ login, password }) => {

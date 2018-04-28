@@ -1,0 +1,57 @@
+
+#sign-in-form {
+  width: 200px;
+  margin: auto auto;
+  animation: show_logIn_form 0.6s ease;
+  .panel {
+    display: flex;
+    flex-direction: column;
+    input {
+      box-sizing: border-box;
+      border: none;
+      border-radius: 3px;
+      padding: 0px 10px;
+      margin: 5px 0;
+      height: 28px;
+      /* width: 99%; */
+      font-size: 14px;
+        &:focus {
+          outline: none;
+          background: rgb(255, 253, 231);
+          transition: all 0.5s ease;
+        }
+    }
+  }
+  .submit-btn {
+    padding: 6px 18px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 5px;
+    background: #6d9c29;
+    color: white;
+    &:hover {
+      transition: all 0.5s ease;
+      background: #4d7514;
+    }
+  }
+  .transition-btn {
+		padding: 6px 18px;
+		font-size: 14px;
+		border: none;
+		border-radius: 4px;
+		width: 100%;
+		margin-top: 10px;
+		background: #29859c;
+		color: white;
+		&:hover {
+		  transition: all 0.5s ease;
+		  background: #1c6d81;
+		}
+	}
+}
+
+@keyframes show_logIn_form {
+  from { opacity: 0; transform: translateX(-40px);}
+}

@@ -7,10 +7,19 @@ export const login = data => request({
   data,
 });
 
+export const signUp = data => request({
+  method: 'POST',
+  url: 'signup',
+  data,
+});
+
 export const getData = () => request({
   method: 'GET',
   url: 'get-data',
 });
+
+
+
 
 export const pushTask = (status, data) => request({
   method: 'POST',

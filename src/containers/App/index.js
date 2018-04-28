@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from 'actions/Task';
 import Column from 'components/Column';
 import CardDragPreview from 'components/DragLayer';
-import NewListForm from 'components/Forms/NewList';
+import NewColumnForm from 'components/Forms/app-forms/New-column-form';
 import classNames from 'classnames';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
@@ -15,8 +15,8 @@ class App extends React.Component {
     newListForm: false,
   }
 
-  componentWillReceiveProps({ userData }) {
-    if (userData.meta) {
+  componentWillReceiveProps({ user }) {
+    if (user.error) {
       this.props.history.push('/');
     }
   }
@@ -26,7 +26,7 @@ class App extends React.Component {
       deleteTask,
       editTask,
       switchStatus,
-      userData: {
+      user: {
         data: {
           Columns,
         },
@@ -58,7 +58,7 @@ class App extends React.Component {
 				  add list...
           </button>
           { newListForm &&
-          <NewListForm
+          <NewColumnForm
             closeFunc={() => this.setState({ newListForm: false })}
             onSubmit={(e) => { addColumn({ name: e.name.split(' ').join('_') }); this.setState({ newListForm: false }); }}
           />
@@ -83,7 +83,7 @@ App.propTypes = {
   addColumn: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ userData }) => ({ userData });
+const mapStateToProps = ({ user }) => ({ user });
 
 class AppDndConnected extends DragDropContext(HTML5Backend)(App) {}
 
