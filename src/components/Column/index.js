@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 import Card from 'components/Card';
 import TaskCreator from 'components/TaskCreator';
-import * as actions from 'actions/Task';
+import * as actions from 'actions/Common-actions';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';

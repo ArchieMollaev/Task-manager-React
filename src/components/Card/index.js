@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import TaskForm from 'components/Forms/app-forms/Task-form';
 import Textarea from 'react-textarea-autosize';
 import { DragSource } from 'react-dnd';
-import * as actions from 'actions/Task';
+import * as actions from 'actions/Common-actions';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import PropTypes from 'prop-types';
 import './style.scss';

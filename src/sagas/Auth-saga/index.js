@@ -1,7 +1,7 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-import * as tasksApi from 'api';
+import * as api from 'api/Auth-api';
 import * as constants from 'const';
-import * as actions from 'actions/User';
+import * as actions from 'actions/Auth-actions';
 
 const {
   SIGN_IN,
@@ -20,7 +20,7 @@ const {
 
 function* signInSaga({ data }) {
   try {
-    const res = yield call(tasksApi.login, data);
+    const res = yield call(api.login, data);
     setToStorage(res);
     yield put(handleSignInData(res));
   } catch (err) {
@@ -30,8 +30,7 @@ function* signInSaga({ data }) {
 
 function* signUpSaga({ data }) {
   try {
-    console.log(data);
-    const res = yield call(tasksApi.signUp, data);
+    const res = yield call(api.signUp, data);
     yield put(handleSignUpData(res));
   } catch (err) {
     console.log(err);
@@ -41,7 +40,7 @@ function* signUpSaga({ data }) {
 function* getUserDataSaga() {
   try {
     assignAuthHeader();
-    const res = yield call(tasksApi.getData);
+    const res = yield call(api.getData);
     setToStorage(res);
     yield put(handleUserData(res));
   } catch (err) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from 'actions/Task';
+import * as actions from 'actions/Common-actions';
 import Column from 'components/Column';
 import CardDragPreview from 'components/DragLayer';
 import NewColumnForm from 'components/Forms/app-forms/New-column-form';
@@ -15,8 +15,8 @@ class App extends React.Component {
     newListForm: false,
   }
 
-  componentWillReceiveProps({ user }) {
-    if (user.error) {
+  componentWillReceiveProps({ auth: { error } }) {
+    if (error) {
       this.props.history.push('/');
     }
   }
@@ -26,7 +26,7 @@ class App extends React.Component {
       deleteTask,
       editTask,
       switchStatus,
-      user: {
+      auth: {
         data: {
           Columns,
         },
@@ -83,7 +83,7 @@ App.propTypes = {
   addColumn: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ user }) => ({ user });
+const mapStateToProps = ({ auth }) => ({ auth });
 
 class AppDndConnected extends DragDropContext(HTML5Backend)(App) {}
 

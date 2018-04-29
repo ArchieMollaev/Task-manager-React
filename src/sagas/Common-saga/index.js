@@ -1,7 +1,7 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-import * as tasksApi from 'api';
+import * as api from 'api/Common-api';
 import * as constants from 'const';
-import * as actions from 'actions/Task';
+import * as actions from 'actions/Common-actions';
 
 const {
   LOAD_TASKS,
@@ -27,43 +27,43 @@ const {
 } = actions;
 
 function* load() {
-  const data = yield call(tasksApi.getAllTasks);
+  const data = yield call(api.getAllTasks);
   yield put(listLoaded({ data }));
 }
 
 function* push({ status, data }) {
   const taskData = { ...data, id: Date.now() };
   yield put(taskPushed({ taskData, status }));
-  yield call(tasksApi.pushTask, status, taskData);
+  yield call(api.pushTask, status, taskData);
 }
 
 function* update({ data, status }) {
   yield put(taskEdited({ data, status }));
-  yield call(tasksApi.editTask, data.id, status, data);
+  yield call(api.editTask, data.id, status, data);
 }
 
 function* remove({ id, status }) {
   yield put(taskDeleted({ id, status }));
-  yield call(tasksApi.deleteTask, id, status);
+  yield call(api.deleteTask, id, status);
 }
 
 function* switcher(task) {
   yield put(statusSwitched(task.data));
-  yield call(tasksApi.updateList, task.data);
+  yield call(api.updateList, task.data);
 }
 
 function* addNewColumn({ data }) {
-  yield call(tasksApi.addNewColumn, data);
+  yield call(api.addNewColumn, data);
   yield put(columnAdded(data));
 }
 
 function* changeColumnName({ data }) {
-  yield call(tasksApi.renameColumn, data);
+  yield call(api.renameColumn, data);
   yield put(columnRenamed(data));
 }
 
 function* removeColumn({ data }) {
-  yield call(tasksApi.removeColumn, data);
+  yield call(api.removeColumn, data);
   yield put(columnRemoved(data));
 }
 

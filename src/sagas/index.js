@@ -1,6 +1,6 @@
 import { fork } from 'redux-saga/effects';
-import Auth from './auth';
-import Common from './common';
+import Auth from './Auth-saga';
+import Common from './Common-saga';
 
 export default function* root() {
   yield [

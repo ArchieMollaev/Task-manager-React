@@ -6,4 +6,41 @@
 		display: inline-block;
 		vertical-align: middle;
 	}
+	h1 {
+		color: white;
+		font-size: 16px;
+		font-family: Montserrat;
+	 }
+	 .message {
+		position: relative;
+		margin-bottom: 10px;
+		padding: 3px 0px;
+		color: #6d9c29;
+		font-size: 14px;
+		font-family: Montserrat;
+		background: white;
+		border-radius: 4px;
+		display: inline-block;
+		width: 200px;
+		-webkit-box-shadow: 4px 7px 13px -8px rgba(0,0,0,0.75);
+		-moz-box-shadow: 4px 7px 13px -8px rgba(0,0,0,0.75);
+		box-shadow: 4px 7px 13px -8px rgba(0,0,0,0.75);
+		animation: show_signIn_message 0.8s ease;
+
+		&:before {
+			position: absolute;
+			top: 88%;
+			right: 14%;
+			content: '';
+			border: 10px solid transparent;
+			border-top: 11px solid white;
+		}
+	 }
+	 .has-error {
+		 color: rgb(197, 50, 50);
+	 }
 }
+
+@keyframes show_signIn_message {
+	from { opacity: 0; transform: translateY(-40px); }
+  }

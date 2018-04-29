@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signUp } from 'actions/User';
+import { signUp } from 'actions/Auth-actions';
 import PropTypes from 'prop-types';
 import SignUpForm from 'components/Forms/auth-forms/Sign-up-form';
 import './style.scss';
 
 class SignUp extends React.Component {
-  componentWillReceiveProps = ({ user }) => {
-    if (user.signUpData) {
+  componentWillReceiveProps = ({ auth: { signUpData } }) => {
+    if (signUpData) {
       this.props.history.push('/login');
     }
   }
@@ -22,11 +22,12 @@ class SignUp extends React.Component {
 
   render = () => (
     <div id="auth">
+      <h1>Task manager | Sign Up</h1>
       <div className="content">
         <SignUpForm
           onSubmit={(e) => { this.props.signUp(e); }}
           goToSignIn={this.toSignIn}
-          validateLogin={ this.checkLoginAsync }
+          validateLogin={this.checkLoginAsync}
       />
       </div>
     </div>
@@ -40,6 +41,6 @@ SignUp.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({ user }) => ({ user });
+const mapStateToProps = ({ auth }) => ({ auth });
 
 export default connect(mapStateToProps, { signUp })(SignUp);

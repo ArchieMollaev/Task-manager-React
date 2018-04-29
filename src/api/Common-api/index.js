@@ -1,25 +1,5 @@
 
-import request from './request';
-
-export const login = data => request({
-  method: 'POST',
-  url: 'login',
-  data,
-});
-
-export const signUp = data => request({
-  method: 'POST',
-  url: 'signup',
-  data,
-});
-
-export const getData = () => request({
-  method: 'GET',
-  url: 'get-data',
-});
-
-
-
+import request from '../request';
 
 export const pushTask = (status, data) => request({
   method: 'POST',

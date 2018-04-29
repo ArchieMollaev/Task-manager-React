@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
-import user from './user';
-import { getList, editable, taskCreatorStatus, hoverInjector } from './task';
+import auth from './Auth-reducer';
+import { getList, editable, taskCreatorStatus, hoverInjector } from './Common-reducer';
 
 const reducers = combineReducers({
-  user,
+  auth,
   getList,
   editable,
   taskCreatorStatus,
