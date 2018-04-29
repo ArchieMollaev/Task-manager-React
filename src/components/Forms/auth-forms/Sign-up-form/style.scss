@@ -21,6 +21,23 @@
           transition: all 0.5s ease;
         }
     }
+    .login {
+        position: relative;
+        input {
+          width: 100%;
+        }
+        .indicator {
+          position: absolute;
+          right: -25px;
+          top: 10px;
+          .fa-check {
+            color: #6d9c29;
+          }
+          .fa-times {
+            color: rgb(252, 146, 146);
+          }
+        }
+    }
   }
   .submit-btn {
     padding: 6px 18px;

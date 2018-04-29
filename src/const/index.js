@@ -4,6 +4,8 @@ export const SIGN_IN_RESPONSE = 'SIGN_IN_RESPONSE';
 export const SIGN_UP_RESPONSE = 'SIGN_UP_RESPONSE';
 export const GET_DATA = 'GET_DATA';
 export const GET_DATA_RESPONSE = 'GET_DATA_RESPONSE';
+export const VALIDATE_LOGIN = 'VALIDATE_LOGIN';
+export const VALIDATE_LOGIN_RES = 'VALIDATE_LOGIN_RES';
 
 export const LOAD_TASKS = 'LOAD_TASKS';
 export const TASKS_LOADED = 'TASKS_LOADED';

@@ -70,10 +70,16 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  // columns: PropTypes.arrayOf(React.PropTypes.shape({
-  //   color: React.PropTypes.string.isRequired,
-  //   fontSize: React.PropTypes.number.isRequired,
-  // })).isRequired,
+  auth: PropTypes.shape({
+    data: React.PropTypes.shape({
+      Columns: React.PropTypes.arrayOf(React.PropTypes.shape({
+        id: React.PropTypes.number.isRequired,
+        position: React.PropTypes.number.isRequired,
+        title: React.PropTypes.string.isRequired,
+        description: React.PropTypes.string.isRequired,
+      })),
+    }),
+  }),
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

@@ -7,6 +7,7 @@ const {
   SIGN_IN,
   SIGN_UP,
   GET_DATA,
+  VALIDATE_LOGIN,
 } = constants;
 
 const {
@@ -14,6 +15,7 @@ const {
   handleSignInData,
   handleSignUpData,
   handleUserData,
+  handleLoginValidator,
   assignAuthHeader,
   setToStorage,
 } = actions;
@@ -48,11 +50,21 @@ function* getUserDataSaga() {
   }
 }
 
+function* loginValidatorSaga({ data }) {
+  try {
+    const res = yield call(api.validateLogin, data);
+    yield put(handleLoginValidator(res));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export default function* tasksSaga() {
   yield [
     takeEvery(SIGN_IN, signInSaga),
     takeEvery(SIGN_UP, signUpSaga),
     takeEvery(GET_DATA, getUserDataSaga),
+    takeEvery(VALIDATE_LOGIN, loginValidatorSaga),
   ];
   yield put(getUserData());
 }

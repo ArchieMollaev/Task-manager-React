@@ -76,6 +76,9 @@ SignIn.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  auth: PropTypes.shape({
+    signUpData: PropTypes.shape({ login: PropTypes.string }),
+  }),
 };
 
 const mapStateToProps = ({ auth }) => ({ auth });

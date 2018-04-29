@@ -8,6 +8,8 @@ const {
   SIGN_UP_RESPONSE,
   GET_DATA,
   GET_DATA_RESPONSE,
+  VALIDATE_LOGIN,
+  VALIDATE_LOGIN_RES,
 } = constants;
 
 export const getUserData = () => ({
@@ -32,6 +34,14 @@ export const signUp = data => ({
 
 export const handleSignUpData = response => ({
   type: SIGN_UP_RESPONSE, response,
+});
+
+export const loginValidator = data => ({
+  type: VALIDATE_LOGIN, data,
+});
+
+export const handleLoginValidator = response => ({
+  type: VALIDATE_LOGIN_RES, response,
 });
 
 // additional methods
