@@ -37,61 +37,60 @@ const collect = (connector, monitor) => ({
 
 const replaceSpaces = target => target.split(' ').join('_');
 class Column extends React.Component {
- state = {
-   optionsStatus: false,
- }
+  state = {
+    optionsStatus: false,
+  }
+
+  getState = id => this.props.editable === id + this.props.className;
+
+  remove = (id) => {
+    this.props.setEditable();
+    this.props.removeFunc(id);
+  };
+
+  formSubmit = (data, id) => {
+    if (!data.taskName) { this.props.remove(id); } else {
+      this.props.editFunc({ id, ...data });
+      this.props.setEditable();
+    }
+  };
+
+  edit = (id) => {
+    this.props.setEditable(id + this.props.className);
+    this.props.taskCreatorStatus();
+  };
+
+  showOptions = () => (this.state.optionsStatus &&
+    <ul className="options-menu">
+      <li>options<button type="button" onClick={() => this.setState({ optionsStatus: false })}>х</button></li>
+      <li><button type="button" onClick={() => this.props.removeColumn({ name: replaceSpaces(this.props.colTitle) })}>delete list</button></li>
+    </ul>
+  );
+
+  // getPositionIndex = () => {
+  //   this.props.tasks.pop('')
+  // }
 
  render = () => {
    const {
      editable,
-     setEditable,
-     taskCreatorStatus,
-     removeFunc,
-     editFunc,
      colTitle,
+     colId,
      tasks,
      className,
      connectDropTarget,
      isOver,
      addTask,
      columnName,
-     removeColumn,
      renameColumn,
      hover,
      hoverInjector,
    } = this.props;
 
-   const { optionsStatus } = this.state;
-
-   const edit = (id) => {
-     setEditable(id + className);
-     taskCreatorStatus();
-   };
-
-   const remove = (id) => {
-     setEditable();
-     removeFunc(id);
-   };
-
-   const formSubmit = (data, id) => {
-     if (!data.taskName) { remove(id); } else {
-       editFunc({ id, ...data });
-       setEditable();
-     }
-   };
-
-   const getState = id => editable === id + className;
-
-   const showOptions = () => (optionsStatus &&
-   <ul className="options-menu">
-     <li>options<button type="button" onClick={() => this.setState({ optionsStatus: false })}>х</button></li>
-     <li><button type="button" onClick={() => removeColumn({ name: replaceSpaces(colTitle) })}>delete list</button></li>
-   </ul>);
-
    return connectDropTarget(<div className={classNames({ 'task-column': true, 'drop-target': isOver })}>
      <input className="column-title" defaultValue={colTitle} onBlur={(e) => { renameColumn({ currentName: replaceSpaces(colTitle), newName: replaceSpaces(e.target.value) }) }} />
      <button type="button" className="options" onClick={() => this.setState({ optionsStatus: true })}>...</button>
-     { showOptions() }
+     { this.showOptions() }
      <span className="badge">{ tasks.length }</span>
      <ul>
        <div
@@ -99,7 +98,7 @@ class Column extends React.Component {
          onDragOver={() => hoverInjector(`${0}_injector`)}
        />
        {tasks.map(({ id, title, description }, i) => (
-         <div key={id + className}>
+         <div key={i}>
            <Card
              itemClass={classNames({ 'hover-item': hover === id && isOver })}
              status={className}
@@ -108,25 +107,25 @@ class Column extends React.Component {
              position={i}
              titleValue={title}
              notesValue={description}
-             classCard={classNames({ 'item-style': getState(id) })}
-             classTitle={classNames({ title: true, hide: getState(id) })}
-             classNote={classNames({ 'task-des': true, hide: getState(id) })}
-             classRemove={classNames({ remove: true, 'remove-show': getState(id) })}
-             classEdit={classNames({ edit: true, hide: getState(id) })}
+             classCard={classNames({ 'item-style': this.getState(id) })}
+             classTitle={classNames({ title: true, hide: this.getState(id) })}
+             classNote={classNames({ 'task-des': true, hide: this.getState(id) })}
+             classRemove={classNames({ remove: true, 'remove-show': this.getState(id) })}
+             classEdit={classNames({ edit: true, hide: this.getState(id) })}
              htmlFor={`${id}${title}`}
-             classLabel={classNames({ show: description, hide: getState(id) })}
+             classLabel={classNames({ show: description, hide: this.getState(id) })}
              checkerID={`${id}${title}`}
-             removeFunc={() => remove(id)}
-             editFunc={() => edit(id)}
-             submitFunc={data => formSubmit(data, id)}
-             canDrag={!getState(id)}
-             injectorClass={classNames({ injector: true, 'injector-active': hover === `${i+1}_injector` && isOver })}
-             injectorHoverFunc={() => hoverInjector(`${i+1}_injector`)}
+             removeFunc={() => this.remove(id)}
+             editFunc={() => this.edit(id)}
+             submitFunc={data => this.formSubmit(data, id)}
+             canDrag={!this.getState(id)}
+             injectorClass={classNames({ injector: true, 'injector-active': hover === `${i + 1}_injector` && isOver })}
+             injectorHoverFunc={() => hoverInjector(`${i + 1}_injector`)}
            />
          </div>))}
      </ul>
      <TaskCreator
-       onSubmit={(data) => { reset('create-task'); addTask({ data, status: columnName }); }}
+       onSubmit={(data) => { reset('create-task'); addTask({ data, ColumnId: colId, position: 10 }); }}
        column={columnName}
      />
     </div>);
@@ -136,6 +135,8 @@ class Column extends React.Component {
 Column.propTypes = {
   editable: PropTypes.string.isRequired,
   setEditable: PropTypes.func.isRequired,
+  remove: PropTypes.func,
+  renameColumn: PropTypes.func.isRequired,
   taskCreatorStatus: PropTypes.func.isRequired,
   removeFunc: PropTypes.func.isRequired,
   editFunc: PropTypes.func.isRequired,

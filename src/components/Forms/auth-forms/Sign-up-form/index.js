@@ -26,6 +26,7 @@ const renderField = ({
       name={name}
       autoFocus="true"
       autoComplete="off"
+      required
     />
     { validationAttempt ? <div className="indicator">{ checker(isValid) }</div> : null }
   </div>
@@ -69,15 +70,6 @@ const SignUpForm = ({
         autoComplete="off"
         required
       />
-      {/* <Field
-        className="confirm-password"
-        name="password_repeat"
-        type="text"
-        component="input"
-        placeholder="confirm password"
-        autoComplete="off"
-        required
-      /> */}
     </div>
     <button type="submit" className="submit-btn">Create</button>
     <button type="button" className="transition-btn" onClick={goToSignIn}>go back</button>

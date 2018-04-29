@@ -40,9 +40,10 @@ class App extends React.Component {
         <h1>Task manager</h1>
         <div id="to-do-list-columns">
           <CardDragPreview />
-          {Columns.map(({ name, Cards }) => (<Column
+          {Columns.map(({ id, name, Cards }) => (<Column
             columnName={name}
-            key={name}
+            colId={id}
+            key={id}
             className={name}
             colTitle={name}
             tasks={Cards}
@@ -73,10 +74,10 @@ App.propTypes = {
   auth: PropTypes.shape({
     data: React.PropTypes.shape({
       Columns: React.PropTypes.arrayOf(React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        position: React.PropTypes.number.isRequired,
-        title: React.PropTypes.string.isRequired,
-        description: React.PropTypes.string.isRequired,
+        id: React.PropTypes.number,
+        position: React.PropTypes.number,
+        title: React.PropTypes.string,
+        description: React.PropTypes.string,
       })),
     }),
   }),
