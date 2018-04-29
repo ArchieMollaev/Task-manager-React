@@ -37,7 +37,6 @@ class App extends React.Component {
     const { newListForm } = this.state;
     return (
       <div id="todo-app" >
-        <h1>Task manager</h1>
         <div id="to-do-list-columns">
           <CardDragPreview />
           {Columns.map(({ id, name, Cards }) => (<Column

@@ -9,16 +9,21 @@ import storeData from 'store';
 import 'styles/main.scss';
 
 ReactDOM.render(
-  <Provider store={storeData}>
-    <Router>
-      <Switch>
-        <Route path="/login" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-        <Route exact path="/:login" component={App} />
-        <Redirect from="/" to="/login" />
-      </Switch>
-    </Router>
-  </Provider>,
+  <div>
+    <h1 className="main-header">
+      <i className="fa fa-rocket" aria-hidden="true" /> t.rocket
+    </h1>
+    <Provider store={storeData}>
+      <Router>
+        <Switch>
+          <Route path="/login" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+          <Route exact path="/:login" component={App} />
+          <Redirect from="/" to="/login" />
+        </Switch>
+      </Router>
+    </Provider>
+  </div>,
   document.getElementById('root'),
 );
 
