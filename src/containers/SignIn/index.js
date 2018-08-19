@@ -13,8 +13,8 @@ class SignIn extends React.Component {
   }
   state = {
     message: '',
-    hasError: false,
-  }
+    hasError: false
+  };
   componentWillMount() {
     if (this.props.auth.signUpData) {
       this.setState({ message: 'Account successfuly created. Please sign in' });
@@ -32,35 +32,40 @@ class SignIn extends React.Component {
     }
     this.submitAttempt = false;
     this.checkState();
-  }
+  };
 
   checkState = () => {
     const userData = getFromStorage();
+    console.log('here', userData);
     if (userData) {
       this.props.history.push(`/${userData.login.replace(' ', '')}`);
     }
-  }
+  };
 
   toSignUp = () => {
     this.props.history.push('/signup');
-  }
+  };
 
   resetErrorStyle = () => {
     this.setState({ message: '' });
     this.setState({ hasError: false });
-  }
+  };
 
   render = () => (
     <div id="auth">
       <div className="content">
-        { this.state.message ?
-          <div className={ classNames({ message: true, 'has-error': this.state.hasError })}>
-            <span>{ this.state.message }</span>
+        {this.state.message ? (
+          <div className={classNames({ message: true, 'has-error': this.state.hasError })}>
+            <span>{this.state.message}</span>
           </div>
-          : <h1>Task manager | Sign In</h1>
-        }
+        ) : (
+          <h1>Task manager | Sign In</h1>
+        )}
         <SignInForm
-          onSubmit={(e) => { this.props.signIn(e); this.submitAttempt = true; }}
+          onSubmit={e => {
+            this.props.signIn(e);
+            this.submitAttempt = true;
+          }}
           goToSignUp={this.toSignUp}
           hasError={this.state.hasError}
           resetErrorStyle={this.resetErrorStyle}
@@ -74,13 +79,16 @@ SignIn.propTypes = {
   getUserData: PropTypes.func.isRequired,
   signIn: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired
   }).isRequired,
   auth: PropTypes.shape({
-    signUpData: PropTypes.shape({ login: PropTypes.string }),
-  }),
+    signUpData: PropTypes.shape({ login: PropTypes.string })
+  })
 };
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps, { signIn, getUserData })(SignIn);
+export default connect(
+  mapStateToProps,
+  { signIn, getUserData }
+)(SignIn);

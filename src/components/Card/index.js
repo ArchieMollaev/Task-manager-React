@@ -20,16 +20,16 @@ const cardSource = {
     const {
       dataID,
       position,
-      titleValue,
-      notesValue,
+      title,
+      description,
       status,
     } = props;
 
     return {
       data: {
         id: dataID,
-        taskName: titleValue,
-        taskNotes: notesValue,
+        taskName: title,
+        taskNotes: description,
       },
       currentStatus: status,
       currentPosition: position,
@@ -72,8 +72,8 @@ class Card extends React.Component {
       status,
       dataID,
       position,
-      titleValue,
-      notesValue,
+      title,
+      description,
       classCard,
       classTitle,
       classNote,
@@ -95,7 +95,7 @@ class Card extends React.Component {
         <Textarea
           className={classTitle}
           type="text"
-          value={titleValue}
+          value={title}
           readOnly
         />
         <label htmlFor={htmlFor} className={classLabel}>
@@ -105,7 +105,7 @@ class Card extends React.Component {
         <Textarea
           className={classNote}
           type="text"
-          value={notesValue}
+          value={description || ''}
           readOnly
         />
         <button type="button" className={classRemove} onClick={removeFunc}>
@@ -114,7 +114,7 @@ class Card extends React.Component {
         <button className={classEdit} type="button" onClick={editFunc}>
           <i className="fa fa-pencil" aria-hidden="true" />
         </button>
-        {this.showForm(editStatus, status, dataID, titleValue, notesValue)}
+        {this.showForm(editStatus, status, dataID, title, description)}
       </div>
       <div
         className={injectorClass}
@@ -128,8 +128,8 @@ Card.propTypes = {
   editStatus: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   dataID: PropTypes.number.isRequired,
-  titleValue: PropTypes.string.isRequired,
-  notesValue: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
   classCard: PropTypes.string.isRequired,
   classTitle: PropTypes.string.isRequired,
   classNote: PropTypes.string.isRequired,

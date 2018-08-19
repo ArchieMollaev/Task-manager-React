@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 import Card from 'components/Card';
 import TaskCreator from 'components/TaskCreator';
+import * as cardActions from 'actions/Card-actions';
 import * as actions from 'actions/Common-actions';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
-
 import './style.scss';
 
 const Types = {
@@ -67,9 +67,11 @@ class Column extends React.Component {
     </ul>
   );
 
-  // getPositionIndex = () => {
-  //   this.props.tasks.pop('')
-  // }
+  sortData = data => data.sort((a, b) => a.position - b.position);
+
+  assignPostion = () => (
+    this.props.tasks.length ? this.sortData(this.props.tasks).pop().position + 1 : '0'
+  )
 
  render = () => {
    const {
@@ -80,7 +82,7 @@ class Column extends React.Component {
      className,
      connectDropTarget,
      isOver,
-     addTask,
+     createCard,
      columnName,
      renameColumn,
      hover,
@@ -88,7 +90,7 @@ class Column extends React.Component {
    } = this.props;
 
    return connectDropTarget(<div className={classNames({ 'task-column': true, 'drop-target': isOver })}>
-     <input className="column-title" defaultValue={colTitle} onBlur={(e) => { renameColumn({ currentName: replaceSpaces(colTitle), newName: replaceSpaces(e.target.value) }) }} />
+     <input className="column-title" defaultValue={colTitle} onBlur={(e) => { renameColumn({ currentName: replaceSpaces(colTitle), newName: replaceSpaces(e.target.value) }); }} />
      <button type="button" className="options" onClick={() => this.setState({ optionsStatus: true })}>...</button>
      { this.showOptions() }
      <span className="badge">{ tasks.length }</span>
@@ -97,7 +99,7 @@ class Column extends React.Component {
          className={classNames({ injector: true, 'injector-active': hover === `${0}_injector` && isOver })}
          onDragOver={() => hoverInjector(`${0}_injector`)}
        />
-       {tasks.map(({ id, title, description }, i) => (
+       {this.sortData(tasks).map(({ id, title, description }, i) => (
          <div key={i}>
            <Card
              itemClass={classNames({ 'hover-item': hover === id && isOver })}
@@ -105,8 +107,8 @@ class Column extends React.Component {
              editStatus={editable}
              dataID={id}
              position={i}
-             titleValue={title}
-             notesValue={description}
+             title={title}
+             description={description}
              classCard={classNames({ 'item-style': this.getState(id) })}
              classTitle={classNames({ title: true, hide: this.getState(id) })}
              classNote={classNames({ 'task-des': true, hide: this.getState(id) })}
@@ -125,10 +127,10 @@ class Column extends React.Component {
          </div>))}
      </ul>
      <TaskCreator
-       onSubmit={(data) => { reset('create-task'); addTask({ data, ColumnId: colId, position: 10 }); }}
+       onSubmit={(data) => { reset('create-task'); createCard({ ...data, ColumnId: colId, position: this.assignPostion() }); }}
        column={columnName}
      />
-    </div>);
+   </div>);
  }
 }
 
@@ -145,7 +147,7 @@ Column.propTypes = {
   className: PropTypes.string.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   isOver: PropTypes.bool.isRequired,
-  addTask: PropTypes.func.isRequired,
+  createCard: PropTypes.func.isRequired,
   columnName: PropTypes.string.isRequired,
   removeColumn: PropTypes.func.isRequired,
   hover: PropTypes.string.isRequired,
@@ -159,5 +161,5 @@ const mapStateToProps = state => ({
 
 class ColumnDndConnected extends DropTarget(Types.ITEM, targetSource, collect)(Column) {}
 
-export default connect(mapStateToProps, actions)(ColumnDndConnected);
+export default connect(mapStateToProps, { ...actions, ...cardActions })(ColumnDndConnected);
 

@@ -15,7 +15,7 @@ class App extends React.Component {
     newListForm: false,
   }
 
-  componentWillReceiveProps({ auth: { error } }) {
+  componentWillReceiveProps({ app: { error } }) {
     if (error) {
       this.props.history.push('/');
     }
@@ -26,7 +26,7 @@ class App extends React.Component {
       deleteTask,
       editTask,
       switchStatus,
-      auth: {
+      app: {
         data: {
           Columns,
         },
@@ -70,7 +70,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  auth: PropTypes.shape({
+  app: PropTypes.shape({
     data: React.PropTypes.shape({
       Columns: React.PropTypes.arrayOf(React.PropTypes.shape({
         id: React.PropTypes.number,
@@ -89,7 +89,7 @@ App.propTypes = {
   addColumn: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ app }) => ({ app });
 
 class AppDndConnected extends DragDropContext(HTML5Backend)(App) {}
 

@@ -5,7 +5,7 @@ import * as actions from 'actions/Common-actions';
 
 const {
   LOAD_TASKS,
-  PUSH_TASK,
+  CREATE_CARD,
   EDIT_TASK,
   DELETE_TASK,
   SWITCH_STATUS,
@@ -26,16 +26,21 @@ const {
   columnRenamed,
 } = actions;
 
+function* createCard({ status, data }) {
+  const cardData = { ...data, id: Date.now() };
+  yield put(taskPushed({ taskData, status }));
+  yield call(api.pushTask, status, taskData);
+}
+
+
+
+
 function* load() {
   const data = yield call(api.getAllTasks);
   yield put(listLoaded({ data }));
 }
 
-function* push({ status, data }) {
-  const taskData = { ...data, id: Date.now() };
-  yield put(taskPushed({ taskData, status }));
-  yield call(api.pushTask, status, taskData);
-}
+
 
 function* update({ data, status }) {
   yield put(taskEdited({ data, status }));
@@ -69,8 +74,8 @@ function* removeColumn({ data }) {
 
 export default function* tasksSaga() {
   yield [
+    takeEvery(CREATE_CARD, createCard),
     takeEvery(LOAD_TASKS, load),
-    takeEvery(PUSH_TASK, push),
     takeEvery(DELETE_TASK, remove),
     takeEvery(EDIT_TASK, update),
     takeEvery(SWITCH_STATUS, switcher),

@@ -20,7 +20,7 @@ const TaskForm = (props) => {
     <form id={formId} onSubmit={handleSubmit} >
       <Field
         className="field1"
-        name="taskName"
+        name="title"
         type="text"
         component="textarea"
         placeholder={placeholder1}
@@ -30,7 +30,7 @@ const TaskForm = (props) => {
       />
       <Field
         className="field2"
-        name="taskNotes"
+        name="description"
         type="text"
         component="textarea"
         placeholder={placeholder2}

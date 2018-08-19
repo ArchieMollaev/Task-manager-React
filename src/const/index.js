@@ -7,10 +7,12 @@ export const GET_DATA_RESPONSE = 'GET_DATA_RESPONSE';
 export const VALIDATE_LOGIN = 'VALIDATE_LOGIN';
 export const VALIDATE_LOGIN_RES = 'VALIDATE_LOGIN_RES';
 
+export const CREATE_CARD = 'CREATE_CARD';
+export const CARD_CREATED = 'CARD_CREATED';
+
+
 export const LOAD_TASKS = 'LOAD_TASKS';
 export const TASKS_LOADED = 'TASKS_LOADED';
-export const PUSH_TASK = 'PUSH_TASK';
-export const TASK_PUSHED = 'TASK_PUSHED';
 export const EDIT_TASK = 'EDIT_TASK';
 export const TASK_EDITED = 'TASK_EDITED';
 export const DELETE_TASK = 'DELETE_TASK';
