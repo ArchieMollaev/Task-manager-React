@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signIn, getUserData, getFromStorage } from 'actions/Auth-actions';
+import { signIn } from 'actions/Auth-actions';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import SignInForm from 'components/Forms/auth-forms/Sign-in-form';
@@ -13,32 +13,26 @@ class SignIn extends React.Component {
   }
   state = {
     message: '',
-    hasError: false
+    hasError: false,
   };
   componentWillMount() {
+    const userData = localStorage.userData && JSON.parse(localStorage.userData);
+    const login = userData && userData.login;
+    if (login) {
+      this.props.history.push(`${login}`);
+    }
     if (this.props.auth.signUpData) {
       this.setState({ message: 'Account successfuly created. Please sign in' });
     }
-    this.checkState();
   }
 
-  componentWillReceiveProps = ({ auth: { token, error, message } }) => {
-    if (token) {
-      this.props.getUserData();
+  componentWillReceiveProps = ({ auth: { message, redirectRoute } }) => {
+    if (message) {
+      this.setState({ message, hasError: true });
     }
-    if (error && this.submitAttempt) {
-      this.setState({ message });
-      this.setState({ hasError: true });
-    }
-    this.submitAttempt = false;
-    this.checkState();
-  };
-
-  checkState = () => {
-    const userData = getFromStorage();
-    console.log('here', userData);
-    if (userData) {
-      this.props.history.push(`/${userData.login.replace(' ', '')}`);
+    if (redirectRoute) {
+      this.props.history.push(redirectRoute);
+      this.resetWarning();
     }
   };
 
@@ -46,9 +40,8 @@ class SignIn extends React.Component {
     this.props.history.push('/signup');
   };
 
-  resetErrorStyle = () => {
-    this.setState({ message: '' });
-    this.setState({ hasError: false });
+  resetWarning = () => {
+    this.setState({ message: '', hasError: false });
   };
 
   render = () => (
@@ -68,7 +61,7 @@ class SignIn extends React.Component {
           }}
           goToSignUp={this.toSignUp}
           hasError={this.state.hasError}
-          resetErrorStyle={this.resetErrorStyle}
+          resetWarning={this.resetWarning}
         />
       </div>
     </div>
@@ -76,19 +69,18 @@ class SignIn extends React.Component {
 }
 
 SignIn.propTypes = {
-  getUserData: PropTypes.func.isRequired,
-  signIn: PropTypes.func.isRequired,
+  // signIn: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired,
   }).isRequired,
   auth: PropTypes.shape({
-    signUpData: PropTypes.shape({ login: PropTypes.string })
-  })
+    signUpData: PropTypes.shape({ login: PropTypes.string }),
+  }),
 };
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
 export default connect(
   mapStateToProps,
-  { signIn, getUserData }
+  { signIn },
 )(SignIn);
