@@ -10,6 +10,7 @@ import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import './style.scss';
 import { get } from 'lodash';
+import { combineActions } from '../../utils/redux-utils';
 
 class App extends React.Component {
   state = {
@@ -17,15 +18,13 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    console.log('----');
     if (!localStorage.token) {
       this.props.history.push('/');
     }
   }
 
   render = () => {
-    const Columns = get(this.props, 'app.data.Columns', []);
-    console.log('Columns', this.props);
+    const Columns = this.props.columns;
 
     const { newListForm } = this.state;
     return (
@@ -98,6 +97,8 @@ App.propTypes = {
 class AppDndConnected extends DragDropContext(HTML5Backend)(App) {}
 
 export default connect(
-  ({ app }) => ({ app }),
-  { deleteTask, editTask, switchStatus, addColumn }
+  props => ({
+    columns: get(props, 'getList.data.data.Columns', [])
+  }),
+  combineActions({ deleteTask, editTask, switchStatus, addColumn })
 )(AppDndConnected);

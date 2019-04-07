@@ -1,31 +1,21 @@
-export const SIGN_IN = 'SIGN_IN';
-export const SIGN_UP = 'SIGN_UP';
-export const SIGN_IN_RESPONSE = 'SIGN_IN_RESPONSE';
-export const SIGN_UP_RESPONSE = 'SIGN_UP_RESPONSE';
-export const GET_DATA = 'GET_DATA';
-export const GET_DATA_RESPONSE = 'GET_DATA_RESPONSE';
-export const VALIDATE_LOGIN = 'VALIDATE_LOGIN';
-export const VALIDATE_LOGIN_RES = 'VALIDATE_LOGIN_RES';
+import { buildHttpActionTypes } from '../utils/redux-utils';
+// auth
+export const SIGN_IN = buildHttpActionTypes('SIGN_IN');
+export const SIGN_UP = buildHttpActionTypes('SIGN_UP');
+export const GET_DATA = buildHttpActionTypes('GET_DATA');
+export const VALIDATE_LOGIN = buildHttpActionTypes('VALIDATE_LOGIN');
 
-export const CREATE_CARD = 'CREATE_CARD';
-export const CARD_CREATED = 'CARD_CREATED';
+// common
+export const PUSH_TASK = buildHttpActionTypes('PUSH_TASK');
+export const LOAD_TASKS = buildHttpActionTypes('LOAD_TASKS');
+export const EDIT_TASK = buildHttpActionTypes('EDIT_TASK');
+export const DELETE_TASK = buildHttpActionTypes('DELETE_TASK');
+export const SWITCH_STATUS = buildHttpActionTypes('SWITCH_STATUS');
+export const ADD_COLUMN = buildHttpActionTypes('ADD_COLUMN');
+export const REMOVE_COLUMN = buildHttpActionTypes('REMOVE_COLUMN');
+export const CHANGE_COLUMN_NAME = buildHttpActionTypes('CHANGE_COLUMN_NAME');
 
-export const LOAD_TASKS = 'LOAD_TASKS';
-export const TASKS_LOADED = 'TASKS_LOADED';
-export const EDIT_TASK = 'EDIT_TASK';
-export const TASK_EDITED = 'TASK_EDITED';
-export const DELETE_TASK = 'DELETE_TASK';
-export const TASK_DELETED = 'TASK_DELETED';
-export const SWITCH_STATUS = 'SWITCH_STATUS';
-export const STATUS_SWITCHED = 'STATUS_SWITCHED';
+// ui
+export const HOVER_ELEMENT = 'HOVER_ELEMENT';
 export const SET_EDITABLE = 'SET_EDITABLE';
 export const TASK_CREATOR_STATUS = 'TASK_CREATOR_STATUS';
-
-export const ADD_COLUMN = 'ADD_COLUMN';
-export const COLUMN_ADDED = 'COLUMN_ADDED';
-
-export const REMOVE_COLUMN = 'REMOVE_COLUMN';
-export const COLUMN_REMOVED = 'COLUMN_REMOVED';
-export const CHANGE_COLUMN_NAME = 'CHANGE_COLUMN_NAME';
-export const COLUMN_NAME_CHANGED = 'COLUMN_NAME_CHANGED';
-export const HOVER_ELEMENT = 'HOVER_ELEMENT';

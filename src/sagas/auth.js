@@ -7,39 +7,39 @@ import axiosDefaults from 'axios/lib/defaults';
 const { SIGN_IN, SIGN_UP, GET_DATA, VALIDATE_LOGIN } = constants;
 
 const {
-  getUserData,
-  handleSignInData,
-  handleSignUpData,
+  // getUserData,
+  signIn,
+  signUp,
   // handleUserData,
-  handleLoginValidator
+  loginValidator
 } = actions;
 
-function* handleSignIn({ data }) {
+function* handleSignIn({ payload }) {
   try {
-    const tokenResponse = yield call(api.login, data);
+    const tokenResponse = yield call(api.login, payload);
     if (!tokenResponse.token) {
-      yield put(handleSignInData(tokenResponse));
+      yield put(signIn.response({ tokenResponse }));
       return;
     }
     localStorage.token = tokenResponse.token;
-    axiosDefaults.headers.common['Authorization'] = `Bearer ${tokenResponse.token}`;
+    axiosDefaults.headers.common.Authorization = `Bearer ${tokenResponse.token}`;
 
-    const userDataResponse = yield call(api.getData);
-    if (!userDataResponse.data) {
-      yield put(handleSignInData(userDataResponse));
+    const { data } = yield call(api.getData);
+    if (!data) {
+      yield put(signIn.response({ data }));
     }
-    localStorage.userData = JSON.stringify(userDataResponse.data);
-    yield put(handleSignInData({ redirectRoute: `/${userDataResponse.data.login}` }));
+    localStorage.userData = JSON.stringify(data);
+    yield put(signIn.response({ redirectRoute: `/${data.login}` }));
     // yield put(push(`/${userDataResponse.data.login}`));
   } catch (err) {
     console.log(err);
   }
 }
 
-function* handleSignUp({ data }) {
+function* handleSignUp({ payload }) {
   try {
-    const res = yield call(api.signUp, data);
-    yield put(handleSignUpData(res));
+    const data = yield call(api.signUp, payload);
+    yield put(signUp.response({ data }));
   } catch (err) {
     console.log(err);
   }
@@ -56,10 +56,10 @@ function* handleSignUp({ data }) {
 //   }
 // }
 
-function* handleLoginValidation({ data }) {
+function* handleLoginValidation({ payload }) {
   try {
-    const res = yield call(api.validateLogin, data);
-    yield put(handleLoginValidator(res));
+    const res = yield call(api.validateLogin, payload);
+    yield put(loginValidator.response(res));
   } catch (err) {
     console.log(err);
   }
@@ -67,10 +67,10 @@ function* handleLoginValidation({ data }) {
 
 export default function* tasksSaga() {
   yield [
-    takeEvery(SIGN_IN, handleSignIn),
-    takeEvery(SIGN_UP, handleSignUp),
+    takeEvery(SIGN_IN.REQUEST, handleSignIn),
+    takeEvery(SIGN_UP.REQUEST, handleSignUp),
     // takeEvery(GET_DATA, handleUserData),
-    takeEvery(VALIDATE_LOGIN, handleLoginValidation)
+    takeEvery(VALIDATE_LOGIN.REQUEST, handleLoginValidation)
   ];
-  yield put(getUserData());
+  // yield put(getUserData());
 }

@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 import './style.scss';
+import { combineActions } from '../../utils/redux-utils';
 
 const Types = {
   ITEM: 'card'
@@ -24,7 +25,7 @@ const targetSource = {
       newStatus,
       position
     };
-    props.switchFunc(sendData);
+    props.switchFunc({ sendData });
   }
 };
 
@@ -43,12 +44,12 @@ class Column extends React.Component {
 
   remove = id => {
     this.props.setEditable();
-    this.props.removeFunc(id);
+    this.props.removeFunc({ id });
   };
 
   formSubmit = (data, id) => {
     if (!data.taskName) {
-      this.props.remove(id);
+      this.props.remove({ id });
     } else {
       this.props.editFunc({ id, ...data });
       this.props.setEditable();
@@ -56,7 +57,7 @@ class Column extends React.Component {
   };
 
   edit = id => {
-    this.props.setEditable(id + this.props.className);
+    this.props.setEditable({ id: id + this.props.className });
     this.props.taskCreatorStatus();
   };
 
@@ -128,7 +129,7 @@ class Column extends React.Component {
               injector: true,
               'injector-active': hover === `${0}_injector` && isOver
             })}
-            onDragOver={() => hoverInjector(`${0}_injector`)}
+            onDragOver={() => hoverInjector({ id: `${0}_injector` })}
           />
           {this.sortData(tasks).map(({ id, title, description }, i) => (
             <div key={i}>
@@ -156,7 +157,7 @@ class Column extends React.Component {
                   injector: true,
                   'injector-active': hover === `${i + 1}_injector` && isOver
                 })}
-                injectorHoverFunc={() => hoverInjector(`${i + 1}_injector`)}
+                injectorHoverFunc={() => hoverInjector({ id: `${i + 1}_injector` })}
               />
             </div>
           ))}
@@ -202,5 +203,5 @@ class ColumnDndConnected extends DropTarget(Types.ITEM, targetSource, collect)(C
 
 export default connect(
   mapStateToProps,
-  actions
+  combineActions(actions)
 )(ColumnDndConnected);

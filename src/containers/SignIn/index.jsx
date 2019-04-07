@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import SignInForm from 'components/Forms/auth-forms/Sign-in-form';
 import './style.scss';
+import { combineActions } from '../../utils/redux-utils';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -71,7 +72,7 @@ class SignIn extends React.Component {
 }
 
 SignIn.propTypes = {
-  // signIn: PropTypes.func.isRequired,
+  signIn: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
@@ -84,5 +85,5 @@ const mapStateToProps = ({ auth }) => ({ auth });
 
 export default connect(
   mapStateToProps,
-  { signIn }
+  combineActions({ signIn })
 )(SignIn);

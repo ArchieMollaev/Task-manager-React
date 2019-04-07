@@ -4,6 +4,7 @@ import { signUp, loginValidator } from 'actions/auth';
 import PropTypes from 'prop-types';
 import SignUpForm from 'components/Forms/auth-forms/Sign-up-form';
 import './style.scss';
+import { combineActions } from '../../utils/redux-utils';
 
 class SignUp extends React.Component {
   state = {
@@ -66,5 +67,5 @@ const mapStateToProps = ({ auth, loginCheckout }) => ({ auth, loginCheckout });
 
 export default connect(
   mapStateToProps,
-  { signUp, loginValidator }
+  combineActions({ signUp, loginValidator })
 )(SignUp);

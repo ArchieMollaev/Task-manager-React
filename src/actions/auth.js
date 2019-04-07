@@ -1,56 +1,15 @@
 import * as constants from 'const';
+import { buildHttpActionCreators } from '../utils/redux-utils';
 
-const {
-  SIGN_IN,
-  SIGN_UP,
-  SIGN_IN_RESPONSE,
-  SIGN_UP_RESPONSE,
-  GET_DATA,
-  GET_DATA_RESPONSE,
-  VALIDATE_LOGIN,
-  VALIDATE_LOGIN_RES
-} = constants;
+const { SIGN_IN, SIGN_UP, GET_DATA, VALIDATE_LOGIN } = constants;
 
-export const getUserData = () => ({
-  type: GET_DATA
-});
+export const getUserData = buildHttpActionCreators(GET_DATA);
 
-export const handleUserData = response => ({
-  type: GET_DATA_RESPONSE,
-  response
-});
+export const signIn = buildHttpActionCreators(SIGN_IN);
 
-export const signIn = data => ({
-  type: SIGN_IN,
-  data
-});
+export const signUp = buildHttpActionCreators(SIGN_UP);
 
-export const handleSignInData = response => ({
-  type: SIGN_IN_RESPONSE,
-  response
-});
-
-export const signUp = data => ({
-  type: SIGN_UP,
-  data
-});
-
-export const handleSignUpData = response => ({
-  type: SIGN_UP_RESPONSE,
-  response
-});
-
-export const loginValidator = data => ({
-  type: VALIDATE_LOGIN,
-  data
-});
-
-export const handleLoginValidator = response => ({
-  type: VALIDATE_LOGIN_RES,
-  response
-});
-
-// additional methods
+export const loginValidator = buildHttpActionCreators(VALIDATE_LOGIN);
 
 export const setToStorage = ({ token, data }) => {
   if (token) {
