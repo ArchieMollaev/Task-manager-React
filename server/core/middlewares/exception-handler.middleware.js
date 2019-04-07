@@ -5,6 +5,7 @@ export default async (ctx, next) => {
     await next();
   } catch (err) {
     const { message } = err;
+    console.log(message);
     if (message === 'Authentication Error') {
       ctx.body = unauthorized().output.payload;
       return;

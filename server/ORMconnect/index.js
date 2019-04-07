@@ -2,10 +2,9 @@ import Sequelize from 'sequelize';
 import path from 'path';
 
 const ORM = () => {
-  const sequelize = new Sequelize('task-manager', 'root', 'admin', {
-    host: 'localhost',
-    port: 3306,
-    dialect: 'mysql',
+  const sequelize = new Sequelize('task-manager', 'postgres', 'admin', {
+    dialect: 'postgres',
+    port: 5432,
     pool: {
       max: 5,
       min: 0,
@@ -16,6 +15,8 @@ const ORM = () => {
       timestamps: false,
     },
   });
+  sequelize.sync();
+
   sequelize.import(path.resolve(__dirname, '../models/User'));
   sequelize.import(path.resolve(__dirname, '../models/Column'));
   sequelize.import(path.resolve(__dirname, '../models/Card'));
@@ -26,7 +27,6 @@ const ORM = () => {
   User.hasMany(Card);
   Column.hasMany(Card, { as: 'Cards', onDelete: 'CASCADE' });
 
-  sequelize.sync();
   return sequelize;
 };
 

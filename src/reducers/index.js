@@ -1,20 +1,16 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
-import { auth, loginCheckout } from './Auth-reducer';
-import app from './App-reducer';
-import columnReducer from './column-reducer';
-import { getList, editable, taskCreatorStatus, hoverInjector } from './Common-reducer';
+import { auth, loginCheckout } from './auth';
+import { getList, editable, taskCreatorStatus, hoverInjector } from './common';
 
 const reducers = combineReducers({
   auth,
-  app,
-  columnReducer,
   loginCheckout,
   getList,
   editable,
   taskCreatorStatus,
   hoverInjector,
-  form: reduxFormReducer,
+  form: reduxFormReducer
 });
 
 export default reducers;

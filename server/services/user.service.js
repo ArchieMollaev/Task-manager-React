@@ -11,11 +11,12 @@ class UserService {
   }
 
   validateLoginName = async ({ login }) => {
+    console.log('sdfsd');
     if (!login) throw new BadRequest();
     const res = await this.User.findOne({ where: { login } });
     if (res) throw new Conflict('login already exists');
     return !res;
-  }
+  };
 
   create = async ({ login, email, password }) => {
     if (!login || !email || !password) throw new BadRequest();
@@ -31,7 +32,7 @@ class UserService {
     });
     if (!res[1]) throw new Conflict('user with email already exists');
     return { signUpData: res[0] };
-  }
+  };
 
   authorization = async ({ login, password }) => {
     if (!login || !password) throw new BadRequest();
@@ -41,9 +42,10 @@ class UserService {
       expiresIn: '30m',
     });
     return { token };
-  }
+  };
 
-  getData = async (login) => {
+  getData = async login => {
+    console.log('-----');
     const res = await this.User.findOne({
       where: { login },
       attributes: ['login'],
@@ -65,12 +67,13 @@ class UserService {
         [
           { model: this.Column, as: 'Columns' },
           { model: this.Card, as: 'Cards' },
-          'position', 'ASC',
+          'position',
+          'ASC',
         ],
       ],
     });
     return { data: res };
-  }
+  };
 }
 
 export default new UserService(ORM);

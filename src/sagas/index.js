@@ -1,8 +1,7 @@
 import { fork } from 'redux-saga/effects';
-import Auth from './Auth-saga';
-import Card from './Card-saga';
-import ColumnSaga from './Column-saga';
+import Auth from './auth';
+import Common from './common';
 
 export default function* root() {
-  yield [fork(Auth), fork(ColumnSaga), fork(Card)];
+  yield [fork(Auth), fork(Common)];
 }
