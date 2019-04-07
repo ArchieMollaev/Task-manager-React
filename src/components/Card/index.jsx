@@ -7,6 +7,7 @@ import * as actions from 'actions/common';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import PropTypes from 'prop-types';
 import './style.scss';
+import { combineActions } from '../../utils/redux-utils';
 
 const Types = {
   ITEM: 'card'
@@ -139,5 +140,5 @@ class CardDndConnected extends DragSource(Types.ITEM, cardSource, collect)(Card)
 
 export default connect(
   null,
-  actions
+  combineActions(actions)
 )(CardDndConnected);
