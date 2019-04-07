@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, all } from 'redux-saga/effects';
 import * as api from 'api/common';
 import * as auth from 'api/auth';
 import {
@@ -68,7 +68,7 @@ function* deleteColumn({ data }) {
 }
 
 export default function* tasksSaga() {
-  yield [
+  yield all([
     takeEvery(PUSH_TASK.REQUEST, createCard),
     takeEvery(LOAD_TASKS.REQUEST, load),
     takeEvery(DELETE_TASK.REQUEST, remove),
@@ -77,6 +77,6 @@ export default function* tasksSaga() {
     takeEvery(ADD_COLUMN.REQUEST, addNewColumn),
     takeEvery(CHANGE_COLUMN_NAME.REQUEST, changeColumnName),
     takeEvery(REMOVE_COLUMN.REQUEST, deleteColumn)
-  ];
+  ]);
   yield load();
 }

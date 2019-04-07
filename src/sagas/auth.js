@@ -1,4 +1,5 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, all } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import * as api from 'api/auth';
 import * as constants from 'const';
 import * as actions from 'actions/auth';
@@ -16,20 +17,25 @@ const {
 
 function* handleSignIn({ payload }) {
   try {
-    const tokenResponse = yield call(api.login, payload);
-    if (!tokenResponse.token) {
-      yield put(signIn.response({ tokenResponse }));
+    console.log(payload);
+    const response = yield call(api.login, payload);
+
+    if (!response.token) {
+      yield put(signIn.response(response));
       return;
     }
-    localStorage.token = tokenResponse.token;
-    axiosDefaults.headers.common.Authorization = `Bearer ${tokenResponse.token}`;
+    localStorage.token = response.token;
+    axiosDefaults.headers.common.Authorization = `Bearer ${response.token}`;
 
-    const { data } = yield call(api.getData);
-    if (!data) {
-      yield put(signIn.response({ data }));
-    }
-    localStorage.userData = JSON.stringify(data);
-    yield put(signIn.response({ redirectRoute: `/${data.login}` }));
+    // this.history.push(payload.login);
+    yield put(push(payload.login));
+
+    // const { data } = yield call(api.getData);
+    // if (!data) {
+    //   yield put(signIn.response({ data }));
+    // }
+    // localStorage.userData = JSON.stringify(data);
+    // yield put(signIn.response({ redirectRoute: `/${data.login}` }));
     // yield put(push(`/${userDataResponse.data.login}`));
   } catch (err) {
     console.log(err);
@@ -66,11 +72,11 @@ function* handleLoginValidation({ payload }) {
 }
 
 export default function* tasksSaga() {
-  yield [
+  yield all([
     takeEvery(SIGN_IN.REQUEST, handleSignIn),
     takeEvery(SIGN_UP.REQUEST, handleSignUp),
     // takeEvery(GET_DATA, handleUserData),
     takeEvery(VALIDATE_LOGIN.REQUEST, handleLoginValidation)
-  ];
+  ]);
   // yield put(getUserData());
 }

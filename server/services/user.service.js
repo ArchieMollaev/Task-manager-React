@@ -39,7 +39,7 @@ class UserService {
     const res = await this.User.findOne({ where: { login }, raw: true });
     if (!res || !bcrypt.compareSync(password, res.password)) throw new Unauthorized();
     const token = jwt.sign(res, 'secret_word', {
-      expiresIn: '30m',
+      expiresIn: '24h',
     });
     return { token };
   };
