@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
+import { createBrowserHistory } from 'history';
+import configureStore from 'store';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
 import User from '../User';
-import { createBrowserHistory } from 'history';
-import configureStore from 'store';
 
 const history = createBrowserHistory();
 const store = configureStore(history);

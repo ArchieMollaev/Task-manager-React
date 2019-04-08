@@ -9,7 +9,8 @@
   "rules": {
     "prettier/prettier": ["error"],
     "import/no-unresolved": ["error", { "ignore": ["^react$"] }],
-    "react/destructuring-assignment": [false]
+    "react/destructuring-assignment": [false],
+    "import/no-extraneous-dependencies": [false]
   },
   "settings": {
     "import/resolver": {
