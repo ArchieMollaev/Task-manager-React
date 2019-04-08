@@ -31,12 +31,6 @@ function* createCard({ status, data }) {
   yield call(api.pushTask, status, taskData);
 }
 
-function* load() {
-  axiosDefaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
-  const data = yield call(auth.getData);
-  yield put(getTasksList.response({ data }));
-}
-
 function* update({ data, status }) {
   yield put(editTask.response({ data, status }));
   yield call(api.editTask, data.id, status, data);
@@ -70,7 +64,6 @@ function* deleteColumn({ data }) {
 export default function* tasksSaga() {
   yield all([
     takeEvery(PUSH_TASK.REQUEST, createCard),
-    takeEvery(LOAD_TASKS.REQUEST, load),
     takeEvery(DELETE_TASK.REQUEST, remove),
     takeEvery(EDIT_TASK.REQUEST, update),
     takeEvery(SWITCH_STATUS.REQUEST, switcher),
@@ -78,5 +71,4 @@ export default function* tasksSaga() {
     takeEvery(CHANGE_COLUMN_NAME.REQUEST, changeColumnName),
     takeEvery(REMOVE_COLUMN.REQUEST, deleteColumn)
   ]);
-  yield load();
 }

@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
-import { auth, loginCheckout } from './auth';
+import { signInData, signUpData, userData, loginValidationData } from './auth';
 import { getList, editable, taskCreatorStatus, hoverInjector } from './common';
 
 const reducers = combineReducers({
-  auth,
-  loginCheckout,
+  signInData,
+  signUpData,
+  userData,
+  loginValidationData,
   getList,
   editable,
   taskCreatorStatus,

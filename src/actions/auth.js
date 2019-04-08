@@ -9,15 +9,4 @@ export const signIn = buildHttpActionCreators(SIGN_IN);
 
 export const signUp = buildHttpActionCreators(SIGN_UP);
 
-export const loginValidator = buildHttpActionCreators(VALIDATE_LOGIN);
-
-export const setToStorage = ({ token, data }) => {
-  if (token) {
-    localStorage.setItem('token', token);
-  }
-  if (data) {
-    localStorage.setItem('userData', JSON.stringify({ login: data.login }));
-  }
-};
-
-export const getFromStorage = () => JSON.parse(localStorage.getItem('userData'));
+export const validateLogin = buildHttpActionCreators(VALIDATE_LOGIN);

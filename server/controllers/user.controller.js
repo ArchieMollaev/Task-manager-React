@@ -14,8 +14,8 @@ const authorization = async ctx => {
 
 const validateLoginName = async ctx => {
   const data = ctx.request.body;
-  const status = await UserService.validateLoginName(data);
-  ctx.body = { status };
+  const res = await UserService.validateLoginName(data);
+  ctx.body = res;
 };
 
 const getData = async ctx => {

@@ -24,7 +24,7 @@ class User extends React.Component {
   }
 
   render = () => {
-    const Columns = this.props.columns;
+    const { Columns } = this.props;
 
     const { newListForm } = this.state;
     return (
@@ -97,8 +97,6 @@ User.propTypes = {
 class UserDndConnected extends DragDropContext(HTML5Backend)(User) {}
 
 export default connect(
-  props => ({
-    columns: get(props, 'getList.data.data.Columns', [])
-  }),
+  ({ userData }) => userData,
   combineActions({ deleteTask, editTask, switchStatus, addColumn })
 )(UserDndConnected);

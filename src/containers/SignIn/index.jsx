@@ -1,84 +1,66 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signIn } from 'actions/auth';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import SignInForm from 'components/Forms/auth-forms/Sign-in-form';
 import './style.scss';
 import { combineActions } from '../../utils/redux-utils';
 
 class SignIn extends React.Component {
-  state = {
-    message: '',
-    hasError: false
-  };
+  get message() {
+    return (
+      (this.props.signInMessage || this.props.singnUpSuccess) && (
+        <div className={classNames('message', { 'has-error': !!this.props.signInMessage })}>
+          <span>{this.props.signInMessage || 'User successfully created! Please login'}</span>
+        </div>
+      )
+    );
+  }
 
-  // componentWillMount() {
-  //   const userData = localStorage.userData && JSON.parse(localStorage.userData);
-  //   const login = userData && userData.login;
-  //   if (login) {
-  //     this.props.history.push(`${login}`);
-  //   }
-  //   if (this.props.auth.signUpData) {
-  //     this.setState({ message: 'Account successfuly created. Please sign in' });
-  //   }
-  // }
-
-  // componentWillReceiveProps = ({ auth: { message, redirectRoute } }) => {
-  //   if (message) {
-  //     this.setState({ message, hasError: true });
-  //   }
-  //   if (redirectRoute) {
-  //     this.props.history.push(redirectRoute);
-  //     this.resetWarning();
-  //   }
-  // };
-
-  toSignUp = () => {
+  moveToSignUp = () => {
     this.props.history.push('/signup');
   };
 
-  resetWarning = () => {
-    this.setState({ message: '', hasError: false });
-  };
-
-  render = () => (
-    <div id="auth">
-      <div className="content">
-        {this.state.message ? (
-          <div className={classNames({ message: true, 'has-error': this.state.hasError })}>
-            <span>{this.state.message}</span>
-          </div>
-        ) : (
-          <h1>Task manager | Sign In</h1>
-        )}
-        <SignInForm
-          onSubmit={this.props.signIn}
-          goToSignUp={this.toSignUp}
-          hasError={this.state.hasError}
-          resetWarning={this.resetWarning}
-        />
+  render = () => {
+    const { onSubmit } = this.props;
+    return (
+      <div id="auth">
+        <div className="content">
+          {this.message || <h1>Task manager | Sign In</h1>}
+          <SignInForm
+            onSubmit={onSubmit}
+            goToSignUp={this.moveToSignUp}
+            hasError={!!this.errorMessage}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 }
 
 SignIn.propTypes = {
-  signIn: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
   auth: PropTypes.shape({
-    signUpData: PropTypes.shape({ login: PropTypes.string })
+    signUpData: PropTypes.shape({ login: PropTypes.string }),
+    message: PropTypes.string,
+    error: PropTypes.bool
   })
 };
 
-const mapStateToProps = props => {
-  // console.log(props);
-  return { auth: props.auth };
+SignIn.defaultProps = {
+  auth: undefined
 };
+
+const mapStateToProps = ({ signUpData, signInData }) => ({
+  signInMessage: signInData.message,
+  singnUpSuccess: signUpData.status === 'SUCCESS'
+});
 
 export default connect(
   mapStateToProps,
-  combineActions({ signIn })
+  combineActions({ onSubmit: signIn })
 )(SignIn);

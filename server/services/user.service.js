@@ -11,11 +11,9 @@ class UserService {
   }
 
   validateLoginName = async ({ login }) => {
-    console.log('sdfsd');
     if (!login) throw new BadRequest();
     const res = await this.User.findOne({ where: { login } });
-    if (res) throw new Conflict('login already exists');
-    return !res;
+    return { isValid: !res, login };
   };
 
   create = async ({ login, email, password }) => {
@@ -31,7 +29,7 @@ class UserService {
       row: true,
     });
     if (!res[1]) throw new Conflict('user with email already exists');
-    return { signUpData: res[0] };
+    return { status: 'SUCCESS' };
   };
 
   authorization = async ({ login, password }) => {
@@ -45,7 +43,6 @@ class UserService {
   };
 
   getData = async login => {
-    console.log('-----');
     const res = await this.User.findOne({
       where: { login },
       attributes: ['login'],
@@ -72,7 +69,7 @@ class UserService {
         ],
       ],
     });
-    return { data: res };
+    return res;
   };
 }
 
