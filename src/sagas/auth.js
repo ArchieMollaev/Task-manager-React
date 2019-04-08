@@ -25,6 +25,8 @@ function* fetchUserData() {
     yield put(getUserData.response(res));
     yield put(push(res.login));
   } catch ({ message }) {
+    yield put(push('/'));
+    localStorage.clear();
     console.log(message);
   }
 }

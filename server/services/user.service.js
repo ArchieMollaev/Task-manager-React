@@ -69,7 +69,10 @@ class UserService {
         ],
       ],
     });
-    return res;
+    if (res) {
+      return res;
+    }
+    throw new Unauthorized();
   };
 }
 
