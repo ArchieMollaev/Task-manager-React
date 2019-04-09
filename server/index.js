@@ -16,4 +16,3 @@ app.use(exceptionHandlerMiddleware);
 app.use(publicRoutes());
 app.use(privateRoutes());
 app.listen(3001);
-

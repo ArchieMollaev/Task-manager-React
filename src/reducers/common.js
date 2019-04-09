@@ -9,70 +9,79 @@ import {
   REMOVE_COLUMN,
   SET_EDITABLE,
   TASK_CREATOR_STATUS,
-  HOVER_ELEMENT
+  HOVER_ELEMENT,
+  GET_DATA
 } from 'const';
 import { createReducer } from 'redux-create-reducer';
 
-export const getList = createReducer(
-  {},
+export const columns = createReducer(
+  [],
   {
-    [LOAD_TASKS.RESPONSE]: (state, { payload }) => ({ ...state, ...payload }),
-
+    [GET_DATA.RESPONSE]: (_, { payload }) => payload.Columns,
+    [ADD_COLUMN.RESPONSE]: (state, { payload: { name, id } }) => {
+      const newState = [...state, { name, id, Cards: [] }];
+      return newState;
+    },
     [PUSH_TASK.RESPONSE]: (state, { payload }) => {
-      const update = { ...state };
-      const category = update[payload.status];
-      category.push(payload.data);
+      console.log('state', state);
+      const update = [...state];
+      const index = update.findIndex(({ id }) => id === payload.ColumnId);
+
+      update[index].Cards.push(payload);
+      console.log('upd', update);
       return update;
-    },
-
-    [DELETE_TASK.RESPONSE]: (state, { id, status }) => {
-      const update = { ...state };
-      update[status] = state[status].filter(item => item.id !== id);
-      return update;
-    },
-
-    [SWITCH_STATUS]: (state, { payload: { data, currentStatus, newStatus, position, id } }) => {
-      const update = { ...state };
-      update[currentStatus] = update[currentStatus].filter(item => item.id !== id);
-      if (currentStatus === newStatus) {
-        update[currentStatus].splice(position, 0, data);
-      } else update[newStatus].splice(position, 0, data);
-      return { ...state, ...update };
-    },
-
-    [EDIT_TASK.RESPONSE]: (state, { payload: { status, data } }) => {
-      const update = { ...state };
-      update[status].forEach((item, i) => {
-        if (item.id === data.id) update[status][i] = data;
-      });
-      return update;
-    },
-
-    [ADD_COLUMN.RESPONSE]: (state, { payload }) => {
-      let newEntry = payload.name;
-      Object.keys(state).forEach(x => {
-        if (x === newEntry) newEntry += '(duplicate)';
-      });
-      return { ...state, [newEntry]: [] };
-    },
-
-    [CHANGE_COLUMN_NAME.RESPONSE]: (state, { payload: { currentName, newName } }) => {
-      const update = { ...state };
-      update[newName] = update[currentName];
-      delete update[currentName];
-      return { ...update };
-    },
-
-    [REMOVE_COLUMN]: (state, { payload }) => {
-      const newDate = { ...state };
-      delete newDate[payload.name];
-      return newDate;
     }
   }
+  // {
+  //   [LOAD_TASKS.RESPONSE]: (state, { payload }) => ({ ...state, ...payload }),
+
+  //   [PUSH_TASK.RESPONSE]: (state, { payload }) => {
+  //     const update = { ...state };
+  //     const category = update[payload.status];
+  //     category.push(payload.data);
+  //     return update;
+  //   },
+
+  //   [DELETE_TASK.RESPONSE]: (state, { id, status }) => {
+  //     const update = { ...state };
+  //     update[status] = state[status].filter(item => item.id !== id);
+  //     return update;
+  //   },
+
+  //   [SWITCH_STATUS]: (state, { payload: { data, currentStatus, newStatus, position, id } }) => {
+  //     const update = { ...state };
+  //     update[currentStatus] = update[currentStatus].filter(item => item.id !== id);
+  //     if (currentStatus === newStatus) {
+  //       update[currentStatus].splice(position, 0, data);
+  //     } else update[newStatus].splice(position, 0, data);
+  //     return { ...state, ...update };
+  //   },
+
+  //   [EDIT_TASK.RESPONSE]: (state, { payload: { status, data } }) => {
+  //     const update = { ...state };
+  //     update[status].forEach((item, i) => {
+  //       if (item.id === data.id) update[status][i] = data;
+  //     });
+  //     return update;
+  //   },
+
+  // [CHANGE_COLUMN_NAME.RESPONSE]: (state, { payload: { currentName, newName } }) => {
+  //   const update = { ...state };
+  //   update[newName] = update[currentName];
+  //   delete update[currentName];
+  //   return { ...update };
+  // },
+
+  // [REMOVE_COLUMN]: (state, { payload }) => {
+  //   const newDate = { ...state };
+  //   delete newDate[payload.name];
+  //   return newDate;
+  // }
+  // }
 );
 
-export const editable = createReducer('', {
-  [SET_EDITABLE]: (_, { payload }) => payload.id || ''
+export const activeColumnId = createReducer('', {
+  [SET_EDITABLE]: (_, { payload }) => payload.columnId || ''
 });
 
 export const taskCreatorStatus = createReducer(

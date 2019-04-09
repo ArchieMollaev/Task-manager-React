@@ -20,9 +20,3 @@ export const signUp = data =>
     url: 'signup',
     data
   });
-
-export const getData = () =>
-  request({
-    method: 'GET',
-    url: 'get-data'
-  });

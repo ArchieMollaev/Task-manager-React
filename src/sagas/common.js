@@ -1,8 +1,7 @@
 import { takeEvery, put, call, all } from 'redux-saga/effects';
 import * as api from 'api/common';
-import * as auth from 'api/auth';
+import { push } from 'react-router-redux';
 import {
-  LOAD_TASKS,
   PUSH_TASK,
   EDIT_TASK,
   DELETE_TASK,
@@ -11,24 +10,26 @@ import {
   REMOVE_COLUMN,
   CHANGE_COLUMN_NAME
 } from 'const';
-import * as actions from 'actions/common';
-import axiosDefaults from 'axios/lib/defaults';
-
-const {
-  getTasksList,
+import {
   addTask,
   editTask,
   deleteTask,
   switchStatus,
   addColumn,
   removeColumn,
-  renameColumn
-} = actions;
+  renameColumn,
+  getUserData
+} from 'actions/common';
+import axiosDefaults from 'axios/lib/defaults';
 
-function* createCard({ status, data }) {
-  const taskData = { ...data, id: Date.now() };
-  yield put(addTask.response({ taskData, status }));
-  yield call(api.pushTask, status, taskData);
+function* createTask({ payload }) {
+  try {
+    const res = yield call(api.createTask, payload);
+    console.log('res', res);
+    yield put(addTask.response(res));
+  } catch (err) {
+    console.log(err.message);
+  }
 }
 
 function* update({ data, status }) {
@@ -47,8 +48,8 @@ function* switcher(task) {
 }
 
 function* addNewColumn({ payload }) {
-  yield call(api.addNewColumn, payload);
-  yield put(addColumn.response(payload));
+  const res = yield call(api.addNewColumn, payload);
+  yield put(addColumn.response(res));
 }
 
 function* changeColumnName({ data }) {
@@ -61,9 +62,33 @@ function* deleteColumn({ data }) {
   yield put(removeColumn.response(data));
 }
 
-export default function* tasksSaga() {
+export function* fetchUserData() {
+  try {
+    axiosDefaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
+    const res = yield call(api.getData);
+    if (res.error) {
+      throw new Error(res.message);
+    }
+    yield put(getUserData.response(res));
+    yield put(push(res.login));
+  } catch ({ message }) {
+    yield put(push('/'));
+    localStorage.clear();
+    console.log(message);
+  }
+}
+
+function* onAppLoad() {
+  if (localStorage.token) {
+    yield fetchUserData();
+  } else {
+    yield put(push('/'));
+  }
+}
+
+export default function*() {
   yield all([
-    takeEvery(PUSH_TASK.REQUEST, createCard),
+    takeEvery(PUSH_TASK.REQUEST, createTask),
     takeEvery(DELETE_TASK.REQUEST, remove),
     takeEvery(EDIT_TASK.REQUEST, update),
     takeEvery(SWITCH_STATUS.REQUEST, switcher),
@@ -71,4 +96,6 @@ export default function* tasksSaga() {
     takeEvery(CHANGE_COLUMN_NAME.REQUEST, changeColumnName),
     takeEvery(REMOVE_COLUMN.REQUEST, deleteColumn)
   ]);
+
+  yield onAppLoad();
 }

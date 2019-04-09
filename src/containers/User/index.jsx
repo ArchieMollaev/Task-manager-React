@@ -9,7 +9,6 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import './style.scss';
-import { get } from 'lodash';
 import { combineActions } from '../../utils/redux-utils';
 
 class User extends React.Component {
@@ -24,17 +23,17 @@ class User extends React.Component {
   }
 
   render = () => {
-    const { Columns } = this.props;
+    const { columns } = this.props;
 
     const { newListForm } = this.state;
     return (
       <div id="todo-app">
         <div id="to-do-list-columns">
           <CardDragPreview />
-          {Columns.map(({ id, name, Cards }) => (
+          {columns.map(({ id, name, Cards }) => (
             <Column
               columnName={name}
-              colId={id}
+              columnId={id}
               key={id}
               className={name}
               colTitle={name}
@@ -75,7 +74,7 @@ class User extends React.Component {
 User.propTypes = {
   app: PropTypes.shape({
     data: React.PropTypes.shape({
-      Columns: React.PropTypes.arrayOf(
+      columns: React.PropTypes.arrayOf(
         React.PropTypes.shape({
           id: React.PropTypes.number,
           position: React.PropTypes.number,
@@ -97,6 +96,6 @@ User.propTypes = {
 class UserDndConnected extends DragDropContext(HTML5Backend)(User) {}
 
 export default connect(
-  ({ userData }) => userData,
+  ({ columns }) => ({ columns }),
   combineActions({ deleteTask, editTask, switchStatus, addColumn })
 )(UserDndConnected);

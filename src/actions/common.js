@@ -1,5 +1,5 @@
 import {
-  LOAD_TASKS,
+  GET_DATA,
   PUSH_TASK,
   EDIT_TASK,
   DELETE_TASK,
@@ -13,7 +13,7 @@ import {
 } from 'const';
 import { buildHttpActionCreators } from '../utils/redux-utils';
 
-export const getTasksList = buildHttpActionCreators(LOAD_TASKS);
+export const getUserData = buildHttpActionCreators(GET_DATA);
 export const addTask = buildHttpActionCreators(PUSH_TASK);
 export const editTask = buildHttpActionCreators(EDIT_TASK);
 export const deleteTask = buildHttpActionCreators(DELETE_TASK);

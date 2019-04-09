@@ -7,24 +7,23 @@ class CardService {
     this.Card = models.Card;
   }
 
-  create = async (UserId, { ColumnId, position, title, description }) => {
-    if (!ColumnId || !position || !title) throw new BadRequest();
+  create = async (UserId, { columnId, title, description }) => {
+    if (!columnId || !title) throw new BadRequest();
     const res = await this.Column.findOne({
       where: {
         UserId,
-        id: ColumnId,
+        id: columnId,
       },
     });
     if (!res) throw new NotFound();
     const data = await this.Card.create({
-      position,
       title,
       description,
-      ColumnId,
+      ColumnId: columnId,
       UserId,
     });
     return data;
-  }
+  };
 
   remove = async (UserId, ColumnId, id) => {
     if (!ColumnId || !id) throw new BadRequest();
@@ -42,7 +41,7 @@ class CardService {
       },
     });
     return data;
-  }
+  };
 
   update = async (UserId, ExistColumnId, CardId, data) => {
     if (!ExistColumnId || !CardId) throw new BadRequest();
@@ -56,7 +55,7 @@ class CardService {
     if (!card) throw new NotFound();
     const res = await card.update({ ...data });
     return res;
-  }
+  };
 
   replace = async (UserId, { order }) => {
     if (!order) throw new BadRequest();
@@ -66,12 +65,14 @@ class CardService {
       },
     });
     if (!cards) throw new NotFound();
-    await Promise.all(cards.map(async (item) => {
-      const { position } = order.find(data => data.id === item.id);
-      await item.update({ position });
-    }));
+    await Promise.all(
+      cards.map(async item => {
+        const { position } = order.find(data => data.id === item.id);
+        await item.update({ position });
+      }),
+    );
     return { success: true };
-  }
+  };
 }
 
 export default new CardService(ORM);

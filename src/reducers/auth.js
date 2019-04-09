@@ -1,7 +1,7 @@
 import * as constants from 'const';
 import { createReducer } from 'redux-create-reducer';
 
-const { SIGN_IN, SIGN_UP, GET_DATA, VALIDATE_LOGIN } = constants;
+const { SIGN_IN, SIGN_UP, VALIDATE_LOGIN } = constants;
 
 const initialLogin = {
   isValid: false,
@@ -31,12 +31,3 @@ export const loginValidationData = createReducer(initialLogin, {
     return payload;
   }
 });
-
-export const userData = createReducer(
-  { Columns: [] },
-  {
-    [GET_DATA.RESPONSE](state, { payload }) {
-      return payload;
-    }
-  }
-);

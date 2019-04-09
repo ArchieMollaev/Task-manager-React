@@ -1,9 +1,9 @@
 import request from './request';
 
-export const pushTask = (status, data) =>
+export const createTask = data =>
   request({
     method: 'POST',
-    url: `${status}`,
+    url: '/create-card',
     data
   });
 
@@ -46,4 +46,10 @@ export const renameColumn = data =>
     method: 'POST',
     url: '/rename_column',
     data
+  });
+
+export const getData = () =>
+  request({
+    method: 'GET',
+    url: 'get-data'
   });

@@ -13,7 +13,7 @@ class UserService {
   validateLoginName = async ({ login }) => {
     if (!login) throw new BadRequest();
     const res = await this.User.findOne({ where: { login } });
-    return { isValid: !res, login };
+    return { isValid: !(login.length < 4) && !res, login };
   };
 
   create = async ({ login, email, password }) => {
@@ -54,21 +54,15 @@ class UserService {
           include: [
             {
               model: this.Card,
-              attributes: ['id', 'position', 'title', 'description'],
+              attributes: ['id', 'title', 'description'],
               as: 'Cards',
             },
           ],
         },
       ],
-      order: [
-        [
-          { model: this.Column, as: 'Columns' },
-          { model: this.Card, as: 'Cards' },
-          'position',
-          'ASC',
-        ],
-      ],
+      // order: [[{ model: this.Column, as: 'Columns' }, { model: this.Card, as: 'Cards' }, 'ASC']],
     });
+    console.log('----sdfsdfsdfsdssss===========', login);
     if (res) {
       return res;
     }

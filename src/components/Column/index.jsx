@@ -83,19 +83,19 @@ class Column extends React.Component {
 
   sortData = data => data.sort((a, b) => a.position - b.position);
 
-  assignPostion = () =>
+  assignPosition = () =>
     this.props.tasks.length ? this.sortData(this.props.tasks).pop().position + 1 : '0';
 
   render = () => {
     const {
       editable,
       colTitle,
-      colId,
+      columnId,
       tasks,
       className,
       connectDropTarget,
       isOver,
-      createCard,
+      addTask,
       columnName,
       renameColumn,
       hover,
@@ -165,9 +165,9 @@ class Column extends React.Component {
         <TaskCreator
           onSubmit={data => {
             reset('create-task');
-            createCard({ ...data, ColumnId: colId, position: this.assignPostion() });
+            addTask({ ...data, columnId });
           }}
-          column={columnName}
+          columnId={columnId}
         />
       </div>
     );
@@ -187,7 +187,7 @@ Column.propTypes = {
   className: PropTypes.string.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   isOver: PropTypes.bool.isRequired,
-  createCard: PropTypes.func.isRequired,
+  addTask: PropTypes.func.isRequired,
   columnName: PropTypes.string.isRequired,
   removeColumn: PropTypes.func.isRequired,
   hover: PropTypes.string.isRequired,
