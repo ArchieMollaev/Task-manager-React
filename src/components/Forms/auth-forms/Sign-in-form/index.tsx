@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import classNames from 'classnames';
 import './style.scss';
 
-const SignInForm = ({ handleSubmit, goToSignUp, hasError, resetWarning }) => (
+const SignInForm: Reac = ({ handleSubmit, goToSignUp, hasError, resetWarning }) => (
   <form id="sign-in-form" onSubmit={handleSubmit}>
     <div className="panel">
       <Field

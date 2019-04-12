@@ -1,28 +1,42 @@
 const Path = require('path');
 
 module.exports = {
-  resolve: {
-    extensions: ['.js', '.jsx'],
-    modules: ['./src', './node_modules'],
-  },
-  entry: ['babel-polyfill', './src/index.jsx'],
+  entry: './src/index.tsx',
   output: {
-    path: Path.join(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: '/',
+    path: __dirname + '/dist',
   },
+
+  // Enable sourcemaps for debugging webpack's output.
+  devtool: 'source-map',
+
+  resolve: {
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    modules: ['./src', './node_modules'],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
+
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)/,
-        exclude: /node_modules/,
-        loader: 'babel-loader?cacheDirectory',
-      },
+      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+      { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
+
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
       {
         test: /\.(scss|sass|css)$/,
         loader: 'style-loader!css-loader!sass-loader?cacheDirectory',
       },
     ],
+  },
+
+  // When importing a module whose path matches one of the following, just
+  // assume a corresponding global variable exists and use that instead.
+  // This is important because it allows us to avoid bundling all of our
+  // dependencies, which allows browsers to cache those libraries between builds.
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
   },
   devServer: {
     open: true,

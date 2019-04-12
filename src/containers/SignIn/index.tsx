@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import { signIn } from 'actions/auth';
+import { signIn } from '../../actions/auth';
 import classNames from 'classnames';
-import SignInForm from 'components/Forms/auth-forms/Sign-in-form';
+import SignInForm from '../../components/Forms/auth-forms/Sign-in-form';
 import './style.scss';
 import { combineActions } from '../../utils/redux-utils';
 

@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import * as actions from 'actions/common';
-import TaskForm from 'components/Forms/app-forms/Task-form';
+import * as actions from '../../actions/common';
+import TaskForm from '../../components/Forms/app-forms/Task-form';
 import { reset } from 'redux-form';
 import classNames from 'classnames';
 import './style.scss';

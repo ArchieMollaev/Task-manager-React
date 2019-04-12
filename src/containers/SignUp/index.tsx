@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import { signUp, validateLogin } from 'actions/auth';
-import SignUpForm from 'components/Forms/auth-forms/Sign-up-form';
+import { signUp, validateLogin } from '../../actions/auth';
+import SignUpForm from '../../components/Forms/auth-forms/Sign-up-form';
 import './style.scss';
 import { combineActions } from '../../utils/redux-utils';
 

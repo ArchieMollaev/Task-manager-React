@@ -1,5 +1,5 @@
 import { takeEvery, put, call, all } from 'redux-saga/effects';
-import * as api from 'api/common';
+import * as api from '../api/common';
 import { push } from 'react-router-redux';
 import {
   PUSH_TASK,
@@ -9,7 +9,7 @@ import {
   ADD_COLUMN,
   REMOVE_COLUMN,
   CHANGE_COLUMN_NAME
-} from 'const';
+} from '../const';
 import {
   addTask,
   editTask,
@@ -19,7 +19,7 @@ import {
   removeColumn,
   renameColumn,
   getUserData
-} from 'actions/common';
+} from '../actions/common';
 import axiosDefaults from 'axios/lib/defaults';
 
 function* createTask({ payload }) {

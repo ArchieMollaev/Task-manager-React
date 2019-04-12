@@ -10,7 +10,7 @@ import {
   REMOVE_COLUMN,
   CHANGE_COLUMN_NAME,
   HOVER_ELEMENT
-} from 'const';
+} from '../const';
 import { buildHttpActionCreators } from '../utils/redux-utils';
 
 export const getUserData = buildHttpActionCreators(GET_DATA);

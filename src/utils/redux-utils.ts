@@ -1,20 +1,20 @@
 import { get } from 'lodash';
 
-export function buildHttpActionCreators(type) {
+export function buildHttpActionCreators(type: any) {
   return {
-    request: payload => ({ type: type.REQUEST, payload }),
-    response: payload => ({ type: type.RESPONSE, payload })
+    request: (payload: any) => ({ type: type.REQUEST, payload }),
+    response: (payload: any) => ({ type: type.RESPONSE, payload })
   };
 }
 
-export function buildHttpActionTypes(type) {
+export function buildHttpActionTypes(type: any) {
   return {
     REQUEST: `${type}.REQUEST`,
     RESPONSE: `${type}.RESPONSE`
   };
 }
 
-export function combineActions(actionsObj) {
+export function combineActions(actionsObj: any) {
   return Object.keys(actionsObj).reduce(
     (acc, key) => ({
       ...acc,

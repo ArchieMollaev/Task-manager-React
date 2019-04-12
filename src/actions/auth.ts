@@ -1,4 +1,4 @@
-import * as constants from 'const';
+import * as constants from '../const';
 import { buildHttpActionCreators } from '../utils/redux-utils';
 
 const { SIGN_IN, SIGN_UP, VALIDATE_LOGIN } = constants;

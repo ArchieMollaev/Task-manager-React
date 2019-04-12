@@ -1,4 +1,4 @@
-import * as constants from 'const';
+import * as constants from '../const';
 import { createReducer } from 'redux-create-reducer';
 
 const { SIGN_IN, SIGN_UP, VALIDATE_LOGIN } = constants;

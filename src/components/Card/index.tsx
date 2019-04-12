@@ -1,9 +1,10 @@
-import React from 'react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 // import TaskForm from 'components/Forms/app-forms/Task-form';
 import Textarea from 'react-textarea-autosize';
 import { DragSource } from 'react-dnd';
-import * as actions from 'actions/common';
+import * as actions from '../../actions/common';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import './style.scss';
 import { combineActions } from '../../utils/redux-utils';

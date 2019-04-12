@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import { deleteTask, editTask, switchStatus, addColumn } from 'actions/common';
-import Column from 'components/Column';
-import CardDragPreview from 'components/DragLayer';
-import NewColumnForm from 'components/Forms/app-forms/New-column-form';
+import { deleteTask, editTask, switchStatus, addColumn } from '../../actions/common';
+import Column from '../../components/Column';
+import CardDragPreview from '../../components/DragLayer';
+import NewColumnForm from '../../components/Forms/app-forms/New-column-form';
 import classNames from 'classnames';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';

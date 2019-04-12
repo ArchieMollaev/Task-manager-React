@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
-import configureStore from 'store';
+import configureStore from '../../store';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
 import User from '../User';

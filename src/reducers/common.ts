@@ -11,7 +11,7 @@ import {
   TASK_CREATOR_STATUS,
   HOVER_ELEMENT,
   GET_DATA
-} from 'const';
+} from '../const';
 import { createReducer } from 'redux-create-reducer';
 
 export const columns = createReducer(

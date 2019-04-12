@@ -1,10 +1,11 @@
-import React from 'react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 import { sortBy, get } from 'lodash';
-import Card from 'components/Card';
-import TaskCreator from 'components/TaskCreator';
-import * as actions from 'actions/common';
+import Card from '../../components/Card';
+import TaskCreator from '../../components/TaskCreator';
+import * as actions from '../../actions/common';
 import classNames from 'classnames';
 import { DropTarget } from 'react-dnd';
 import './style.scss';

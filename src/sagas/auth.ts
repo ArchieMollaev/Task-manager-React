@@ -1,8 +1,8 @@
 import { takeEvery, put, call, all } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-import * as api from 'api/auth';
-import { SIGN_IN, SIGN_UP, VALIDATE_LOGIN } from 'const';
-import { signIn, signUp, validateLogin } from 'actions/auth';
+import * as api from '../api/auth';
+import { SIGN_IN, SIGN_UP, VALIDATE_LOGIN } from '../const';
+import { signIn, signUp, validateLogin } from '../actions/auth';
 import { fetchUserData } from './common';
 
 function* handleSignIn({ payload }) {
