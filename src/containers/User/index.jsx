@@ -7,7 +7,6 @@ import NewColumnForm from 'components/Forms/app-forms/New-column-form';
 import classNames from 'classnames';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
-import PropTypes from 'prop-types';
 import './style.scss';
 import { combineActions } from '../../utils/redux-utils';
 
@@ -70,28 +69,6 @@ class User extends React.Component {
     );
   };
 }
-
-User.propTypes = {
-  app: PropTypes.shape({
-    data: React.PropTypes.shape({
-      columns: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-          id: React.PropTypes.number,
-          position: React.PropTypes.number,
-          title: React.PropTypes.string,
-          description: React.PropTypes.string
-        })
-      )
-    })
-  }),
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired,
-  deleteTask: PropTypes.func.isRequired,
-  editTask: PropTypes.func.isRequired,
-  switchStatus: PropTypes.func.isRequired,
-  addColumn: PropTypes.func.isRequired
-};
 
 class UserDndConnected extends DragDropContext(HTML5Backend)(User) {}
 

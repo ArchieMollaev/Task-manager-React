@@ -41,9 +41,9 @@ const CardPreview = props => {
   const { item } = props;
   const renderItem = () => (
     <div className="drag-layer">
-      {item.data.taskName}
+      {item.title}
       <i className="fa fa-pencil edit-icon" aria-hidden="true" />
-      {item.data.taskNotes && <i className="fa fa-align-justify notes" aria-hidden="true" />}
+      {item.description && <i className="fa fa-align-justify notes" aria-hidden="true" />}
     </div>
   );
 

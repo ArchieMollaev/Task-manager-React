@@ -23,13 +23,32 @@ export const columns = createReducer(
       return newState;
     },
     [PUSH_TASK.RESPONSE]: (state, { payload }) => {
-      console.log('state', state);
       const update = [...state];
       const index = update.findIndex(({ id }) => id === payload.ColumnId);
 
       update[index].Cards.push(payload);
-      console.log('upd', update);
       return update;
+    },
+    [EDIT_TASK.RESPONSE]: (state, { payload }) => {
+      try {
+        const update = [...state];
+
+        const colByTaskId = update.find(({ Cards }) => Cards.some(({ id }) => id === payload.id));
+        const colByColumnId = update.find(({ id }) => id === payload.ColumnId);
+        if (colByTaskId === colByColumnId) {
+          const cardIndex = colByColumnId.Cards.findIndex(({ id }) => id === payload.id);
+          colByColumnId.Cards[cardIndex] = payload;
+        } else {
+          const cardIndex = colByTaskId.Cards.findIndex(({ id }) => id === payload.id);
+          colByTaskId.Cards.splice(cardIndex, 1);
+          colByColumnId.Cards.push(payload);
+        }
+
+        return update;
+      } catch (err) {
+        console.log('failed to update card');
+        return state;
+      }
     }
   }
   // {
@@ -84,19 +103,13 @@ export const activeColumnId = createReducer('', {
   [SET_EDITABLE]: (_, { payload }) => payload.columnId || ''
 });
 
-export const taskCreatorStatus = createReducer(
-  {},
-  {
-    [TASK_CREATOR_STATUS]: (_, { payload }) => payload.status || {}
-  }
-);
+export const taskCreatorStatus = createReducer(0, {
+  [TASK_CREATOR_STATUS]: (_, { payload }) => payload.status || {}
+});
 
-export const hoverInjector = createReducer(
-  {},
-  {
-    [HOVER_ELEMENT]: (_, { payload }) => payload.id
-  }
-);
+export const activeInjectorId = createReducer('', {
+  [HOVER_ELEMENT]: (_, { payload }) => payload.id
+});
 
 // export const getList = (state = {}, action) => {
 //   let update;

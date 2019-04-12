@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signIn } from 'actions/auth';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import SignInForm from 'components/Forms/auth-forms/Sign-in-form';
 import './style.scss';
@@ -38,22 +37,6 @@ class SignIn extends React.Component {
     );
   };
 }
-
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired,
-  auth: PropTypes.shape({
-    signUpData: PropTypes.shape({ login: PropTypes.string }),
-    message: PropTypes.string,
-    error: PropTypes.bool
-  })
-};
-
-SignIn.defaultProps = {
-  auth: undefined
-};
 
 const mapStateToProps = ({ signUpData, signInData }) => ({
   signInMessage: signInData.message,

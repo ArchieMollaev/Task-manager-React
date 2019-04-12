@@ -32,9 +32,14 @@ function* createTask({ payload }) {
   }
 }
 
-function* update({ data, status }) {
-  yield put(editTask.response({ data, status }));
-  yield call(api.editTask, data.id, status, data);
+function* updateTask({ payload }) {
+  try {
+    const res = yield call(api.updateTask, payload);
+    console.log('res----', res);
+    yield put(editTask.response(res));
+  } catch (err) {
+    console.log(err.message);
+  }
 }
 
 function* remove({ id, status }) {
@@ -89,8 +94,8 @@ function* onAppLoad() {
 export default function*() {
   yield all([
     takeEvery(PUSH_TASK.REQUEST, createTask),
+    takeEvery(EDIT_TASK.REQUEST, updateTask),
     takeEvery(DELETE_TASK.REQUEST, remove),
-    takeEvery(EDIT_TASK.REQUEST, update),
     takeEvery(SWITCH_STATUS.REQUEST, switcher),
     takeEvery(ADD_COLUMN.REQUEST, addNewColumn),
     takeEvery(CHANGE_COLUMN_NAME.REQUEST, changeColumnName),

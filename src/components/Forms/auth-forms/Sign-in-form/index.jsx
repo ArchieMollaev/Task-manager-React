@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './style.scss';
 
@@ -37,13 +36,6 @@ const SignInForm = ({ handleSubmit, goToSignUp, hasError, resetWarning }) => (
     </button>
   </form>
 );
-
-SignInForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  goToSignUp: PropTypes.func.isRequired,
-  hasError: PropTypes.bool.isRequired,
-  resetWarning: PropTypes.func.isRequired
-};
 
 export default reduxForm({
   form: 'SignIn'

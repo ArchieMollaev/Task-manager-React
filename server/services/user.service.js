@@ -54,7 +54,7 @@ class UserService {
           include: [
             {
               model: this.Card,
-              attributes: ['id', 'title', 'description'],
+              attributes: ['id', 'title', 'position', 'description'],
               as: 'Cards',
             },
           ],
@@ -62,7 +62,6 @@ class UserService {
       ],
       // order: [[{ model: this.Column, as: 'Columns' }, { model: this.Card, as: 'Cards' }, 'ASC']],
     });
-    console.log('----sdfsdfsdfsdssss===========', login);
     if (res) {
       return res;
     }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import PropTypes from 'prop-types';
 import { debounce } from 'lodash';
 import './style.scss';
 import Validators from '../../../../utils/form-validators';
@@ -84,12 +83,6 @@ const SignUpForm = props => {
       </button>
     </form>
   );
-};
-
-SignUpForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  goToSignIn: PropTypes.func.isRequired,
-  validateLogin: PropTypes.func.isRequired
 };
 
 export default reduxForm({

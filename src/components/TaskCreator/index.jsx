@@ -4,11 +4,10 @@ import * as actions from 'actions/common';
 import TaskForm from 'components/Forms/app-forms/Task-form';
 import { reset } from 'redux-form';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import './style.scss';
 
 const TaskCreator = props => {
-  const { activeColumnId, onSubmit, column, taskCreatorStatus, setEditable, columnId } = props;
+  const { activeColumnId, onSubmit, setEditable, columnId } = props;
 
   const addTaskForm = () =>
     activeColumnId === columnId && (
@@ -43,14 +42,6 @@ const TaskCreator = props => {
       {addTaskForm()}
     </div>
   );
-};
-
-TaskCreator.propTypes = {
-  activeColumnId: PropTypes.objectOf(PropTypes.bool).isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  column: PropTypes.string.isRequired,
-  taskCreatorStatus: PropTypes.func.isRequired,
-  setEditable: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ activeColumnId }) => ({

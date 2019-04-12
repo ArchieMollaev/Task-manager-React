@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import PropTypes from 'prop-types';
 import './style.scss';
 
 const NewColumnForm = props => {
@@ -25,11 +24,6 @@ const NewColumnForm = props => {
       </button>
     </form>
   );
-};
-
-NewColumnForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  closeFunc: PropTypes.func.isRequired
 };
 
 export default reduxForm({

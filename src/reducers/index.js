@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 import { signInData, signUpData, loginValidationData } from './auth';
-import { activeColumnId, taskCreatorStatus, columns, hoverInjector } from './common';
+import { activeColumnId, taskCreatorStatus, columns, activeInjectorId } from './common';
 
 const reducers = combineReducers({
   signInData,
@@ -11,7 +11,7 @@ const reducers = combineReducers({
   // ui
   activeColumnId,
   taskCreatorStatus,
-  hoverInjector,
+  activeInjectorId,
   form: reduxFormReducer
 });
 

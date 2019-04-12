@@ -7,10 +7,10 @@ export const createTask = data =>
     data
   });
 
-export const editTask = (id, status, data) =>
+export const updateTask = data =>
   request({
-    method: 'PATCH',
-    url: `${status}/${id}`,
+    method: 'POST',
+    url: '/update-card',
     data
   });
 

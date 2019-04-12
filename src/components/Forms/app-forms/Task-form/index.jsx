@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import PropTypes from 'prop-types';
 
 const TaskForm = props => {
   const { formId, handleSubmit, placeholder1, placeholder2, submitBtnTitle, secondBtnFunc } = props;
@@ -42,15 +41,6 @@ const TaskForm = props => {
       </div>
     </form>
   );
-};
-
-TaskForm.propTypes = {
-  formId: PropTypes.string.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  placeholder1: PropTypes.string.isRequired,
-  placeholder2: PropTypes.string.isRequired,
-  submitBtnTitle: PropTypes.string,
-  secondBtnFunc: PropTypes.func
 };
 
 export default reduxForm({

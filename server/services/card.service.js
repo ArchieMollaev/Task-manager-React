@@ -7,8 +7,8 @@ class CardService {
     this.Card = models.Card;
   }
 
-  create = async (UserId, { columnId, title, description }) => {
-    if (!columnId || !title) throw new BadRequest();
+  create = async (UserId, { columnId, position, title, description }) => {
+    if (!columnId || !position || !title) throw new BadRequest();
     const res = await this.Column.findOne({
       where: {
         UserId,
@@ -21,6 +21,7 @@ class CardService {
       description,
       ColumnId: columnId,
       UserId,
+      position,
     });
     return data;
   };
@@ -43,17 +44,17 @@ class CardService {
     return data;
   };
 
-  update = async (UserId, ExistColumnId, CardId, data) => {
-    if (!ExistColumnId || !CardId) throw new BadRequest();
+  update = async (UserId, cardData) => {
+    if (!cardData || !UserId) throw new BadRequest();
     const card = await this.Card.findOne({
       where: {
         UserId,
-        ColumnId: ExistColumnId,
-        id: CardId,
+        id: cardData.id,
       },
     });
     if (!card) throw new NotFound();
-    const res = await card.update({ ...data });
+    console.log('----sdsd----=====', cardData);
+    const res = await card.update(cardData);
     return res;
   };
 
